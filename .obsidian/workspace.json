@@ -186,6 +186,8 @@
   },
   "active": "175ba2ad446a2a1e",
   "lastOpenFiles": [
+    "dev/corpus-ai-detection/analysis-results/report.md",
+    "dev/corpus-ai-detection/analysis-results/results.json",
     "dev/CORPUS_COLLECTION_COMPLETE.md",
     "dev/corpus-ai-detection/generated/grok/Grok - 003.md",
     "dev/corpus-ai-detection/generated/grok/Grok - 002.md",
@@ -215,12 +217,10 @@
     "dev/corpus-ai-detection/human/published/Frankenstein; Or, The Modern Prometheus - Mary Wollstonecraft Shelley.epub",
     "dev/corpus-ai-detection/human/published/Isaac Asimov - The Bicentennial Man  Other Stories.rtf",
     "dev/corpus-ai-detection/AI_GENERATION_GUIDE.md",
-    "dev/PHASE7_SUMMARY.md",
     "dev/corpus-ai-detection/generated/grok",
     "dev/corpus-ai-detection/generated/chatgpt",
     "dev/corpus-ai-detection/generated/gemini",
     "dev/corpus-ai-detection/human/technical",
-    "dev/corpus-ai-detection/human/published",
-    "dev/corpus-ai-detection/human/indie"
+    "dev/corpus-ai-detection/human/published"
   ]
 }

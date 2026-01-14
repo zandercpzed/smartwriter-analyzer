@@ -1,0 +1,800 @@
+[
+  {
+    "file": "GPT - 001.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt/GPT - 001.md",
+    "word_count": 114,
+    "timestamp": "2026-01-14T00:06:55.407393",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT - 002.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt/GPT - 002.md",
+    "word_count": 134,
+    "timestamp": "2026-01-14T00:06:55.407610",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT - 003.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt/GPT - 003.md",
+    "word_count": 121,
+    "timestamp": "2026-01-14T00:06:55.407797",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT - 004.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt/GPT - 004.md",
+    "word_count": 118,
+    "timestamp": "2026-01-14T00:06:55.407980",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT - 005.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt/GPT - 005.md",
+    "word_count": 295,
+    "timestamp": "2026-01-14T00:06:55.408371",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT - 006.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt/GPT - 006.md",
+    "word_count": 237,
+    "timestamp": "2026-01-14T00:06:55.408718",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT - 007.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt/GPT - 007.md",
+    "word_count": 303,
+    "timestamp": "2026-01-14T00:06:55.409170",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT - 008.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt/GPT - 008.md",
+    "word_count": 325,
+    "timestamp": "2026-01-14T00:06:55.409632",
+    "analysis": {
+      "detected_as_ai": true,
+      "confidence": 0.6,
+      "indicators": [
+        "uniform_sentence_structure"
+      ],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT4 - 005.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt-4/GPT4 - 005.md",
+    "word_count": 325,
+    "timestamp": "2026-01-14T00:06:55.410024",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT4 - 006.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt-4/GPT4 - 006.md",
+    "word_count": 325,
+    "timestamp": "2026-01-14T00:06:55.410491",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT4 - 007.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt-4/GPT4 - 007.md",
+    "word_count": 362,
+    "timestamp": "2026-01-14T00:06:55.410981",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "GPT4 - 008.md",
+    "path": "dev/corpus-ai-detection/generated/chatgpt-4/GPT4 - 008.md",
+    "word_count": 322,
+    "timestamp": "2026-01-14T00:06:55.411392",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Claude - 001.md",
+    "path": "dev/corpus-ai-detection/generated/claude/Claude - 001.md",
+    "word_count": 149,
+    "timestamp": "2026-01-14T00:06:55.411619",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Claude - 002.md",
+    "path": "dev/corpus-ai-detection/generated/claude/Claude - 002.md",
+    "word_count": 126,
+    "timestamp": "2026-01-14T00:06:55.411826",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Claude - 003.md",
+    "path": "dev/corpus-ai-detection/generated/claude/Claude - 003.md",
+    "word_count": 154,
+    "timestamp": "2026-01-14T00:06:55.412064",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Claude - 004.md",
+    "path": "dev/corpus-ai-detection/generated/claude/Claude - 004.md",
+    "word_count": 170,
+    "timestamp": "2026-01-14T00:06:55.412300",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Gemini - 001.md",
+    "path": "dev/corpus-ai-detection/generated/gemini/Gemini - 001.md",
+    "word_count": 110,
+    "timestamp": "2026-01-14T00:06:55.412464",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Gemini - 002.md",
+    "path": "dev/corpus-ai-detection/generated/gemini/Gemini - 002.md",
+    "word_count": 153,
+    "timestamp": "2026-01-14T00:06:55.412678",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Gemini - 003.md",
+    "path": "dev/corpus-ai-detection/generated/gemini/Gemini - 003.md",
+    "word_count": 203,
+    "timestamp": "2026-01-14T00:06:55.412940",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Gemini - 004.md",
+    "path": "dev/corpus-ai-detection/generated/gemini/Gemini - 004.md",
+    "word_count": 185,
+    "timestamp": "2026-01-14T00:06:55.413172",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Grok - 001.md",
+    "path": "dev/corpus-ai-detection/generated/grok/Grok - 001.md",
+    "word_count": 143,
+    "timestamp": "2026-01-14T00:06:55.413378",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Grok - 002.md",
+    "path": "dev/corpus-ai-detection/generated/grok/Grok - 002.md",
+    "word_count": 349,
+    "timestamp": "2026-01-14T00:06:55.413831",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Grok - 003.md",
+    "path": "dev/corpus-ai-detection/generated/grok/Grok - 003.md",
+    "word_count": 343,
+    "timestamp": "2026-01-14T00:06:55.414256",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Meta - 001.md",
+    "path": "dev/corpus-ai-detection/generated/meta/Meta - 001.md",
+    "word_count": 98,
+    "timestamp": "2026-01-14T00:06:55.414424",
+    "analysis": {
+      "detected_as_ai": true,
+      "confidence": 0.6,
+      "indicators": [
+        "uniform_sentence_structure"
+      ],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "Meta - 002.md",
+    "path": "dev/corpus-ai-detection/generated/meta/Meta - 002.md",
+    "word_count": 77,
+    "timestamp": "2026-01-14T00:06:55.414565",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "prompt.md",
+    "path": "dev/corpus-ai-detection/generated/prompt.md",
+    "word_count": 16,
+    "timestamp": "2026-01-14T00:06:55.414647",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "GENERATED"
+  },
+  {
+    "file": "001.md",
+    "path": "dev/corpus-ai-detection/human/diverse/001.md",
+    "word_count": 243,
+    "timestamp": "2026-01-14T00:06:55.414980",
+    "analysis": {
+      "detected_as_ai": true,
+      "confidence": 0.6,
+      "indicators": [
+        "uniform_sentence_structure"
+      ],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "002.md",
+    "path": "dev/corpus-ai-detection/human/diverse/002.md",
+    "word_count": 285,
+    "timestamp": "2026-01-14T00:06:55.415352",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "003.md",
+    "path": "dev/corpus-ai-detection/human/diverse/003.md",
+    "word_count": 293,
+    "timestamp": "2026-01-14T00:06:55.415734",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "004.md",
+    "path": "dev/corpus-ai-detection/human/diverse/004.md",
+    "word_count": 330,
+    "timestamp": "2026-01-14T00:06:55.416254",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "005.md",
+    "path": "dev/corpus-ai-detection/human/diverse/005.md",
+    "word_count": 297,
+    "timestamp": "2026-01-14T00:06:55.416672",
+    "analysis": {
+      "detected_as_ai": true,
+      "confidence": 0.6,
+      "indicators": [
+        "uniform_sentence_structure"
+      ],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "001.md",
+    "path": "dev/corpus-ai-detection/human/indie/001.md",
+    "word_count": 186,
+    "timestamp": "2026-01-14T00:06:55.416947",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "002.md",
+    "path": "dev/corpus-ai-detection/human/indie/002.md",
+    "word_count": 172,
+    "timestamp": "2026-01-14T00:06:55.417195",
+    "analysis": {
+      "detected_as_ai": true,
+      "confidence": 0.6,
+      "indicators": [
+        "uniform_sentence_structure"
+      ],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "003.md",
+    "path": "dev/corpus-ai-detection/human/indie/003.md",
+    "word_count": 171,
+    "timestamp": "2026-01-14T00:06:55.417451",
+    "analysis": {
+      "detected_as_ai": true,
+      "confidence": 0.6,
+      "indicators": [
+        "uniform_sentence_structure"
+      ],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "004.md",
+    "path": "dev/corpus-ai-detection/human/indie/004.md",
+    "word_count": 200,
+    "timestamp": "2026-01-14T00:06:55.417713",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "005.md",
+    "path": "dev/corpus-ai-detection/human/indie/005.md",
+    "word_count": 195,
+    "timestamp": "2026-01-14T00:06:55.417970",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "Arthur C. Clarke - The City and the Stars.md",
+    "path": "dev/corpus-ai-detection/human/published/Arthur C. Clarke - The City and the Stars.md",
+    "word_count": 89395,
+    "timestamp": "2026-01-14T00:06:55.476983",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.42,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 1,
+        "transition_count": 2,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "H. G. Wells - The War of the Worlds.md",
+    "path": "dev/corpus-ai-detection/human/published/H. G. Wells - The War of the Worlds.md",
+    "word_count": 63114,
+    "timestamp": "2026-01-14T00:06:55.519672",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.42,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 1,
+        "transition_count": 2,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "Isaac Asimov - The Bicentennial Man  Other Stories.md",
+    "path": "dev/corpus-ai-detection/human/published/Isaac Asimov - The Bicentennial Man  Other Stories.md",
+    "word_count": 80401,
+    "timestamp": "2026-01-14T00:06:55.576985",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.42,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 1,
+        "transition_count": 3,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "Jules Verne - Twenty Thousand Leagues under the Sea.md",
+    "path": "dev/corpus-ai-detection/human/published/Jules Verne - Twenty Thousand Leagues under the Sea.md",
+    "word_count": 107721,
+    "timestamp": "2026-01-14T00:06:55.656452",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.42,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 1,
+        "transition_count": 2,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "Mary Wollstonecraft Shelley - Frankenstein; Or, The Modern Prometheus.md",
+    "path": "dev/corpus-ai-detection/human/published/Mary Wollstonecraft Shelley - Frankenstein; Or, The Modern Prometheus.md",
+    "word_count": 78101,
+    "timestamp": "2026-01-14T00:06:55.710605",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.42,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 1,
+        "transition_count": 3,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "001.md",
+    "path": "dev/corpus-ai-detection/human/technical/001.md",
+    "word_count": 232,
+    "timestamp": "2026-01-14T00:06:55.711264",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "002.md",
+    "path": "dev/corpus-ai-detection/human/technical/002.md",
+    "word_count": 249,
+    "timestamp": "2026-01-14T00:06:55.711673",
+    "analysis": {
+      "detected_as_ai": true,
+      "confidence": 0.6,
+      "indicators": [
+        "uniform_sentence_structure"
+      ],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "003.md",
+    "path": "dev/corpus-ai-detection/human/technical/003.md",
+    "word_count": 254,
+    "timestamp": "2026-01-14T00:06:55.712055",
+    "analysis": {
+      "detected_as_ai": true,
+      "confidence": 0.6,
+      "indicators": [
+        "uniform_sentence_structure"
+      ],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "004.md",
+    "path": "dev/corpus-ai-detection/human/technical/004.md",
+    "word_count": 273,
+    "timestamp": "2026-01-14T00:06:55.712423",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  },
+  {
+    "file": "005.md",
+    "path": "dev/corpus-ai-detection/human/technical/005.md",
+    "word_count": 291,
+    "timestamp": "2026-01-14T00:06:55.712809",
+    "analysis": {
+      "detected_as_ai": false,
+      "confidence": 0.5,
+      "indicators": [],
+      "details": {
+        "formal_language_score": 0,
+        "transition_count": 0,
+        "generic_phrase_count": 0
+      }
+    },
+    "actual_label": "HUMAN"
+  }
+]

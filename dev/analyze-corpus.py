@@ -55,11 +55,67 @@ class CorpusAnalyzer:
     
     def analyze_text(self, text: str, filepath: Path) -> Dict:
         """
-        Run AI detection analysis on text
-        NOTE: This is a placeholder - integrate with actual SmartWriter analyzer
+        Run AI detection analysis on text using heuristic indicators
         """
-        # TODO: Integrate with src/analyzers/ai-detection.ts
-        # For now, return template structure
+        # Calculate various heuristics for AI detection
+        indicators = []
+        scores = []
+        
+        # Check for overly formal language patterns (common in AI)
+        formal_words = ["furthermore", "notwithstanding", "heretofore", "wherein", "substantiate"]
+        formal_count = sum(1 for word in formal_words if word.lower() in text.lower())
+        if formal_count > 2:
+            indicators.append("formal_language")
+            scores.append(0.3)
+        
+        # Check for repetitive sentence structure
+        sentences = [s.strip() for s in text.split('.') if len(s.strip()) > 10]
+        if len(sentences) > 3:
+            # Check if many sentences are similar length (AI tends to be uniform)
+            lengths = [len(s.split()) for s in sentences]
+            if lengths:
+                avg_length = sum(lengths) / len(lengths)
+                variance = sum((l - avg_length) ** 2 for l in lengths) / len(lengths)
+                if variance < 30:  # Low variance suggests AI uniformity
+                    indicators.append("uniform_sentence_structure")
+                    scores.append(0.25)
+        
+        # Check for excessive use of transitional phrases (common in AI-generated)
+        transitions = ["however", "therefore", "in conclusion", "furthermore", "additionally"]
+        trans_count = sum(1 for trans in transitions if trans.lower() in text.lower())
+        if trans_count > 3:
+            indicators.append("excessive_transitions")
+            scores.append(0.2)
+        
+        # Check for generic phrases (AI fallback patterns)
+        generic_phrases = [
+            "it is important to note",
+            "it is clear that", 
+            "as mentioned earlier",
+            "in today's world",
+            "the key to understanding"
+        ]
+        generic_count = sum(1 for phrase in generic_phrases if phrase.lower() in text.lower())
+        if generic_count > 2:
+            indicators.append("generic_phrases")
+            scores.append(0.25)
+        
+        # Check for personal details and specific context (human indicator)
+        has_specific_details = any(word in text.lower() for word in 
+            ["i remember", "when i was", "specifically", "our family", "my experience"])
+        if has_specific_details:
+            scores.append(-0.2)  # Negative score = more human-like
+        
+        # Calculate confidence
+        confidence = 0.5  # Base confidence
+        if scores:
+            confidence = 0.5 + (sum(scores) / len(scores)) * 0.4
+        
+        # Clamp between 0 and 1
+        confidence = max(0.0, min(1.0, confidence))
+        
+        # Determine if detected as AI (threshold: 0.55)
+        detected_as_ai = confidence > 0.55
         
         result = {
             "file": filepath.name,
@@ -67,10 +123,14 @@ class CorpusAnalyzer:
             "word_count": len(text.split()),
             "timestamp": datetime.now().isoformat(),
             "analysis": {
-                "detected_as_ai": None,
-                "confidence": None,
-                "indicators": [],
-                "details": {}
+                "detected_as_ai": detected_as_ai,
+                "confidence": confidence,
+                "indicators": indicators,
+                "details": {
+                    "formal_language_score": formal_count,
+                    "transition_count": trans_count,
+                    "generic_phrase_count": generic_count
+                }
             }
         }
         
@@ -223,7 +283,7 @@ Human           {metrics['false_positives']:3d} (FP)             {metrics['true_
             if (result["actual_label"] == "GENERATED" and 
                 not result["analysis"]["detected_as_ai"]):
                 confidence = result["analysis"]["confidence"]
-                report += f"| {result['file']} | {confidence:.2%} | [Model] |\n"
+                report += f"| {result['file']} | {confidence:.2%} | Generated |\n"
         
         report += f"""
 
