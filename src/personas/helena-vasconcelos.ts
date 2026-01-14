@@ -226,17 +226,17 @@ Responda em JSON:
 				temperature: 0.3,
 			});
 
-			const result = this.parseJSON(response.content);
+			const result = this.parseJSON(response.content) as any;
 			const issues: string[] = [
-				...(result.timelineIssues || []),
-				...(result.characterInconsistencies || []),
-				...(result.plotHoles || []),
-				...(result.unresolvedElements || []),
-				...(result.worldbuildingIssues || []),
+				...(Array.isArray(result?.timelineIssues) ? result.timelineIssues : []),
+				...(Array.isArray(result?.characterInconsistencies) ? result.characterInconsistencies : []),
+				...(Array.isArray(result?.plotHoles) ? result.plotHoles : []),
+				...(Array.isArray(result?.unresolvedElements) ? result.unresolvedElements : []),
+				...(Array.isArray(result?.worldbuildingIssues) ? result.worldbuildingIssues : []),
 			];
 
 			return {
-				score: result.score || 3,
+				score: typeof result?.score === 'number' ? result.score : 3,
 				issues,
 			};
 		} catch (error) {
@@ -456,10 +456,10 @@ Responda em JSON:
 				temperature: 0.4,
 			});
 
-			const result = this.parseJSON(response.content);
+			const result = this.parseJSON(response.content) as any;
 			return {
-				strengths: result.strengths || [],
-				improvements: result.improvements || [],
+				strengths: Array.isArray(result?.strengths) ? result.strengths : [],
+				improvements: Array.isArray(result?.improvements) ? result.improvements : [],
 			};
 		} catch {
 			return { strengths: [], improvements: [] };

@@ -238,8 +238,8 @@ class SmartWriterSettingTab extends PluginSettingTab {
 				.addOption('claude', 'Claude (Anthropic)')
 				.addOption('openai', 'OpenAI')
 				.setValue(this.plugin.settings.llmProvider)
-				.onChange(async (value: 'ollama' | 'claude' | 'openai') => {
-					this.plugin.settings.llmProvider = value;
+				.onChange(async (value: string) => {
+					this.plugin.settings.llmProvider = value as 'ollama' | 'claude' | 'openai';
 					await this.plugin.saveSettings();
 					this.display(); // Refresh to show relevant settings
 				}));
@@ -356,8 +356,8 @@ class SmartWriterSettingTab extends PluginSettingTab {
 				.addOption('en-US', 'English (US)')
 				.addOption('es-ES', 'Español')
 				.setValue(this.plugin.settings.language)
-				.onChange(async (value: 'pt-BR' | 'en-US' | 'es-ES') => {
-					this.plugin.settings.language = value;
+				.onChange(async (value: string) => {
+					this.plugin.settings.language = value as 'pt-BR' | 'en-US' | 'es-ES';
 					await this.plugin.saveSettings();
 				}));
 
