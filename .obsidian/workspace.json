@@ -186,6 +186,7 @@
   },
   "active": "175ba2ad446a2a1e",
   "lastOpenFiles": [
+    "dev/AI_GENERATION_STATUS.md",
     "dev/CORPUS_STATUS_UPDATED.md",
     "dev/corpus-ai-detection/human/published/Isaac Asimov - The Bicentennial Man  Other Stories.md",
     "dev/corpus-ai-detection/human/published/Arthur C. Clarke - The City and the Stars.md",
@@ -214,7 +215,6 @@
     "dev/corpus-ai-detection/human/technical/003.md",
     "dev/corpus-ai-detection/human/technical/002.md",
     "dev/corpus-ai-detection/human/indie/005.md",
-    "dev/corpus-ai-detection/human/indie/004.md",
     "dev/corpus-ai-detection/generated/grok",
     "dev/corpus-ai-detection/generated/chatgpt",
     "dev/corpus-ai-detection/generated/gemini",
