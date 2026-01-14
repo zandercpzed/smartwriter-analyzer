@@ -1,0 +1,253 @@
+/* SmartWriter Analyzer Styles */
+
+/* Analysis Modal */
+.swa-modal {
+	max-width: 600px;
+}
+
+.swa-modal-content {
+	padding: 1rem;
+}
+
+.swa-modal-title {
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+
+/* Report Selection */
+.swa-report-options {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.swa-report-option {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.swa-report-option:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+.swa-report-option.selected {
+	background-color: var(--interactive-accent);
+	color: var(--text-on-accent);
+}
+
+.swa-report-option input[type="checkbox"] {
+	margin: 0;
+}
+
+/* Progress Indicator */
+.swa-progress-container {
+	margin: 1rem 0;
+}
+
+.swa-progress-bar {
+	height: 4px;
+	background-color: var(--background-modifier-border);
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.swa-progress-fill {
+	height: 100%;
+	background-color: var(--interactive-accent);
+	transition: width 0.3s ease;
+}
+
+.swa-progress-text {
+	font-size: 0.8rem;
+	color: var(--text-muted);
+	margin-top: 0.25rem;
+}
+
+/* Status Bar */
+.swa-status {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	font-size: 0.75rem;
+}
+
+.swa-status-icon {
+	width: 12px;
+	height: 12px;
+}
+
+.swa-status-icon.analyzing {
+	animation: swa-spin 1s linear infinite;
+}
+
+@keyframes swa-spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+/* Settings */
+.swa-settings-section {
+	margin-bottom: 1.5rem;
+}
+
+.swa-settings-section-title {
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+	border-bottom: 1px solid var(--background-modifier-border);
+	padding-bottom: 0.25rem;
+}
+
+/* Report Styling */
+.swa-report {
+	font-family: var(--font-text);
+}
+
+.swa-report-header {
+	border-bottom: 2px solid var(--interactive-accent);
+	padding-bottom: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.swa-score-badge {
+	display: inline-block;
+	padding: 0.25rem 0.5rem;
+	border-radius: 4px;
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+.swa-score-badge.excellent {
+	background-color: var(--color-green);
+	color: white;
+}
+
+.swa-score-badge.good {
+	background-color: var(--color-cyan);
+	color: white;
+}
+
+.swa-score-badge.adequate {
+	background-color: var(--color-yellow);
+	color: black;
+}
+
+.swa-score-badge.weak {
+	background-color: var(--color-orange);
+	color: white;
+}
+
+.swa-score-badge.critical {
+	background-color: var(--color-red);
+	color: white;
+}
+
+/* IUL (AI Detection) Indicator */
+.swa-iul-meter {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0.5rem 0;
+}
+
+.swa-iul-bar {
+	flex: 1;
+	height: 8px;
+	background: linear-gradient(to right, 
+		var(--color-green) 0%, 
+		var(--color-green) 15%,
+		var(--color-cyan) 15%,
+		var(--color-cyan) 35%,
+		var(--color-yellow) 35%,
+		var(--color-yellow) 60%,
+		var(--color-orange) 60%,
+		var(--color-orange) 85%,
+		var(--color-red) 85%,
+		var(--color-red) 100%
+	);
+	border-radius: 4px;
+	position: relative;
+}
+
+.swa-iul-marker {
+	position: absolute;
+	top: -4px;
+	width: 2px;
+	height: 16px;
+	background-color: var(--text-normal);
+	transform: translateX(-50%);
+}
+
+.swa-iul-value {
+	min-width: 3rem;
+	text-align: right;
+	font-weight: 600;
+}
+
+/* Collapsible Sections */
+.swa-collapsible {
+	cursor: pointer;
+	user-select: none;
+}
+
+.swa-collapsible::before {
+	content: "▶";
+	display: inline-block;
+	margin-right: 0.5rem;
+	transition: transform 0.2s;
+}
+
+.swa-collapsible.open::before {
+	transform: rotate(90deg);
+}
+
+.swa-collapsible-content {
+	display: none;
+	padding-left: 1.5rem;
+}
+
+.swa-collapsible.open + .swa-collapsible-content {
+	display: block;
+}
+
+/* Persona Avatar */
+.swa-persona-badge {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	background-color: var(--background-secondary);
+	border-radius: 8px;
+	margin-bottom: 1rem;
+}
+
+.swa-persona-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: var(--interactive-accent);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	color: var(--text-on-accent);
+}
+
+.swa-persona-info {
+	flex: 1;
+}
+
+.swa-persona-name {
+	font-weight: 600;
+}
+
+.swa-persona-role {
+	font-size: 0.8rem;
+	color: var(--text-muted);
+}

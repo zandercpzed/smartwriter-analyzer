@@ -1,0 +1,40 @@
+{
+	"name": "smartwriter-analyzer",
+	"version": "0.1.0",
+	"description": "AI-powered literary analysis co-pilot for Obsidian",
+	"main": "main.js",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"version": "node version-bump.mjs && git add manifest.json versions.json",
+		"lint": "eslint src/",
+		"lint:fix": "eslint src/ --fix",
+		"test": "jest"
+	},
+	"keywords": [
+		"obsidian",
+		"plugin",
+		"writing",
+		"analysis",
+		"literary",
+		"ai",
+		"readability",
+		"manuscript"
+	],
+	"author": "Z Edições",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^20.10.0",
+		"@typescript-eslint/eslint-plugin": "^6.0.0",
+		"@typescript-eslint/parser": "^6.0.0",
+		"builtin-modules": "^3.3.0",
+		"esbuild": "0.19.0",
+		"eslint": "^8.50.0",
+		"obsidian": "latest",
+		"tslib": "^2.6.0",
+		"typescript": "^5.3.0"
+	},
+	"dependencies": {
+		"@anthropic-ai/sdk": "^0.24.0"
+	}
+}
