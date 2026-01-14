@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/_ test files/Target_One_v53_KDP_KU.md",
+                "file": "dev/corpus-ai-detection/human/published/Untitled.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Target_One_v53_KDP_KU"
+              "title": "Untitled"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/_ test files/Target_One_v53_KDP_KU.md",
+                "file": "dev/corpus-ai-detection/human/published/Untitled.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Target_One_v53_KDP_KU"
+              "title": "Outline of Untitled"
             }
           }
         ],
@@ -184,13 +184,36 @@
       "smartwriter-analyzer:SmartWriter Analyzer": false
     }
   },
-  "active": "d7f338c7c77d9092",
+  "active": "175ba2ad446a2a1e",
   "lastOpenFiles": [
-    "dev/corpus-ai-detection/QUICKSTART.md",
-    "dev/corpus-ai-detection/README.md",
-    "dev/corpus-ai-detection/TEMPLATE_HUMAN.md",
-    "dev/corpus-ai-detection/TEMPLATE_GENERATED.md",
-    "dev/corpus-ai-detection/generated/chatgpt-3.5",
+    "dev/COLLECTION_STATUS.md",
+    "dev/corpus-ai-detection/human/diverse/005.md",
+    "dev/corpus-ai-detection/human/diverse/004.md",
+    "dev/corpus-ai-detection/human/diverse/003.md",
+    "dev/corpus-ai-detection/human/diverse/002.md",
+    "dev/corpus-ai-detection/human/diverse/001.md",
+    "dev/corpus-ai-detection/human/technical/005.md",
+    "dev/corpus-ai-detection/human/technical/004.md",
+    "dev/corpus-ai-detection/human/technical/003.md",
+    "dev/corpus-ai-detection/human/technical/002.md",
+    "dev/corpus-ai-detection/human/technical/001.md",
+    "dev/corpus-ai-detection/human/indie/005.md",
+    "dev/corpus-ai-detection/human/indie/004.md",
+    "dev/corpus-ai-detection/generated/meta/Meta - 002.md",
+    "dev/corpus-ai-detection/human/published/Untitled.md",
+    "dev/corpus-ai-detection/human/indie/003.md",
+    "dev/corpus-ai-detection/human/indie/002.md",
+    "dev/corpus-ai-detection/human/indie/001.md",
+    "dev/corpus-ai-detection/generated/meta/Meta - 001.md",
+    "dev/corpus-ai-detection/generated/grok/Grok - 001.md",
+    "dev/corpus-ai-detection/generated/gemini/Gemini - 004.md",
+    "dev/corpus-ai-detection/generated/gemini/Gemini - 003.md",
+    "dev/corpus-ai-detection/generated/gemini/Gemini - 002.md",
+    "dev/corpus-ai-detection/generated/gemini/Gemini - 001.md",
+    "dev/corpus-ai-detection/generated/claude/Claude - 004.md",
+    "dev/corpus-ai-detection/generated/claude/Claude - 003.md",
+    "dev/corpus-ai-detection/generated/grok",
+    "dev/corpus-ai-detection/generated/chatgpt",
     "dev/corpus-ai-detection/generated/gemini",
     "dev/corpus-ai-detection/human/technical",
     "dev/corpus-ai-detection/human/published",
@@ -198,23 +221,6 @@
     "dev/corpus-ai-detection/human/diverse",
     "dev/corpus-ai-detection/generated/meta",
     "dev/corpus-ai-detection/generated/chatgpt-4",
-    "dev/corpus-ai-detection/generated/claude",
-    "dev/corpus-ai-detection/metadata.csv",
-    "dev/corpus-ai-detection/PROMPTS.md",
-    "dev/AI_DETECTION_CORPUS.md",
-    "README.md",
-    "docs/O_QUE_FALTA.md",
-    "docs/STATUS_ATUAL.md",
-    "docs/_ test files/Target_One_v53_KDP_KU.md",
-    "SmartWriter Reports/Target_One_v53_KDP_KU_Analysis_2026-01-14.md",
-    "SmartWriter Reports/Target_One_v53_KDP_KU_Analysis_2026-01-14_Analysis_2026-01-14.md",
-    "dev/development-notes/GEMINI_INTEGRATION_COMPLETE.md",
-    "docs/GEMINI_SETUP.md",
-    "docs/_ test files/converted.md",
-    "_ docs/_ propmt personas/PERSONA_ Analista Literário Técnico.md",
-    "_ docs/_ propmt personas/PERSONA 001 - Analista Literário Técnico - Helena Vasconcelos.md",
-    "_ docs/_ templates/TEMPLATE - RELATÓRIO DE QUALIDADE TÉCNICA.md",
-    "_ docs/_ templates/relatorio_inicial.md",
-    "_ docs/_ templates/PERSONA 001 - Analista Literário Técnico - Helena Vasconcelos.md"
+    "dev/corpus-ai-detection/generated/claude"
   ]
 }

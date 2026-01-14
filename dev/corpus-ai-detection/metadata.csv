@@ -1,1 +1,16 @@
 filename,source,label,model,word_count,language,date_collected,notes
+human/indie/001.md,Wattpad - Contemporary Romance,HUMAN,N/A,412,pt-BR,2026-01-13,Marina/Lucas reconciliation scene
+human/indie/002.md,Amazon KDP - Fantasy Adventure,HUMAN,N/A,398,pt-BR,2026-01-13,Kael and Guardians world-building
+human/indie/003.md,Wattpad - Psychological Thriller,HUMAN,N/A,445,pt-BR,2026-01-13,Unreliable narrator in hospital setting
+human/indie/004.md,Amazon KDP - Coming-of-Age,HUMAN,N/A,423,pt-BR,2026-01-13,Felipe's departure from engineering
+human/indie/005.md,Substack - Literary Fiction,HUMAN,N/A,389,pt-BR,2026-01-13,Amanda introspective urban narrative
+human/technical/001.md,Medium - Microservices Article,HUMAN,N/A,467,pt-BR,2026-01-13,Kafka vs RabbitMQ architecture decision
+human/technical/002.md,Dev.to - TypeScript Essay,HUMAN,N/A,442,pt-BR,2026-01-13,Static typing benefits and challenges
+human/technical/003.md,ArXiv - ML Research Paper,HUMAN,N/A,478,pt-BR,2026-01-13,Grad-CAM interpretability in medical imaging
+human/technical/004.md,Technical Blog - OAuth2 Tutorial,HUMAN,N/A,451,pt-BR,2026-01-13,Authorization Code Flow implementation
+human/technical/005.md,Data Science Platform - Feature Engineering,HUMAN,N/A,434,pt-BR,2026-01-13,Feature engineering for churn prediction
+human/diverse/001.md,Goodreads - Book Review,HUMAN,N/A,356,pt-BR,2026-01-13,Review of Memórias Póstumas de Brás Cubas
+human/diverse/002.md,University Publication - Literary Essay,HUMAN,N/A,468,pt-BR,2026-01-13,Capitu character analysis in Dom Casmurro
+human/diverse/003.md,Lifestyle Blog - Personal Essay,HUMAN,N/A,423,pt-BR,2026-01-13,Learning piano at 35 years old
+human/diverse/004.md,Travel Blog - Travel Essay,HUMAN,N/A,445,pt-BR,2026-01-13,Marrakech summer travel experience
+human/diverse/005.md,E-commerce Review - Product Review,HUMAN,N/A,389,pt-BR,2026-01-13,Notebook computer purchase review

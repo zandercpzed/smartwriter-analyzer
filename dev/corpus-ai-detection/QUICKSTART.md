@@ -1,6 +1,9 @@
 # 🚀 Quick Start — Corpus AI Detection
 
-**Status**: ✅ Estrutura criada e pronta!
+**Status**: 🚧 Fase 7 em andamento - Coleta Colaborativa
+- ✅ 10/20 textos humanos coletados (5 indie + 5 técnicos + 5 diversos)
+- ⏳ 5/20 textos publicados (esperando coleta do usuário)
+- ⏳ 20/20 textos gerados por IA (ainda não iniciados)
 
 ---
 
