@@ -13,10 +13,12 @@ Transformar o SmartWriter Analyzer em um padrão-ouro na análise automatizada d
 
 ## Fase 1: Estabilização & Refinamento (MVP → v1.0)
 
+**Status Atual**: v0.2.0 — Funcionalidades Base Implementadas ✅
+
 ### Objetivo
 Converter v0.1.0 em um produto estável, com análises de alta qualidade e documentação completa.
 
-### Work Items
+### Progress: 35% Completo
 
 #### 1.1 AI Detection — Protocolo DETECT-AI
 - [ ] Refinar metodologia de detecção de artefatos de IA

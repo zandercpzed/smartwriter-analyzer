@@ -33,8 +33,11 @@ Leitores virtuais especializados com personalidades, princípios e tom definidos
 - Barra de status com progresso
 
 ### 5. **Suporte a Múltiplos LLMs**
-- Local: Ollama (llama3.1, Mistral, etc.)
-- Cloud: Claude 3.5 Sonnet, OpenAI GPT-4
+- **Local**: Ollama (llama3.1, Mistral, etc.)
+- **Cloud**: 
+  - Claude 3.5 Sonnet (Anthropic)
+  - OpenAI GPT-4o
+  - Google Gemini 2.0 Flash / 1.5 Pro / 1.5 Flash ✅ (novo em v0.2.0)
 - Configuração flexível via settings
 
 ## Estrutura do Documento de Análise
@@ -84,17 +87,30 @@ Cada seção usa:
 - **Plot Hole**: Inconsistência lógica na narrativa
 - **Deus Ex Machina**: Resolução artificial/conveniente de conflito
 
-## Status Atual (v0.1.0)
+## Status Atual (v0.2.0)
 
-- ✅ Persona Helena Vasconcelos implementada
-- ✅ Sistema de chunking e cache
-- ✅ Análise de readability, cadence, coherence
+### Implementado ✅
+- ✅ Persona Helena Vasconcelos com 12 seções estruturadas
+- ✅ Sistema de chunking inteligente e cache eficiente
+- ✅ Análise de readability (Flesch-Kincaid, SMOG, Gunning Fog, ARI)
+- ✅ Análise de cadence (burstiness, variação de comprimento)
+- ✅ Análise de coherence (consistência narrativa)
 - ✅ Modal de análise interativa
-- ✅ Suporte a Ollama e APIs cloud
-- ✅ Template de 12 seções
-- 🚧 AI detection precisa de refinamento
-- ⏳ Personas adicionais (estilo, estrutura, mercado)
-- ⏳ Integração com feedback loops de melhoria
+- ✅ Suporte a **4 LLM providers**: Ollama, Claude, OpenAI, **Gemini** ✨
+- ✅ Template de 12 seções com exemplos e recomendações
+- ✅ Geração de relatórios em Markdown estruturado
+
+### Em Refinamento 🚧
+- 🚧 AI Detection (DETECT-AI protocol) — precisa de testes com textos reais
+- 🚧 Análise de readability por capítulo
+- 🚧 Validação de exemplos citados no manuscrito
+- 🚧 Consistência de scores 1-5 entre análises
+
+### Próximas Prioridades ⏳
+- ⏳ Personas adicionais (Estilo, Estrutura, Mercado)
+- ⏳ Feedback loops e re-análise incremental (Fase 3)
+- ⏳ Suite de testes unitários (>70% cobertura)
+- ⏳ Publicação no Obsidian Community Plugins
 
 ## Configuração Esperada
 

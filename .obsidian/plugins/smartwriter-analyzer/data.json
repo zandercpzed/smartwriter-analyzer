@@ -1,11 +1,22 @@
 {
   "llmProvider": "gemini",
-  "geminiApiKey": "",
+  "ollamaEndpoint": "http://localhost:11434",
+  "ollamaModel": "llama3.1",
+  "claudeApiKey": "",
+  "claudeModel": "claude-sonnet-4-20250514",
+  "openaiApiKey": "",
+  "openaiModel": "gpt-4o",
+  "geminiApiKey": "AIzaSyCmWifJ-it-pPghp5y6apJ24aTeXP09wic",
   "geminiModel": "gemini-2.0-flash",
-  "chunkSize": 10000,
-  "cacheDuration": 30,
+  "chunkSize": 50000,
+  "maxContextTokens": 100000,
+  "cacheDurationDays": 90,
   "language": "pt-BR",
+  "enableABNTFormatting": false,
   "enableAIDetection": true,
+  "autoSaveReports": true,
+  "reportOutputFolder": "SmartWriter Reports",
+  "cacheDuration": 30,
   "enableReadability": true,
   "enableCadence": true,
   "enableCoherence": true,
@@ -16,24 +27,24 @@
       "entries": {
         "readability": {
           "key": "readability",
-          "timestamp": 1768355541585,
-          "expiresAt": 1770947541585,
+          "timestamp": 1768356152428,
+          "expiresAt": 1776132152428,
           "data": {
             "fleschKincaid": 7.1887866887797855,
             "smog": 8.589523136370833,
             "gunningFog": 7.931830545939973,
-            "ari": 8.587527378991204,
+            "ari": 8.58757644762478,
             "avgSentenceLength": 7.28009101251422,
             "avgParagraphLength": 13.775545350172216,
             "avgWordLength": 4.254135933658374,
             "complexWordRatio": 0.1254948535233571
           },
-          "manuscriptHash": "-840d9a3"
+          "manuscriptHash": "-105c0df9"
         },
         "cadence": {
           "key": "cadence",
-          "timestamp": 1768355541655,
-          "expiresAt": 1770947541655,
+          "timestamp": 1768356152517,
+          "expiresAt": 1776132152517,
           "data": {
             "burstiness": -0.13571616213284415,
             "sentenceLengthVariance": 29.916365930477053,
@@ -222,12 +233,12 @@
               }
             ]
           },
-          "manuscriptHash": "-840d9a3"
+          "manuscriptHash": "-105c0df9"
         },
         "literary-quality": {
           "key": "literary-quality",
-          "timestamp": 1768355541734,
-          "expiresAt": 1770947541734,
+          "timestamp": 1768356234715,
+          "expiresAt": 1776132234715,
           "data": {
             "synopsis": "Sinopse não disponível.",
             "structureScore": 3,
@@ -242,12 +253,12 @@
             "strengths": [],
             "improvements": []
           },
-          "manuscriptHash": "-840d9a3"
+          "manuscriptHash": "-105c0df9"
         },
         "structure": {
           "key": "structure",
-          "timestamp": 1768355541737,
-          "expiresAt": 1770947541737,
+          "timestamp": 1768356193864,
+          "expiresAt": 1776132193864,
           "data": {
             "acts": {
               "act1Percentage": 24,
@@ -389,12 +400,12 @@
             ],
             "causalityScore": 3
           },
-          "manuscriptHash": "-840d9a3"
+          "manuscriptHash": "-105c0df9"
         },
         "ai-detection": {
           "key": "ai-detection",
-          "timestamp": 1768355541967,
-          "expiresAt": 1770947541967,
+          "timestamp": 1768356193860,
+          "expiresAt": 1776132193860,
           "data": {
             "iul": 14,
             "classification": "authentic",
@@ -521,7 +532,361 @@
               }
             ]
           },
-          "manuscriptHash": "-840d9a3"
+          "manuscriptHash": "-105c0df9"
+        }
+      }
+    },
+    "SmartWriter Reports/Target_One_v53_KDP_KU_Analysis_2026-01-14.md": {
+      "manuscriptHash": "",
+      "entries": {
+        "readability": {
+          "key": "readability",
+          "timestamp": 1768355894053,
+          "expiresAt": 1770947894053,
+          "data": {
+            "fleschKincaid": 11.259359458706225,
+            "smog": 10.57251336741011,
+            "gunningFog": 11.269321524788655,
+            "ari": 35.10376242529341,
+            "avgSentenceLength": 8.732558139534884,
+            "avgParagraphLength": 11.920634920634921,
+            "avgWordLength": 4.137150466045273,
+            "complexWordRatio": 0.19440745672436752
+          },
+          "manuscriptHash": "21711d58"
+        },
+        "cadence": {
+          "key": "cadence",
+          "timestamp": 1768355894065,
+          "expiresAt": 1770947894065,
+          "data": {
+            "burstiness": 0.3817267767581795,
+            "sentenceLengthVariance": 1386.6886154678205,
+            "paragraphLengthVariance": 2010.9271856890905,
+            "rhythmPattern": "chaotic",
+            "pacingByChapter": [
+              {
+                "chapter": 1,
+                "avgSentenceLength": 13,
+                "burstiness": 0,
+                "paceCategory": "moderate"
+              },
+              {
+                "chapter": 2,
+                "avgSentenceLength": 45.5,
+                "burstiness": -0.011111111111111112,
+                "paceCategory": "slow"
+              },
+              {
+                "chapter": 3,
+                "avgSentenceLength": 10.909090909090908,
+                "burstiness": -0.27302472886940005,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 4,
+                "avgSentenceLength": 7.222222222222222,
+                "burstiness": -0.0888241583512512,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 5,
+                "avgSentenceLength": 102,
+                "burstiness": -0.09985769689491236,
+                "paceCategory": "slow"
+              },
+              {
+                "chapter": 6,
+                "avgSentenceLength": 17.904761904761905,
+                "burstiness": 0.02531656289719871,
+                "paceCategory": "moderate"
+              },
+              {
+                "chapter": 7,
+                "avgSentenceLength": 49.5,
+                "burstiness": -0.1511627906976744,
+                "paceCategory": "slow"
+              },
+              {
+                "chapter": 8,
+                "avgSentenceLength": 10.2,
+                "burstiness": 0.11110731387029069,
+                "paceCategory": "fast"
+              }
+            ]
+          },
+          "manuscriptHash": "21711d58"
+        },
+        "ai-detection": {
+          "key": "ai-detection",
+          "timestamp": 1768355897683,
+          "expiresAt": 1770947897683,
+          "data": {
+            "iul": 12,
+            "classification": "authentic",
+            "artifacts": [
+              {
+                "code": "D5",
+                "category": "D",
+                "marker": "N-gramas repetitivos",
+                "description": "N-gramas repetitivos",
+                "weight": "high",
+                "instances": [
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"| ★★★☆☆ |\" (27x)",
+                    "chapterIndex": 0
+                  },
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"| | cap.\" (20x)",
+                    "chapterIndex": 0
+                  },
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"| 🏃 fast\" (20x)",
+                    "chapterIndex": 0
+                  },
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"🏃 fast |\" (20x)",
+                    "chapterIndex": 0
+                  },
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"fast | |\" (19x)",
+                    "chapterIndex": 0
+                  }
+                ]
+              }
+            ],
+            "sampleAnalysis": [
+              {
+                "sampleIndex": 0,
+                "location": "Sample 1",
+                "wordCount": 13,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 1,
+                "location": "Sample 2",
+                "wordCount": 91,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 2,
+                "location": "Sample 3",
+                "wordCount": 112,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 3,
+                "location": "Sample 4",
+                "wordCount": 302,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 4,
+                "location": "Sample 5",
+                "wordCount": 305,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 5,
+                "location": "Sample 6",
+                "wordCount": 376,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 6,
+                "location": "Sample 7",
+                "wordCount": 99,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 7,
+                "location": "Sample 8",
+                "wordCount": 49,
+                "artifactsFound": [],
+                "localIul": 0
+              }
+            ]
+          },
+          "manuscriptHash": "21711d58"
+        },
+        "structure": {
+          "key": "structure",
+          "timestamp": 1768355897687,
+          "expiresAt": 1770947897687,
+          "data": {
+            "acts": {
+              "act1Percentage": 8,
+              "act2Percentage": 79,
+              "act3Percentage": 13,
+              "balanceScore": 1
+            },
+            "beats": [
+              {
+                "name": "Opening Image / Setup",
+                "present": true,
+                "position": 0,
+                "chapter": 1,
+                "efficacy": 3
+              },
+              {
+                "name": "Theme Stated",
+                "present": true,
+                "position": 7,
+                "chapter": 1,
+                "efficacy": 3
+              },
+              {
+                "name": "Catalyst",
+                "present": true,
+                "position": 14,
+                "chapter": 1,
+                "efficacy": 3
+              },
+              {
+                "name": "Debate",
+                "present": true,
+                "position": 21,
+                "chapter": 1,
+                "efficacy": 3
+              },
+              {
+                "name": "Break Into Two",
+                "present": true,
+                "position": 29,
+                "chapter": 2,
+                "efficacy": 3
+              },
+              {
+                "name": "B Story",
+                "present": true,
+                "position": 36,
+                "chapter": 2,
+                "efficacy": 3
+              },
+              {
+                "name": "Fun & Games",
+                "present": true,
+                "position": 43,
+                "chapter": 3,
+                "efficacy": 3
+              },
+              {
+                "name": "Midpoint",
+                "present": true,
+                "position": 50,
+                "chapter": 4,
+                "efficacy": 3
+              },
+              {
+                "name": "Bad Guys Close In",
+                "present": true,
+                "position": 57,
+                "chapter": 4,
+                "efficacy": 3
+              },
+              {
+                "name": "All Is Lost",
+                "present": true,
+                "position": 64,
+                "chapter": 5,
+                "efficacy": 3
+              },
+              {
+                "name": "Dark Night of the Soul",
+                "present": true,
+                "position": 71,
+                "chapter": 5,
+                "efficacy": 3
+              },
+              {
+                "name": "Break Into Three",
+                "present": true,
+                "position": 79,
+                "chapter": 6,
+                "efficacy": 3
+              },
+              {
+                "name": "Finale",
+                "present": true,
+                "position": 86,
+                "chapter": 6,
+                "efficacy": 3
+              },
+              {
+                "name": "Final Image",
+                "present": true,
+                "position": 93,
+                "chapter": 7,
+                "efficacy": 3
+              }
+            ],
+            "turningPoints": [
+              {
+                "name": "Inciting Incident",
+                "chapter": 1,
+                "position": 10,
+                "strength": 3
+              },
+              {
+                "name": "First Plot Point",
+                "chapter": 2,
+                "position": 25,
+                "strength": 3
+              },
+              {
+                "name": "Midpoint",
+                "chapter": 4,
+                "position": 50,
+                "strength": 3
+              },
+              {
+                "name": "Second Plot Point",
+                "chapter": 6,
+                "position": 75,
+                "strength": 3
+              },
+              {
+                "name": "Climax",
+                "chapter": 7,
+                "position": 90,
+                "strength": 3
+              }
+            ],
+            "causalityScore": 3
+          },
+          "manuscriptHash": "21711d58"
+        },
+        "literary-quality": {
+          "key": "literary-quality",
+          "timestamp": 1768355901800,
+          "expiresAt": 1770947901800,
+          "data": {
+            "synopsis": "Sinopse não disponível.",
+            "structureScore": 3,
+            "coherenceScore": 3,
+            "charactersScore": 3,
+            "voiceScore": 3,
+            "pacingScore": 3,
+            "worldbuildingScore": 3,
+            "themeScore": 3,
+            "genreConformityScore": 3,
+            "overallScore": 3,
+            "strengths": [],
+            "improvements": []
+          },
+          "manuscriptHash": "21711d58"
         }
       }
     }

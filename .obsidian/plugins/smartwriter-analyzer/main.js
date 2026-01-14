@@ -38,6 +38,8 @@ var DEFAULT_SETTINGS = {
   claudeModel: "claude-sonnet-4-20250514",
   openaiApiKey: "",
   openaiModel: "gpt-4o",
+  geminiApiKey: "",
+  geminiModel: "gemini-2.0-flash",
   chunkSize: 1e4,
   maxContextTokens: 1e5,
   cacheDurationDays: 30,
@@ -244,6 +246,8 @@ var LLMService = class {
             return await this.completeClaude(request);
           case "openai":
             return await this.completeOpenAI(request);
+          case "gemini":
+            return await this.completeGemini(request);
           default:
             throw new Error(`Unknown LLM provider: ${this.settings.llmProvider}`);
         }
@@ -367,6 +371,47 @@ var LLMService = class {
       tokensUsed: ((_a = data.usage) == null ? void 0 : _a.total_tokens) || 0,
       model: this.settings.openaiModel,
       finishReason: data.choices[0].finish_reason || "unknown"
+    };
+  }
+  async completeGemini(request) {
+    var _a, _b, _c, _d, _e, _f, _g, _h;
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${this.settings.geminiModel}:generateContent?key=${this.settings.geminiApiKey}`;
+    const body = {
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
+              text: request.systemPrompt ? `${request.systemPrompt}
+
+${request.prompt}` : request.prompt
+            }
+          ]
+        }
+      ],
+      generationConfig: {
+        maxOutputTokens: request.maxTokens || 4096,
+        temperature: request.temperature || 0.7
+      }
+    };
+    const response = await (0, import_obsidian.requestUrl)({
+      url: endpoint,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+    const data = response.json;
+    if (data.error) {
+      throw new Error(`Gemini API error: ${data.error.message}`);
+    }
+    const content = ((_e = (_d = (_c = (_b = (_a = data.candidates) == null ? void 0 : _a[0]) == null ? void 0 : _b.content) == null ? void 0 : _c.parts) == null ? void 0 : _d[0]) == null ? void 0 : _e.text) || "";
+    return {
+      content,
+      tokensUsed: ((_f = data.usageMetadata) == null ? void 0 : _f.totalTokenCount) || 0,
+      model: this.settings.geminiModel,
+      finishReason: ((_h = (_g = data.candidates) == null ? void 0 : _g[0]) == null ? void 0 : _h.finishReason) || "unknown"
     };
   }
   // Batch processing for large manuscripts
@@ -527,9 +572,16 @@ var _ManuscriptParser = class _ManuscriptParser {
     return false;
   }
   extractChapterTitle(line) {
-    let title = line.replace(/^#+\s*/, "").trim();
-    title = title.replace(/^(?:Capítulo|Chapter|Cap\.?)\s*\d+\s*[-–—:.]?\s*/i, "").trim();
-    return title || `Chapter`;
+    const titleWithoutMarkers = line.replace(/^#+\s*/, "").trim();
+    const titleWithLabelMatch = titleWithoutMarkers.match(/^(?:Capítulo|Chapter|Cap\.?)\s*\d+\s*[-–—:.]?\s*(.+)$/i);
+    if (titleWithLabelMatch && titleWithLabelMatch[1]) {
+      return titleWithLabelMatch[1].trim();
+    }
+    const titleWithNumberMatch = titleWithoutMarkers.match(/^\d+\s*[-–—:.]\s*(.+)$/i);
+    if (titleWithNumberMatch && titleWithNumberMatch[1]) {
+      return titleWithNumberMatch[1].trim();
+    }
+    return titleWithoutMarkers || `Chapter`;
   }
   extractTitle(frontMatter, fileName) {
     if (frontMatter.title && typeof frontMatter.title === "string") {
@@ -3157,7 +3209,7 @@ var SmartWriterSettingTab = class extends import_obsidian3.PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
     containerEl.createEl("h2", { text: "LLM configuration" });
-    new import_obsidian3.Setting(containerEl).setName("Provider").setDesc("Select the LLM provider for analysis").addDropdown((dropdown) => dropdown.addOption("ollama", "Ollama (Local)").addOption("claude", "Claude (Anthropic)").addOption("openai", "OpenAI").setValue(this.plugin.settings.llmProvider).onChange(async (value) => {
+    new import_obsidian3.Setting(containerEl).setName("Provider").setDesc("Select the LLM provider for analysis").addDropdown((dropdown) => dropdown.addOption("ollama", "Ollama (Local)").addOption("claude", "Claude (Anthropic)").addOption("openai", "OpenAI").addOption("gemini", "Gemini (Google)").setValue(this.plugin.settings.llmProvider).onChange(async (value) => {
       this.plugin.settings.llmProvider = value;
       await this.plugin.saveSettings();
       this.display();
@@ -3189,6 +3241,16 @@ var SmartWriterSettingTab = class extends import_obsidian3.PluginSettingTab {
       }));
       new import_obsidian3.Setting(containerEl).setName("Model").setDesc("OpenAI model to use").addDropdown((dropdown) => dropdown.addOption("gpt-4o", "GPT-4o").addOption("gpt-4-turbo", "GPT-4 Turbo").addOption("gpt-4", "GPT-4").setValue(this.plugin.settings.openaiModel).onChange(async (value) => {
         this.plugin.settings.openaiModel = value;
+        await this.plugin.saveSettings();
+      }));
+    }
+    if (this.plugin.settings.llmProvider === "gemini") {
+      new import_obsidian3.Setting(containerEl).setName("API key").setDesc("Your Google Gemini API key").addText((text) => text.setPlaceholder("AIz...").setValue(this.plugin.settings.geminiApiKey).onChange(async (value) => {
+        this.plugin.settings.geminiApiKey = value;
+        await this.plugin.saveSettings();
+      }));
+      new import_obsidian3.Setting(containerEl).setName("Model").setDesc("Gemini model to use").addDropdown((dropdown) => dropdown.addOption("gemini-2.0-flash", "Gemini 2.0 Flash").addOption("gemini-1.5-pro", "Gemini 1.5 Pro").addOption("gemini-1.5-flash", "Gemini 1.5 Flash").setValue(this.plugin.settings.geminiModel).onChange(async (value) => {
+        this.plugin.settings.geminiModel = value;
         await this.plugin.saveSettings();
       }));
     }

@@ -1,6 +1,6 @@
 ---
 title: 'Análise: docs/_ test files/Target_One_v53_KDP_KU'
-date: 2026-01-14T01:52:21.400Z
+date: 2026-01-14T02:02:32.330Z
 plugin: SmartWriter Analyzer v0.1.0
 persona: helena-vasconcelos
 ---
@@ -238,4 +238,4 @@ Este relatório foi gerado automaticamente pelo **SmartWriter Analyzer** v0.1.0.
 
 ---
 
-_Gerado em 13/01/2026, 22:52:21_
+_Gerado em 13/01/2026, 23:02:32_

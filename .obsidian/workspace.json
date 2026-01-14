@@ -170,7 +170,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 393.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -186,9 +186,11 @@
   },
   "active": "48c5daf1991f7c1a",
   "lastOpenFiles": [
-    "docs/GEMINI_SETUP.md",
     "docs/_ test files/Target_One_v53_KDP_KU.md",
     "SmartWriter Reports/Target_One_v53_KDP_KU_Analysis_2026-01-14.md",
+    "SmartWriter Reports/Target_One_v53_KDP_KU_Analysis_2026-01-14_Analysis_2026-01-14.md",
+    "dev/development-notes/GEMINI_INTEGRATION_COMPLETE.md",
+    "docs/GEMINI_SETUP.md",
     "SmartWriter Reports",
     "docs/_ test files/converted.md",
     "docs/_ test files/Target_One_v53_KDP_KU.docx",
