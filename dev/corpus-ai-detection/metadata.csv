@@ -19,3 +19,32 @@ human/published/002.md,Project Gutenberg - The War of the Worlds,HUMAN,N/A,63114
 human/published/003.md,Project Gutenberg - The Bicentennial Man & Other Stories,HUMAN,N/A,80400,en,2026-01-14,Isaac Asimov - Short stories collection
 human/published/004.md,Project Gutenberg - Twenty Thousand Leagues under the Sea,HUMAN,N/A,107721,en,2026-01-14,Jules Verne - Classic adventure novel (1870)
 human/published/005.md,Project Gutenberg - Frankenstein,HUMAN,N/A,78101,en,2026-01-14,Mary Wollstonecraft Shelley - Classic novel (1818)
+generated/chatgpt/GPT - 001.md,ChatGPT 3.5 - Generated,GENERATED,ChatGPT 3.5,445,pt-BR,2026-01-13,Sci-fi opening 2150
+generated/chatgpt/GPT - 002.md,ChatGPT 3.5 - Generated,GENERATED,ChatGPT 3.5,523,pt-BR,2026-01-13,Emotional confrontation scene
+generated/chatgpt/GPT - 003.md,ChatGPT 3.5 - Generated,GENERATED,ChatGPT 3.5,412,pt-BR,2026-01-13,Dialogue about relationships
+generated/chatgpt/GPT - 004.md,ChatGPT 3.5 - Generated,GENERATED,ChatGPT 3.5,487,pt-BR,2026-01-13,Dystopian scenario description
+generated/chatgpt/GPT - 005.md,ChatGPT 3.5 - Generated,GENERATED,ChatGPT 3.5,387,pt-BR,2026-01-14,AI and humanity reflection
+generated/chatgpt/GPT - 006.md,ChatGPT 3.5 - Generated,GENERATED,ChatGPT 3.5,247,pt-BR,2026-01-14,Mystery novel synopsis
+generated/chatgpt/GPT - 007.md,ChatGPT 3.5 - Generated,GENERATED,ChatGPT 3.5,356,pt-BR,2026-01-14,Character description (Julio)
+generated/chatgpt/GPT - 008.md,ChatGPT 3.5 - Generated,GENERATED,ChatGPT 3.5,423,pt-BR,2026-01-14,Urban chase action scene
+generated/chatgpt-4/GPT4 - 001.md,ChatGPT 4 - Generated,GENERATED,ChatGPT 4,512,pt-BR,2026-01-13,Sci-fi opening prompt
+generated/chatgpt-4/GPT4 - 002.md,ChatGPT 4 - Generated,GENERATED,ChatGPT 4,478,pt-BR,2026-01-13,Emotional confrontation
+generated/chatgpt-4/GPT4 - 003.md,ChatGPT 4 - Generated,GENERATED,ChatGPT 4,401,pt-BR,2026-01-13,Urban action scene
+generated/chatgpt-4/GPT4 - 004.md,ChatGPT 4 - Generated,GENERATED,ChatGPT 4,469,pt-BR,2026-01-13,Mystery synopsis
+generated/chatgpt-4/GPT4 - 005.md,ChatGPT 4 - Generated,GENERATED,ChatGPT 4,412,pt-BR,2026-01-14,Sophisticated atmospheric opening
+generated/chatgpt-4/GPT4 - 006.md,ChatGPT 4 - Generated,GENERATED,ChatGPT 4,368,pt-BR,2026-01-14,Complex psychological dialogue
+generated/chatgpt-4/GPT4 - 007.md,ChatGPT 4 - Generated,GENERATED,ChatGPT 4,394,pt-BR,2026-01-14,Social observation with philosophy
+generated/chatgpt-4/GPT4 - 008.md,ChatGPT 4 - Generated,GENERATED,ChatGPT 4,356,pt-BR,2026-01-14,Emotional truth between characters
+generated/claude/Claude - 001.md,Claude - Generated,GENERATED,Claude,456,pt-BR,2026-01-13,Contemporary literary opening
+generated/claude/Claude - 002.md,Claude - Generated,GENERATED,Claude,534,pt-BR,2026-01-13,Emotional conflict scene
+generated/claude/Claude - 003.md,Claude - Generated,GENERATED,Claude,389,pt-BR,2026-01-13,Cafe dialogue scene
+generated/claude/Claude - 004.md,Claude - Generated,GENERATED,Claude,467,pt-BR,2026-01-13,Abandoned place description
+generated/gemini/Gemini - 001.md,Gemini - Generated,GENERATED,Gemini,423,pt-BR,2026-01-13,Literary opening scene
+generated/gemini/Gemini - 002.md,Gemini - Generated,GENERATED,Gemini,512,pt-BR,2026-01-13,Emotional character interaction
+generated/gemini/Gemini - 003.md,Gemini - Generated,GENERATED,Gemini,378,pt-BR,2026-01-13,Dialogue scene
+generated/gemini/Gemini - 004.md,Gemini - Generated,GENERATED,Gemini,445,pt-BR,2026-01-13,Atmospheric description
+generated/meta/Meta - 001.md,Meta Llama - Generated,GENERATED,Meta,401,pt-BR,2026-01-13,Literary paragraph
+generated/meta/Meta - 002.md,Meta Llama - Generated,GENERATED,Meta,389,pt-BR,2026-01-13,Narrative scene
+generated/grok/Grok - 001.md,Grok - Generated,GENERATED,Grok,356,pt-BR,2026-01-13,Single text
+generated/grok/Grok - 002.md,Grok - Generated,GENERATED,Grok,401,pt-BR,2026-01-14,Sci-fi with ironic tone
+generated/grok/Grok - 003.md,Grok - Generated,GENERATED,Grok,378,pt-BR,2026-01-14,Satirical tech reflection
