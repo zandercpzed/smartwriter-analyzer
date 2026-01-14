@@ -186,6 +186,7 @@
   },
   "active": "175ba2ad446a2a1e",
   "lastOpenFiles": [
+    "dev/ANALYSIS_RESULTS.md",
     "dev/corpus-ai-detection/analysis-results/report.md",
     "dev/corpus-ai-detection/analysis-results/results.json",
     "dev/CORPUS_COLLECTION_COMPLETE.md",
@@ -216,7 +217,6 @@
     "dev/corpus-ai-detection/human/published/Arthur C. Clarke - The City and the Stars.rtf",
     "dev/corpus-ai-detection/human/published/Frankenstein; Or, The Modern Prometheus - Mary Wollstonecraft Shelley.epub",
     "dev/corpus-ai-detection/human/published/Isaac Asimov - The Bicentennial Man  Other Stories.rtf",
-    "dev/corpus-ai-detection/AI_GENERATION_GUIDE.md",
     "dev/corpus-ai-detection/generated/grok",
     "dev/corpus-ai-detection/generated/chatgpt",
     "dev/corpus-ai-detection/generated/gemini",
