@@ -14,11 +14,13 @@ AI-powered literary analysis co-pilot for Obsidian. Analyzes readability, cadenc
 ## Installation
 
 ### From Community Plugins (Recommended)
+
 1. Open Obsidian Settings → Community Plugins
 2. Search for "SmartWriter Analyzer"
 3. Click Install, then Enable
 
 ### Manual Installation
+
 1. Download `main.js`, `manifest.json`, and `styles.css` from the latest release
 2. Create folder: `<vault>/.obsidian/plugins/smartwriter-analyzer/`
 3. Copy downloaded files to the folder
@@ -27,6 +29,7 @@ AI-powered literary analysis co-pilot for Obsidian. Analyzes readability, cadenc
 ## Usage
 
 ### Quick Start
+
 1. Open a manuscript note (.md)
 2. Use command palette: `SmartWriter: Analyze manuscript`
 3. Select desired reports
@@ -34,22 +37,25 @@ AI-powered literary analysis co-pilot for Obsidian. Analyzes readability, cadenc
 5. Report opens in new note
 
 ### Commands
-| Command | Description |
-|---------|-------------|
-| `Analyze manuscript` | Full analysis with report selection |
-| `Quick readability check` | Fast readability metrics only |
-| `Detect AI artifacts` | AI detection analysis |
-| `Clear cache` | Remove cached analysis data |
+
+| Command                   | Description                         |
+| ------------------------- | ----------------------------------- |
+| `Analyze manuscript`      | Full analysis with report selection |
+| `Quick readability check` | Fast readability metrics only       |
+| `Detect AI artifacts`     | AI detection analysis               |
+| `Clear cache`             | Remove cached analysis data         |
 
 ### LLM Configuration
 
 #### Local (Ollama)
+
 1. Install [Ollama](https://ollama.ai)
 2. Pull a model: `ollama pull llama3.1` or `ollama pull mistral`
 3. In plugin settings, set Provider to "Ollama"
 4. Configure endpoint (default: `http://localhost:11434`)
 
 #### Cloud (Claude/OpenAI)
+
 1. In plugin settings, set Provider to "Claude" or "OpenAI"
 2. Enter your API key
 3. Select model
@@ -57,6 +63,7 @@ AI-powered literary analysis co-pilot for Obsidian. Analyzes readability, cadenc
 ## Analysis Types
 
 ### 1. Readability Analysis
+
 - Flesch-Kincaid Grade Level
 - SMOG Index
 - Gunning Fog Index
@@ -64,16 +71,19 @@ AI-powered literary analysis co-pilot for Obsidian. Analyzes readability, cadenc
 - Average sentence/paragraph length
 
 ### 2. Cadence Analysis
+
 - Sentence length variation (burstiness)
 - Paragraph rhythm patterns
 - Pacing distribution across chapters
 
 ### 3. Coherence Analysis
+
 - Timeline consistency
 - Character trait tracking
 - Plot hole detection (Chekhov's guns)
 
 ### 4. Literary Quality (Persona: Helena Vasconcelos)
+
 - Narrative structure (Save the Cat beats)
 - Character arcs (Want/Need/Flaw/Ghost/Lie)
 - Voice and style assessment
@@ -82,24 +92,24 @@ AI-powered literary analysis co-pilot for Obsidian. Analyzes readability, cadenc
 
 ## Personas
 
-| Persona | Specialization | Output |
-|---------|----------------|--------|
+| Persona            | Specialization                             | Output                    |
+| ------------------ | ------------------------------------------ | ------------------------- |
 | Helena Vasconcelos | Technical literary analysis + AI detection | 12-section quality report |
-| *[Coming Soon]* | Structural editing | Beat sheet analysis |
-| *[Coming Soon]* | Style review | Micro-analysis |
-| *[Coming Soon]* | Market positioning | Genre conformity |
+| _[Coming Soon]_    | Structural editing                         | Beat sheet analysis       |
+| _[Coming Soon]_    | Style review                               | Micro-analysis            |
+| _[Coming Soon]_    | Market positioning                         | Genre conformity          |
 
 ## Settings
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| LLM Provider | Ollama, Claude, or OpenAI | Ollama |
-| API Endpoint | URL for Ollama or API | `http://localhost:11434` |
-| API Key | For cloud providers | — |
-| Model | Specific model to use | `llama3.1` |
-| Chunk Size | Words per analysis chunk | 10,000 |
-| Cache Duration | Days to keep cached results | 30 |
-| Language | Analysis language | Portuguese |
+| Setting        | Description                 | Default                  |
+| -------------- | --------------------------- | ------------------------ |
+| LLM Provider   | Ollama, Claude, or OpenAI   | Ollama                   |
+| API Endpoint   | URL for Ollama or API       | `http://localhost:11434` |
+| API Key        | For cloud providers         | —                        |
+| Model          | Specific model to use       | `llama3.1`               |
+| Chunk Size     | Words per analysis chunk    | 10,000                   |
+| Cache Duration | Days to keep cached results | 30                       |
+| Language       | Analysis language           | Portuguese               |
 
 ## Requirements
 
