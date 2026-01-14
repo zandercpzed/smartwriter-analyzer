@@ -188,12 +188,21 @@ export class ManuscriptParser {
 
 	private extractChapterTitle(line: string): string {
 		// Remove markdown heading markers
-		let title = line.replace(/^#+\s*/, '').trim();
+		const titleWithoutMarkers = line.replace(/^#+\s*/, '').trim();
 
-		// Remove "Capítulo X" prefix if present
-		title = title.replace(/^(?:Capítulo|Chapter|Cap\.?)\s*\d+\s*[-–—:.]?\s*/i, '').trim();
+		// Try to extract a following title: "Chapter 1: The Beginning" -> "The Beginning"
+		const titleWithLabelMatch = titleWithoutMarkers.match(/^(?:Capítulo|Chapter|Cap\.?)\s*\d+\s*[-–—:.]?\s*(.+)$/i);
+		if (titleWithLabelMatch && titleWithLabelMatch[1]) {
+			return titleWithLabelMatch[1].trim();
+		}
 
-		return title || `Chapter`;
+		// Try to extract from "1. The Beginning" -> "The Beginning"
+		const titleWithNumberMatch = titleWithoutMarkers.match(/^\d+\s*[-–—:.]\s*(.+)$/i);
+		if (titleWithNumberMatch && titleWithNumberMatch[1]) {
+			return titleWithNumberMatch[1].trim();
+		}
+
+		return titleWithoutMarkers || `Chapter`;
 	}
 
 	private extractTitle(frontMatter: Record<string, unknown>, fileName: string): string {

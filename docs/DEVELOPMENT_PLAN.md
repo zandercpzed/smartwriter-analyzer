@@ -5,10 +5,10 @@ This document outlines the strategic roadmap for the development of SmartWriter 
 ## Phase 1: Core Stability & Architecture Foundation
 *Focus: Ensure the plugin is robust, handles errors gracefully, and manages resources efficiently.*
 
-- [ ] **Robust Error Handling**: Implement comprehensive error catching in the `AnalysisOrchestrator` to prevent plugin crashes during long analyses. Add retry logic for failed LLM API calls.
-- [ ] **Memory Management Optimization**: Refine the `ChunkManager` to handle extremely large manuscripts (>200k words) without freezing Obsidian. Implement stream processing where possible.
-- [ ] **Enhanced Caching Strategy**: Improve `CacheManager` to invalidate cache intelligently (e.g., hash-based invalidation per chunk) so users only re-analyze changed sections.
-- [ ] **Unit & Integration Testing**: Set up a solid testing framework (Jest) with high coverage for core logic (parsers, chunking, utilities).
+- [x] **Robust Error Handling**: Implement comprehensive error catching in the `AnalysisOrchestrator` to prevent plugin crashes during long analyses. Add retry logic for failed LLM API calls.
+- [x] **Memory Management Optimization**: Refine the `ChunkManager` and `ManuscriptParser` to handle extremely large manuscripts (>200k words) without freezing Obsidian. Optimized regex-based counting and chapter parsing.
+- [x] **Enhanced Caching Strategy**: Improved `CacheManager` to invalidate cache intelligently based on content hash per analysis entry.
+- [x] **Unit & Integration Testing**: Set up Jest testing framework with mocks for Obsidian API. Initial tests for `ManuscriptParser` are passing.
 
 ## Phase 2: Analyzer Engine Expansion
 *Focus: Deepen the analytical capabilities and refine the "Helena Vasconcelos" persona implementation.*
