@@ -64,6 +64,15 @@ Converter v0.1.0 em um produto estável, com análises de alta qualidade e docum
 - [ ] FAQ: perguntas frequentes sobre análises
 - [ ] Changelog detalhado para v1.0.0
 
+#### 1.8 Publicação Obsidian
+- [ ] Verificar requisitos de submissão (manifest.json, descrição, etc.)
+- [ ] Preparar release v1.0.0 no GitHub
+- [ ] Submeter para revisão em `community-plugins.json`
+- [ ] Aguardar validação automática (bot) e revisão humana
+- [ ] Abordar feedback de reviewers se necessário
+- [ ] Publicação automática após aprovação
+- [ ] Anunciar no fórum e Discord Obsidian
+
 ---
 
 ## Fase 2: Novas Personas & Análises Especializadas

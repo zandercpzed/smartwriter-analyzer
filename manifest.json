@@ -6,6 +6,5 @@
 	"description": "AI-powered literary analysis co-pilot. Analyzes readability, cadence, coherence, and literary quality of large manuscripts (50k-500k words).",
 	"author": "Z Edições",
 	"authorUrl": "https://github.com/zedicoes",
-	"fundingUrl": "",
 	"isDesktopOnly": true
 }
