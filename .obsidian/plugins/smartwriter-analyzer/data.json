@@ -1,0 +1,14 @@
+{
+  "llmProvider": "ollama",
+  "apiEndpoint": "http://localhost:11434",
+  "apiKey": "",
+  "model": "llama3.1",
+  "chunkSize": 10000,
+  "cacheDuration": 30,
+  "language": "pt-BR",
+  "enableAIDetection": true,
+  "enableReadability": true,
+  "enableCadence": true,
+  "enableCoherence": true,
+  "enableLiteraryQuality": true
+}
