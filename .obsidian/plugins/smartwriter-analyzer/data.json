@@ -1,8 +1,7 @@
 {
-  "llmProvider": "ollama",
-  "apiEndpoint": "http://localhost:11434",
-  "apiKey": "",
-  "model": "llama3.1",
+  "llmProvider": "gemini",
+  "geminiApiKey": "",
+  "geminiModel": "gemini-2.0-flash",
   "chunkSize": 10000,
   "cacheDuration": 30,
   "language": "pt-BR",
@@ -10,5 +9,521 @@
   "enableReadability": true,
   "enableCadence": true,
   "enableCoherence": true,
-  "enableLiteraryQuality": true
+  "enableLiteraryQuality": true,
+  "smartwriter-cache": {
+    "docs/_ test files/Target_One_v53_KDP_KU.md": {
+      "manuscriptHash": "",
+      "entries": {
+        "readability": {
+          "key": "readability",
+          "timestamp": 1768355541585,
+          "expiresAt": 1770947541585,
+          "data": {
+            "fleschKincaid": 7.1887866887797855,
+            "smog": 8.589523136370833,
+            "gunningFog": 7.931830545939973,
+            "ari": 8.587527378991204,
+            "avgSentenceLength": 7.28009101251422,
+            "avgParagraphLength": 13.775545350172216,
+            "avgWordLength": 4.254135933658374,
+            "complexWordRatio": 0.1254948535233571
+          },
+          "manuscriptHash": "-840d9a3"
+        },
+        "cadence": {
+          "key": "cadence",
+          "timestamp": 1768355541655,
+          "expiresAt": 1770947541655,
+          "data": {
+            "burstiness": -0.13571616213284415,
+            "sentenceLengthVariance": 29.916365930477053,
+            "paragraphLengthVariance": 166.12989557560743,
+            "rhythmPattern": "varied",
+            "pacingByChapter": [
+              {
+                "chapter": 1,
+                "avgSentenceLength": 10.11032028469751,
+                "burstiness": -0.1065495953189574,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 2,
+                "avgSentenceLength": 9.332167832167832,
+                "burstiness": -0.13570208955799376,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 3,
+                "avgSentenceLength": 9.0929203539823,
+                "burstiness": -0.15209922238461812,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 4,
+                "avgSentenceLength": 7.677477477477478,
+                "burstiness": -0.1331140148428512,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 5,
+                "avgSentenceLength": 8.596581196581196,
+                "burstiness": -0.13217348387752278,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 6,
+                "avgSentenceLength": 6.332,
+                "burstiness": -0.13451239663873626,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 7,
+                "avgSentenceLength": 7.220108695652174,
+                "burstiness": -0.14104174732845712,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 8,
+                "avgSentenceLength": 7.006147540983607,
+                "burstiness": -0.1652476380963595,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 9,
+                "avgSentenceLength": 6.236238532110092,
+                "burstiness": -0.18433852655222274,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 10,
+                "avgSentenceLength": 6.47927927927928,
+                "burstiness": -0.17976316493080505,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 11,
+                "avgSentenceLength": 6.912871287128713,
+                "burstiness": -0.18667875985530472,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 12,
+                "avgSentenceLength": 7.418060200668896,
+                "burstiness": -0.16846141284515198,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 13,
+                "avgSentenceLength": 7.1891891891891895,
+                "burstiness": -0.19221496978136124,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 14,
+                "avgSentenceLength": 6.25911708253359,
+                "burstiness": -0.15829857635536349,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 15,
+                "avgSentenceLength": 6.793032786885246,
+                "burstiness": -0.14992634502837773,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 16,
+                "avgSentenceLength": 6.957878315132605,
+                "burstiness": -0.16087926152926993,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 17,
+                "avgSentenceLength": 7.87218045112782,
+                "burstiness": -0.1397795088395407,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 18,
+                "avgSentenceLength": 6.332136445242369,
+                "burstiness": -0.17029758622427044,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 19,
+                "avgSentenceLength": 7.019753086419753,
+                "burstiness": -0.14351371869610394,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 20,
+                "avgSentenceLength": 6.0018518518518515,
+                "burstiness": -0.1924551774708644,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 21,
+                "avgSentenceLength": 5.470491803278689,
+                "burstiness": -0.16267343387733324,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 22,
+                "avgSentenceLength": 7.4423076923076925,
+                "burstiness": -0.1532662700419992,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 23,
+                "avgSentenceLength": 7.534351145038168,
+                "burstiness": -0.1431431301693905,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 24,
+                "avgSentenceLength": 8.010899182561309,
+                "burstiness": -0.11699781145795142,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 25,
+                "avgSentenceLength": 8.513297872340425,
+                "burstiness": -0.14897934555403983,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 26,
+                "avgSentenceLength": 5.954545454545454,
+                "burstiness": -0.15299601599404672,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 27,
+                "avgSentenceLength": 7.765864332603939,
+                "burstiness": -0.19180822024180105,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 28,
+                "avgSentenceLength": 7.073394495412844,
+                "burstiness": -0.1221071191567859,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 29,
+                "avgSentenceLength": 8.129032258064516,
+                "burstiness": -0.13159960969382967,
+                "paceCategory": "fast"
+              },
+              {
+                "chapter": 30,
+                "avgSentenceLength": 6.316831683168317,
+                "burstiness": -0.11115202201367745,
+                "paceCategory": "fast"
+              }
+            ]
+          },
+          "manuscriptHash": "-840d9a3"
+        },
+        "literary-quality": {
+          "key": "literary-quality",
+          "timestamp": 1768355541734,
+          "expiresAt": 1770947541734,
+          "data": {
+            "synopsis": "Sinopse não disponível.",
+            "structureScore": 3,
+            "coherenceScore": 3,
+            "charactersScore": 3,
+            "voiceScore": 3,
+            "pacingScore": 3,
+            "worldbuildingScore": 3,
+            "themeScore": 3,
+            "genreConformityScore": 3,
+            "overallScore": 3,
+            "strengths": [],
+            "improvements": []
+          },
+          "manuscriptHash": "-840d9a3"
+        },
+        "structure": {
+          "key": "structure",
+          "timestamp": 1768355541737,
+          "expiresAt": 1770947541737,
+          "data": {
+            "acts": {
+              "act1Percentage": 24,
+              "act2Percentage": 51,
+              "act3Percentage": 25,
+              "balanceScore": 5
+            },
+            "beats": [
+              {
+                "name": "Opening Image / Setup",
+                "present": true,
+                "position": 0,
+                "chapter": 1,
+                "efficacy": 3
+              },
+              {
+                "name": "Theme Stated",
+                "present": true,
+                "position": 7,
+                "chapter": 2,
+                "efficacy": 3
+              },
+              {
+                "name": "Catalyst",
+                "present": true,
+                "position": 14,
+                "chapter": 4,
+                "efficacy": 3
+              },
+              {
+                "name": "Debate",
+                "present": true,
+                "position": 21,
+                "chapter": 6,
+                "efficacy": 3
+              },
+              {
+                "name": "Break Into Two",
+                "present": true,
+                "position": 29,
+                "chapter": 8,
+                "efficacy": 3
+              },
+              {
+                "name": "B Story",
+                "present": true,
+                "position": 36,
+                "chapter": 10,
+                "efficacy": 3
+              },
+              {
+                "name": "Fun & Games",
+                "present": true,
+                "position": 43,
+                "chapter": 12,
+                "efficacy": 3
+              },
+              {
+                "name": "Midpoint",
+                "present": true,
+                "position": 50,
+                "chapter": 15,
+                "efficacy": 3
+              },
+              {
+                "name": "Bad Guys Close In",
+                "present": true,
+                "position": 57,
+                "chapter": 17,
+                "efficacy": 3
+              },
+              {
+                "name": "All Is Lost",
+                "present": true,
+                "position": 64,
+                "chapter": 19,
+                "efficacy": 3
+              },
+              {
+                "name": "Dark Night of the Soul",
+                "present": true,
+                "position": 71,
+                "chapter": 21,
+                "efficacy": 3
+              },
+              {
+                "name": "Break Into Three",
+                "present": true,
+                "position": 79,
+                "chapter": 23,
+                "efficacy": 3
+              },
+              {
+                "name": "Finale",
+                "present": true,
+                "position": 86,
+                "chapter": 25,
+                "efficacy": 3
+              },
+              {
+                "name": "Final Image",
+                "present": true,
+                "position": 93,
+                "chapter": 27,
+                "efficacy": 3
+              }
+            ],
+            "turningPoints": [
+              {
+                "name": "Inciting Incident",
+                "chapter": 1,
+                "position": 10,
+                "strength": 3
+              },
+              {
+                "name": "First Plot Point",
+                "chapter": 7,
+                "position": 25,
+                "strength": 3
+              },
+              {
+                "name": "Midpoint",
+                "chapter": 15,
+                "position": 50,
+                "strength": 3
+              },
+              {
+                "name": "Second Plot Point",
+                "chapter": 22,
+                "position": 75,
+                "strength": 3
+              },
+              {
+                "name": "Climax",
+                "chapter": 29,
+                "position": 90,
+                "strength": 3
+              }
+            ],
+            "causalityScore": 3
+          },
+          "manuscriptHash": "-840d9a3"
+        },
+        "ai-detection": {
+          "key": "ai-detection",
+          "timestamp": 1768355541967,
+          "expiresAt": 1770947541967,
+          "data": {
+            "iul": 14,
+            "classification": "authentic",
+            "artifacts": [
+              {
+                "code": "D2",
+                "category": "D",
+                "marker": "Burstiness baixa",
+                "description": "Burstiness baixa",
+                "weight": "high",
+                "instances": [
+                  {
+                    "location": "Global",
+                    "excerpt": "Burstiness: -0.190 (baixa variação)",
+                    "chapterIndex": 0
+                  }
+                ]
+              },
+              {
+                "code": "D5",
+                "category": "D",
+                "marker": "N-gramas repetitivos",
+                "description": "N-gramas repetitivos",
+                "weight": "high",
+                "instances": [
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"stared at the\" (49x)",
+                    "chapterIndex": 0
+                  },
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"like it was\" (45x)",
+                    "chapterIndex": 0
+                  },
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"like he was\" (39x)",
+                    "chapterIndex": 0
+                  },
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"the kind of\" (38x)",
+                    "chapterIndex": 0
+                  },
+                  {
+                    "location": "Multiple",
+                    "excerpt": "\"she said. “i\" (38x)",
+                    "chapterIndex": 0
+                  }
+                ]
+              }
+            ],
+            "sampleAnalysis": [
+              {
+                "sampleIndex": 0,
+                "location": "Sample 1",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 1,
+                "location": "Sample 2",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 2,
+                "location": "Sample 3",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 3,
+                "location": "Sample 4",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 4,
+                "location": "Sample 5",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 5,
+                "location": "Sample 6",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 6,
+                "location": "Sample 7",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 7,
+                "location": "Sample 8",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 8,
+                "location": "Sample 9",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              },
+              {
+                "sampleIndex": 9,
+                "location": "Sample 10",
+                "wordCount": 400,
+                "artifactsFound": [],
+                "localIul": 0
+              }
+            ]
+          },
+          "manuscriptHash": "-840d9a3"
+        }
+      }
+    }
+  }
 }

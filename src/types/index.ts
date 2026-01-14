@@ -3,13 +3,15 @@
 
 export interface SmartWriterSettings {
 	// LLM Configuration
-	llmProvider: 'ollama' | 'claude' | 'openai';
+	llmProvider: 'ollama' | 'claude' | 'openai' | 'gemini';
 	ollamaEndpoint: string;
 	ollamaModel: string;
 	claudeApiKey: string;
 	claudeModel: string;
 	openaiApiKey: string;
 	openaiModel: string;
+	geminiApiKey: string;
+	geminiModel: string;
 
 	// Analysis Configuration
 	chunkSize: number;
@@ -32,6 +34,8 @@ export const DEFAULT_SETTINGS: SmartWriterSettings = {
 	claudeModel: 'claude-sonnet-4-20250514',
 	openaiApiKey: '',
 	openaiModel: 'gpt-4o',
+	geminiApiKey: '',
+	geminiModel: 'gemini-2.0-flash',
 
 	chunkSize: 10000,
 	maxContextTokens: 100000,

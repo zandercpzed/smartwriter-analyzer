@@ -237,9 +237,10 @@ class SmartWriterSettingTab extends PluginSettingTab {
 				.addOption('ollama', 'Ollama (Local)')
 				.addOption('claude', 'Claude (Anthropic)')
 				.addOption('openai', 'OpenAI')
+				.addOption('gemini', 'Gemini (Google)')
 				.setValue(this.plugin.settings.llmProvider)
 				.onChange(async (value: string) => {
-					this.plugin.settings.llmProvider = value as 'ollama' | 'claude' | 'openai';
+					this.plugin.settings.llmProvider = value as 'ollama' | 'claude' | 'openai' | 'gemini';
 					await this.plugin.saveSettings();
 					this.display(); // Refresh to show relevant settings
 				}));
@@ -317,6 +318,32 @@ class SmartWriterSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.openaiModel)
 					.onChange(async (value) => {
 						this.plugin.settings.openaiModel = value;
+						await this.plugin.saveSettings();
+					}));
+		}
+
+		if (this.plugin.settings.llmProvider === 'gemini') {
+			new Setting(containerEl)
+				.setName('API key')
+				.setDesc('Your Google Gemini API key')
+				.addText(text => text
+					.setPlaceholder('AIz...')
+					.setValue(this.plugin.settings.geminiApiKey)
+					.onChange(async (value) => {
+						this.plugin.settings.geminiApiKey = value;
+						await this.plugin.saveSettings();
+					}));
+
+			new Setting(containerEl)
+				.setName('Model')
+				.setDesc('Gemini model to use')
+				.addDropdown(dropdown => dropdown
+					.addOption('gemini-2.0-flash', 'Gemini 2.0 Flash')
+					.addOption('gemini-1.5-pro', 'Gemini 1.5 Pro')
+					.addOption('gemini-1.5-flash', 'Gemini 1.5 Flash')
+					.setValue(this.plugin.settings.geminiModel)
+					.onChange(async (value) => {
+						this.plugin.settings.geminiModel = value;
 						await this.plugin.saveSettings();
 					}));
 		}

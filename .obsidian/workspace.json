@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_ docs/_ propmt personas/PERSONA 001 - Analista Literário Técnico - Helena Vasconcelos.md",
+                "file": "SmartWriter Reports/Target_One_v53_KDP_KU_Analysis_2026-01-14.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PERSONA 001 - Analista Literário Técnico - Helena Vasconcelos"
+              "title": "Target_One_v53_KDP_KU_Analysis_2026-01-14"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_ docs/_ propmt personas/PERSONA 001 - Analista Literário Técnico - Helena Vasconcelos.md",
+                "file": "SmartWriter Reports/Target_One_v53_KDP_KU_Analysis_2026-01-14.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of PERSONA 001 - Analista Literário Técnico - Helena Vasconcelos"
+              "title": "Outline of Target_One_v53_KDP_KU_Analysis_2026-01-14"
             }
           }
         ],
@@ -180,11 +180,21 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false
+      "bases:Create new base": false,
+      "smartwriter-analyzer:SmartWriter Analyzer": false
     }
   },
-  "active": "9f8221b94941f66e",
+  "active": "48c5daf1991f7c1a",
   "lastOpenFiles": [
+    "docs/GEMINI_SETUP.md",
+    "docs/_ test files/Target_One_v53_KDP_KU.md",
+    "SmartWriter Reports/Target_One_v53_KDP_KU_Analysis_2026-01-14.md",
+    "SmartWriter Reports",
+    "docs/_ test files/converted.md",
+    "docs/_ test files/Target_One_v53_KDP_KU.docx",
+    "docs/_ test files",
+    "docs/test files",
+    "docs/untitled folder",
     "_ docs/_ propmt personas/PERSONA_ Analista Literário Técnico.md",
     "_ docs/_ propmt personas/PERSONA 001 - Analista Literário Técnico - Helena Vasconcelos.md",
     "_ docs/_ templates/TEMPLATE - RELATÓRIO DE QUALIDADE TÉCNICA.md",

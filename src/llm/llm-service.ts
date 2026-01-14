@@ -28,6 +28,8 @@ export class LLMService {
 						return await this.completeClaude(request);
 					case 'openai':
 						return await this.completeOpenAI(request);
+					case 'gemini':
+						return await this.completeGemini(request);
 					default:
 						throw new Error(`Unknown LLM provider: ${this.settings.llmProvider}`);
 				}
@@ -178,6 +180,51 @@ export class LLMService {
 			tokensUsed: data.usage?.total_tokens || 0,
 			model: this.settings.openaiModel,
 			finishReason: data.choices[0].finish_reason || 'unknown',
+		};
+	}
+
+	private async completeGemini(request: LLMRequest): Promise<LLMResponse> {
+		const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${this.settings.geminiModel}:generateContent?key=${this.settings.geminiApiKey}`;
+
+		const body = {
+			contents: [
+				{
+					role: 'user',
+					parts: [
+						{
+							text: request.systemPrompt ? `${request.systemPrompt}\n\n${request.prompt}` : request.prompt,
+						},
+					],
+				},
+			],
+			generationConfig: {
+				maxOutputTokens: request.maxTokens || 4096,
+				temperature: request.temperature || 0.7,
+			},
+		};
+
+		const response = await requestUrl({
+			url: endpoint,
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(body),
+		});
+
+		const data = response.json;
+
+		if (data.error) {
+			throw new Error(`Gemini API error: ${data.error.message}`);
+		}
+
+		const content = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+		return {
+			content,
+			tokensUsed: data.usageMetadata?.totalTokenCount || 0,
+			model: this.settings.geminiModel,
+			finishReason: data.candidates?.[0]?.finishReason || 'unknown',
 		};
 	}
 
