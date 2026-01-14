@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "dev/corpus-ai-detection/human/published/Untitled.md",
+                "file": "dev/corpus-ai-detection/human/published/Mary Wollstonecraft Shelley - Frankenstein; Or, The Modern Prometheus.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Untitled"
+              "title": "Mary Wollstonecraft Shelley - Frankenstein; Or, The Modern Prometheus"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "dev/corpus-ai-detection/human/published/Untitled.md",
+                "file": "dev/corpus-ai-detection/human/published/Mary Wollstonecraft Shelley - Frankenstein; Or, The Modern Prometheus.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Untitled"
+              "title": "Outline of Mary Wollstonecraft Shelley - Frankenstein; Or, The Modern Prometheus"
             }
           }
         ],
@@ -186,6 +186,20 @@
   },
   "active": "175ba2ad446a2a1e",
   "lastOpenFiles": [
+    "dev/corpus-ai-detection/human/published/Isaac Asimov - The Bicentennial Man  Other Stories.md",
+    "dev/corpus-ai-detection/human/published/Arthur C. Clarke - The City and the Stars.md",
+    "dev/corpus-ai-detection/Isaac Asimov - The Bicentennial Man  Other Stories.md",
+    "dev/corpus-ai-detection/Arthur C. Clarke - The City and the Stars.md",
+    "Isaac Asimov - The Bicentennial Man  Other Stories.md",
+    "Arthur C. Clarke - The City and the Stars.md",
+    "dev/corpus-ai-detection/human/published/H. G. Wells - The War of the Worlds.md",
+    "dev/corpus-ai-detection/human/published/Mary Wollstonecraft Shelley - Frankenstein; Or, The Modern Prometheus.md",
+    "dev/corpus-ai-detection/human/published/Jules Verne - Twenty Thousand Leagues under the Sea.md",
+    "dev/corpus-ai-detection/human/technical/001.md",
+    "dev/corpus-ai-detection/human/published/Frankenstein; Or, The Modern Prometheus - Mary Wollstonecraft Shelley.md",
+    "dev/corpus-ai-detection/human/published/Arthur C. Clarke - The City and the Stars.rtf",
+    "dev/corpus-ai-detection/human/published/Frankenstein; Or, The Modern Prometheus - Mary Wollstonecraft Shelley.epub",
+    "dev/corpus-ai-detection/human/published/Isaac Asimov - The Bicentennial Man  Other Stories.rtf",
     "dev/corpus-ai-detection/AI_GENERATION_GUIDE.md",
     "dev/PHASE7_SUMMARY.md",
     "dev/COLLECTION_STATUS.md",
@@ -198,29 +212,15 @@
     "dev/corpus-ai-detection/human/technical/004.md",
     "dev/corpus-ai-detection/human/technical/003.md",
     "dev/corpus-ai-detection/human/technical/002.md",
-    "dev/corpus-ai-detection/human/technical/001.md",
     "dev/corpus-ai-detection/human/indie/005.md",
     "dev/corpus-ai-detection/human/indie/004.md",
     "dev/corpus-ai-detection/generated/meta/Meta - 002.md",
-    "dev/corpus-ai-detection/human/published/Untitled.md",
-    "dev/corpus-ai-detection/human/indie/003.md",
-    "dev/corpus-ai-detection/human/indie/002.md",
-    "dev/corpus-ai-detection/human/indie/001.md",
-    "dev/corpus-ai-detection/generated/meta/Meta - 001.md",
-    "dev/corpus-ai-detection/generated/grok/Grok - 001.md",
-    "dev/corpus-ai-detection/generated/gemini/Gemini - 004.md",
-    "dev/corpus-ai-detection/generated/gemini/Gemini - 003.md",
-    "dev/corpus-ai-detection/generated/gemini/Gemini - 002.md",
-    "dev/corpus-ai-detection/generated/gemini/Gemini - 001.md",
     "dev/corpus-ai-detection/generated/grok",
     "dev/corpus-ai-detection/generated/chatgpt",
     "dev/corpus-ai-detection/generated/gemini",
     "dev/corpus-ai-detection/human/technical",
     "dev/corpus-ai-detection/human/published",
     "dev/corpus-ai-detection/human/indie",
-    "dev/corpus-ai-detection/human/diverse",
-    "dev/corpus-ai-detection/generated/meta",
-    "dev/corpus-ai-detection/generated/chatgpt-4",
-    "dev/corpus-ai-detection/generated/claude"
+    "dev/corpus-ai-detection/human/diverse"
   ]
 }
