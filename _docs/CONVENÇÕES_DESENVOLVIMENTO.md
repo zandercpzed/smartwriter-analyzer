@@ -335,7 +335,7 @@ git push origin main --tags
 ```
 
 ### Changelog Entry
-- Adicionar em `docs/CHANGELOG.md` (quando criado)
+- Adicionar em `_docs/CHANGELOG.md` (quando criado)
 - Formato: `## [X.Y.Z] - YYYY-MM-DD`
 - Agrupar por: Added, Changed, Fixed, Deprecated, Removed
 

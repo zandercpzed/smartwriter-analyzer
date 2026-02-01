@@ -16,6 +16,6 @@
 
 ## Links Úteis
 
-- [Planejamento de Desenvolvimento](../docs/PLANEJAMENTO_DESENVOLVIMENTO.md)
-- [Convenções de Desenvolvimento](../docs/CONVENÇÕES_DESENVOLVIMENTO.md)
-- [Status Final](../docs/STATUS_FINAL.md)
+- [Planejamento de Desenvolvimento](../_docs/PLANEJAMENTO_DESENVOLVIMENTO.md)
+- [Convenções de Desenvolvimento](../_docs/CONVENÇÕES_DESENVOLVIMENTO.md)
+- [Status Final](../_docs/STATUS_FINAL.md)

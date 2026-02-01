@@ -153,9 +153,9 @@ open -a Obsidian
 
 ## Links Úteis
 
-- [README Principal](../README.md)
-- [Setup de Ambiente](../docs/SETUP_AMBIENTE.md)
-- [Guia de Uso](../README.md#usage)
+- [README Principal](README.md)
+- [Setup de Ambiente](SETUP_AMBIENTE.md)
+- [Guia de Uso](README.md#usage)
 - [Documentação Obsidian](https://docs.obsidian.md/Plugins/Overview)
 
 ---

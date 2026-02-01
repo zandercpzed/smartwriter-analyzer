@@ -193,7 +193,7 @@ echo -e "${GREEN}✓ Pushed commits and tags${NC}"
 # Try creating GitHub release automatically (if gh is installed)
 if command -v gh >/dev/null 2>&1; then
     echo "Creating GitHub release via gh..."
-    gh release create "$TAG_NAME" ./main.js ./manifest.json ./styles.css --title "SmartWriter Analyzer $VERSION" --notes "See CHANGELOG.md for details" && echo -e "${GREEN}✓ GitHub release created${NC}"
+    gh release create "$TAG_NAME" ./main.js ./manifest.json ./styles.css --title "SmartWriter Analyzer $VERSION" --notes "See _docs/CHANGELOG.md for details" && echo -e "${GREEN}✓ GitHub release created${NC}"
 else
     echo -e "${YELLOW}gh CLI not found; skipping automatic GitHub release creation. Install 'gh' to enable automatic release creation.${NC}"
 fi

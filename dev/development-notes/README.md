@@ -20,5 +20,5 @@ Exemplo:
 
 ## Referências
 
-- [Planejamento Fase 1](../../docs/PLANEJAMENTO_DESENVOLVIMENTO.md#fase-1-estabilização--refinamento-mvp--v10)
-- [Checklist de Publicação](../../docs/CHECKLIST_PUBLICACAO.md)
+- [Planejamento Fase 1](../../_docs/PLANEJAMENTO_DESENVOLVIMENTO.md#fase-1-estabilização--refinamento-mvp--v10)
+- [Checklist de Publicação](../../_docs/CHECKLIST_PUBLICACAO.md)

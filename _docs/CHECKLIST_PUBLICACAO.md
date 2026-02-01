@@ -104,7 +104,7 @@ git push origin v1.0.0
 ```bash
 gh release create v1.0.0 \
   --title "SmartWriter Analyzer 1.0.0" \
-  --notes "See CHANGELOG.md for details" \
+  --notes "See _docs/CHANGELOG.md for details" \
   ./main.js ./manifest.json ./styles.css
 ```
 
