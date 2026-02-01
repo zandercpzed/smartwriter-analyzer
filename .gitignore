@@ -1,8 +1,7 @@
 # Folders to ignore at the project root
-_ BKPs/
-_docs/
-_ skills/
-_ tests/
+_BKPs/
+_skills/
+_tests/
 
 # System and editor files
 .DS_Store

@@ -25,6 +25,7 @@ e este projeto segue [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 - Fixed TypeScript type assertions in dropdown handlers
 - Improved JSON parsing with safe type guards
+- Reverted accidental release version bump to `0.1.1` and removed remote tag/release `v0.1.1` (cleanup) — 2026-02-01
 
 ### Fixed
 - Resolved TypeScript compilation errors
@@ -227,4 +228,4 @@ Thanks to all contributors and beta testers! 🙏
 
 ---
 
-**Last Updated**: 2026-01-13
+**Last Updated**: 2026-02-01
