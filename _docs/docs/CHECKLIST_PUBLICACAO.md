@@ -33,7 +33,7 @@ Use este checklist quando estiver pronto para publicar a versão 1.0.0 no reposi
 
 ### Licença & Legais
 - [ ] LICENSE file presente (MIT)
-- [ ] LICENSE está no root do repositório
+- [ ] LICENSE está presente em `_docs/LICENSE` (moved to `_docs/`)
 - [ ] Compatível com Obsidian (MIT ✓)
 - [ ] Termos de uso são claros
 

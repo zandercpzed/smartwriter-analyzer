@@ -28,8 +28,8 @@ VERSION=$1
 MANIFEST="manifest.json"
 MAIN_JS="main.js"
 STYLES_CSS="styles.css"
-README="README.md"
-LICENSE="LICENSE"
+README="_docs/README.md"
+LICENSE="_docs/LICENSE"
 
 # Validate version format (semver: x.y.z)
 if ! [[ $VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
@@ -180,20 +180,28 @@ echo ""
 echo -e "${YELLOW}Step 7: Ready for Release${NC}"
 echo ""
 
-echo "Next steps:"
+echo "Pushing commits and tags to remote..."
+
+echo "Pushing main branch..."
+git push origin main
+
+echo "Pushing tag $TAG_NAME..."
+git push origin "$TAG_NAME"
+
+echo -e "${GREEN}✓ Pushed commits and tags${NC}"
+
+# Try creating GitHub release automatically (if gh is installed)
+if command -v gh >/dev/null 2>&1; then
+    echo "Creating GitHub release via gh..."
+    gh release create "$TAG_NAME" ./main.js ./manifest.json ./styles.css --title "SmartWriter Analyzer $VERSION" --notes "See CHANGELOG.md for details" && echo -e "${GREEN}✓ GitHub release created${NC}"
+else
+    echo -e "${YELLOW}gh CLI not found; skipping automatic GitHub release creation. Install 'gh' to enable automatic release creation.${NC}"
+fi
+
 echo ""
-echo "1. Push commits and tags:"
-echo -e "   ${BLUE}git push origin main${NC}"
-echo -e "   ${BLUE}git push origin $TAG_NAME${NC}"
+echo "Next steps (optional):"
+echo "  - Submit to Obsidian (when ready):"
+echo -e "     ${BLUE}https://github.com/obsidianmd/obsidian-releases/edit/master/community-plugins.json${NC}"
 echo ""
-echo "2. Create GitHub release:"
-echo -e "   ${BLUE}gh release create $TAG_NAME \\${NC}"
-echo -e "   ${BLUE}  --title \"SmartWriter Analyzer $VERSION\" \\${NC}"
-echo -e "   ${BLUE}  --notes \"See CHANGELOG.md for details\" \\${NC}"
-echo -e "   ${BLUE}  ./main.js ./manifest.json ./styles.css${NC}"
-echo ""
-echo "3. Submit to Obsidian (when ready):"
-echo -e "   ${BLUE}https://github.com/obsidianmd/obsidian-releases/edit/master/community-plugins.json${NC}"
-echo ""
-echo -e "${GREEN}✓ Release $VERSION prepared successfully!${NC}"
+echo -e "${GREEN}✓ Release $VERSION completed successfully!${NC}"
 echo ""

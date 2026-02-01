@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SmartWriter Analyzer
 
 AI-powered literary analysis co-pilot for Obsidian. Analyzes readability, cadence, coherence, and literary quality of large manuscripts (50,000-500,000 words).
@@ -137,3 +138,10 @@ MIT License - see [LICENSE](LICENSE)
 ---
 
 Developed by [Z Edições](https://github.com/zedicoes)
+=======
+# smartwriter-analyzer
+
+Repositório para o projeto SmartWriter Analyzer.
+
+Este repositório foi inicialmente conectado ao GitHub via GitHub Copilot.
+>>>>>>> f884eb7 (chore: initial commit)

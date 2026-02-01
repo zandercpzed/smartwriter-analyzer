@@ -7,15 +7,8 @@ _ tests/
 # System and editor files
 .DS_Store
 .vscode/
-.idea/
 *.iml
-
-# Python & environment
-.env
-.venv/
-venv/
-__pycache__/
-*.pyc
+.idea/
 
 # Obsidian configuration
 .obsidian/

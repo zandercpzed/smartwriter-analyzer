@@ -1,0 +1,11 @@
+#!/bin/bash
+# pre-push hook: runs build and blocks push on failure
+
+echo "Running pre-push build check..."
+if npm run build > /dev/null 2>&1; then
+  echo "Build passed. Proceeding with push."
+  exit 0
+else
+  echo "\033[0;31mBuild failed. Push aborted. Run 'npm run build' and fix errors before pushing.\033[0m"
+  exit 1
+fi

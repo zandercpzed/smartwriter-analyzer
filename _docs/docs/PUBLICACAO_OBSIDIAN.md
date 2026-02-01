@@ -380,14 +380,14 @@ Execute este checklist antes de submeter:
 npm run build
 
 # ✅ Files necessários existem
-ls manifest.json main.js styles.css README.md LICENSE
+ls manifest.json main.js styles.css "_docs/README.md" "_docs/LICENSE"
 
 # ✅ Verificar manifest.json
 cat manifest.json | jq .version  # Deve ser x.y.z
 cat manifest.json | jq .id       # Sem "obsidian"
 
 # ✅ README tem instruções claras
-head -50 README.md
+head -50 "_docs/README.md"
 
 # ✅ Repository é público
 curl -s https://api.github.com/repos/zandercpzed/smartwriter-analyzer | jq .private
