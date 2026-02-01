@@ -2,6 +2,8 @@
 _BKPs/
 _skills/
 _tests/
+.backups/
+
 
 # System and editor files
 .DS_Store

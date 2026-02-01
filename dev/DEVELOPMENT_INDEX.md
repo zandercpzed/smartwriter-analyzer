@@ -178,11 +178,11 @@ Status geral do desenvolvimento e rastreamento de tarefas.
 
 Leia estes arquivos para entender o projeto:
 
-1. [PROMPT_DESCRITIVO.md](../_docs/PROMPT_DESCRITIVO.md) — Visão geral do projeto
+1. [PROMPT_DESCRITIVO.md](../_docs/legacy/PROMPT_DESCRITIVO.md) — Visão geral do projeto
 2. [STATUS_ATUAL.md](../_docs/STATUS_ATUAL.md) — Status consolidado v0.2.0
 3. [O_QUE_FALTA.md](../_docs/O_QUE_FALTA.md) — Priorização detalhada do que fazer
 4. [PLANEJAMENTO_DESENVOLVIMENTO.md](../_docs/PLANEJAMENTO_DESENVOLVIMENTO.md) — 6 fases de roadmap
-5. [GEMINI_SETUP.md](../_docs/GEMINI_SETUP.md) — Como configurar Gemini
+5. [GEMINI_SETUP.md](../_docs/legacy/GEMINI_SETUP.md) — Como configurar Gemini
 6. [SETUP_AMBIENTE.md](../_docs/SETUP_AMBIENTE.md) — Setup ambiente local
 7. [CHECKLIST_PUBLICACAO.md](../_docs/CHECKLIST_PUBLICACAO.md) — 100+ itens para v1.0
 

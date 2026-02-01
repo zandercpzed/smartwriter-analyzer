@@ -221,7 +221,7 @@ var CacheManager = class {
       return [];
     }
     const now = Date.now();
-    return Object.entries(cache.entries).filter(([_, entry]) => now <= entry.expiresAt && entry.manuscriptHash === contentHash).map(([type, _]) => type);
+    return Object.entries(cache.entries).filter(([, entry]) => now <= entry.expiresAt && entry.manuscriptHash === contentHash).map(([type]) => type);
   }
 };
 
@@ -675,8 +675,6 @@ var ChunkManager = class {
    */
   chunkManuscript(content, chapters) {
     const chunkSize = this.settings.chunkSize;
-    const chunks = [];
-    const chapterBoundaries = [];
     if (this.canUseChapterBoundaries(chapters, chunkSize)) {
       return this.chunkByChapters(chapters, chunkSize);
     }
@@ -1646,7 +1644,7 @@ Seja objetivo e espec\xEDfico. N\xE3o fa\xE7a julgamentos morais.`;
       const ngram = words.slice(i, i + n).join(" ");
       ngrams.set(ngram, (ngrams.get(ngram) || 0) + 1);
     }
-    return Array.from(ngrams.entries()).filter(([_, count]) => count > 3).map(([ngram, count]) => ({ ngram, count })).sort((a, b) => b.count - a.count);
+    return Array.from(ngrams.entries()).filter(([, count]) => count > 3).map(([ngram, count]) => ({ ngram, count })).sort((a, b) => b.count - a.count);
   }
 };
 
@@ -1753,9 +1751,6 @@ var HelenaVasconcelosPersona = class {
    */
   async analyzeStructure(content, structure, onProgress) {
     onProgress == null ? void 0 : onProgress("Identifying narrative beats...");
-    const act1Content = this.getContentPortion(structure.chapters, 0, 0.25);
-    const act2Content = this.getContentPortion(structure.chapters, 0.25, 0.75);
-    const act3Content = this.getContentPortion(structure.chapters, 0.75, 1);
     const beats = await this.identifyBeats(content, structure);
     const turningPoints = await this.identifyTurningPoints(content, structure);
     const totalWords = structure.totalWords;
@@ -2069,7 +2064,7 @@ Responda em JSON:
       { name: "Climax", chapter: structure.chapters.length - 1, position: 90, strength: 3 }
     ];
   }
-  async analyzeCausality(content, structure) {
+  async analyzeCausality(_content, _structure) {
     return 3;
   }
   async getScoreFromLLM(prompt) {
@@ -2453,7 +2448,7 @@ var ReportGenerator = class {
   generate(report) {
     const sections = [];
     sections.push(this.generateHeader(report));
-    sections.push(this.generateExecutiveSummary(report.executiveSummary, report.metadata));
+    sections.push(this.generateExecutiveSummary(report.executiveSummary));
     if (report.readability) {
       sections.push(this.generateReadabilitySection(report.readability));
     }
@@ -2487,7 +2482,7 @@ persona: ${report.metadata.persona}
 **Cap\xEDtulos:** ${report.metadata.chapterCount}
 **Data da An\xE1lise:** ${new Date(report.metadata.analysisDate).toLocaleDateString("pt-BR")}`;
   }
-  generateExecutiveSummary(summary, metadata) {
+  generateExecutiveSummary(summary) {
     const recommendationLabels = {
       "structural-revision": "\u{1F534} Revis\xE3o Estrutural",
       "developmental-editing": "\u{1F7E0} Edi\xE7\xE3o de Desenvolvimento",

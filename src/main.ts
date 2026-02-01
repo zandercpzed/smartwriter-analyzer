@@ -1,10 +1,8 @@
 // src/main.ts
 // SmartWriter Analyzer - Main Plugin Entry Point
 
-import { App, Plugin, PluginSettingTab, Setting, Notice, TFile, Modal, MarkdownView } from 'obsidian';
+import { App, Plugin, PluginSettingTab, Setting, Notice, TFile } from 'obsidian';
 import { SmartWriterSettings, DEFAULT_SETTINGS, ReportType, AnalysisProgress } from './types';
-import { ManuscriptParser } from './parsers/manuscript-parser';
-import { ChunkManager } from './core/chunk-manager';
 import { CacheManager } from './core/cache-manager';
 import { LLMService } from './llm/llm-service';
 import { AnalysisOrchestrator } from './core/analysis-orchestrator';

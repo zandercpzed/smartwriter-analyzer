@@ -36,7 +36,7 @@ SmartWriter Analyzer now supports **Google Gemini** as an LLM provider alongside
 
 ### New Files
 
-- **docs/GEMINI_SETUP.md**
+- **_docs/legacy/GEMINI_SETUP.md**
   - Complete setup guide for obtaining and configuring Gemini API key
   - Model comparison table
   - Troubleshooting section

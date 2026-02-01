@@ -493,7 +493,7 @@ Seja objetivo e específico. Não faça julgamentos morais.`;
 		}
 
 		return Array.from(ngrams.entries())
-			.filter(([_, count]) => count > 3)
+			.filter(([, count]) => count > 3)
 			.map(([ngram, count]) => ({ ngram, count }))
 			.sort((a, b) => b.count - a.count);
 	}

@@ -26,7 +26,7 @@ export class ReportGenerator {
 		sections.push(this.generateHeader(report));
 
 		// Executive Summary (always first)
-		sections.push(this.generateExecutiveSummary(report.executiveSummary, report.metadata));
+		sections.push(this.generateExecutiveSummary(report.executiveSummary));
 
 		// Readability
 		if (report.readability) {
@@ -75,7 +75,7 @@ persona: ${report.metadata.persona}
 **Data da Análise:** ${new Date(report.metadata.analysisDate).toLocaleDateString('pt-BR')}`;
 	}
 
-	private generateExecutiveSummary(summary: ExecutiveSummary, metadata: FullReport['metadata']): string {
+	private generateExecutiveSummary(summary: ExecutiveSummary): string {
 		const recommendationLabels: Record<ExecutiveSummary['recommendation'], string> = {
 			'structural-revision': '🔴 Revisão Estrutural',
 			'developmental-editing': '🟠 Edição de Desenvolvimento',

@@ -21,8 +21,6 @@ export class ChunkManager {
 	 */
 	chunkManuscript(content: string, chapters: Chapter[]): ChunkingResult {
 		const chunkSize = this.settings.chunkSize;
-		const chunks: Chunk[] = [];
-		const chapterBoundaries: number[] = [];
 
 		// If chapters are small enough, use them as natural boundaries
 		if (this.canUseChapterBoundaries(chapters, chunkSize)) {

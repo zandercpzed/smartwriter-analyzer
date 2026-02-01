@@ -2,7 +2,7 @@
 // Manages caching of analysis results
 
 import { Plugin } from 'obsidian';
-import { CacheEntry, AnalysisCache } from '../types';
+import { AnalysisCache } from '../types';
 
 const CACHE_KEY = 'smartwriter-cache';
 
@@ -211,7 +211,7 @@ export class CacheManager {
 
 		const now = Date.now();
 		return Object.entries(cache.entries)
-			.filter(([_, entry]) => now <= entry.expiresAt && entry.manuscriptHash === contentHash)
-			.map(([type, _]) => type);
+			.filter(([, entry]) => now <= entry.expiresAt && entry.manuscriptHash === contentHash)
+			.map(([type]) => type);
 	}
 }

@@ -7,7 +7,6 @@ import {
 	StructureAnalysis,
 	PrioritizedImprovement,
 	BeatAnalysis,
-	CharacterAnalysis,
 } from '../types';
 import { LLMService } from '../llm/llm-service';
 import { ManuscriptStructure, Chapter } from '../parsers/manuscript-parser';
@@ -142,12 +141,6 @@ export class HelenaVasconcelosPersona {
 	): Promise<StructureAnalysis> {
 		onProgress?.('Identifying narrative beats...');
 
-		// Get first ~20% of content for Act 1 analysis
-		const act1Content = this.getContentPortion(structure.chapters, 0, 0.25);
-		// Get middle ~50% for Act 2
-		const act2Content = this.getContentPortion(structure.chapters, 0.25, 0.75);
-		// Get final ~25% for Act 3
-		const act3Content = this.getContentPortion(structure.chapters, 0.75, 1);
 
 		const beats = await this.identifyBeats(content, structure);
 		const turningPoints = await this.identifyTurningPoints(content, structure);
@@ -507,7 +500,10 @@ Responda em JSON:
 		];
 	}
 
-	private async analyzeCausality(content: string, structure: ManuscriptStructure): Promise<number> {
+	private async analyzeCausality(_content: string, _structure: ManuscriptStructure): Promise<number> {
+		// Parameters currently unused; keep references to satisfy linter
+		void _content;
+		void _structure;
 		// Simplified causality analysis
 		return 3;
 	}

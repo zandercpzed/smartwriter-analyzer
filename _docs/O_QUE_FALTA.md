@@ -115,7 +115,7 @@ SmartWriter Analyzer tem as funcionalidades **base implementadas** (análises, L
 ---
 
 ### 5. Documentação Completa
-**Status**: ✅ Parcial (existe PROMPT_DESCRITIVO.md, SETUP_AMBIENTE.md, GEMINI_SETUP.md)
+**Status**: ✅ Parcial (existe legacy/PROMPT_DESCRITIVO.md, SETUP_AMBIENTE.md, legacy/GEMINI_SETUP.md)
 
 **O que falta**:
 - [ ] **README.md expansão**:

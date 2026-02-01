@@ -2,7 +2,7 @@
 // Unified LLM Service supporting Ollama, Claude, and OpenAI
 
 import { SmartWriterSettings, LLMRequest, LLMResponse } from '../types';
-import { requestUrl, RequestUrlParam } from 'obsidian';
+import { requestUrl } from 'obsidian';
 
 export class LLMService {
 	private settings: SmartWriterSettings;
