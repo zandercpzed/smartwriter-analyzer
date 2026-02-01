@@ -33,12 +33,12 @@
 ## Documentação Criada
 
 ### Planejamento & Estratégia
-1. **[PROMPT_DESCRITIVO.md](docs/PROMPT_DESCRITIVO.md)** — Visão completa do projeto
-2. **[PLANEJAMENTO_DESENVOLVIMENTO.md](docs/PLANEJAMENTO_DESENVOLVIMENTO.md)** — 6 fases com roadmap detalhado
+1. **[PROMPT_DESCRITIVO.md](legacy/PROMPT_DESCRITIVO.md)** — Visão completa do projeto
+2. **[PLANEJAMENTO_DESENVOLVIMENTO.md](PLANEJAMENTO_DESENVOLVIMENTO.md)** — 6 fases com roadmap detalhado
 
 ### Desenvolvimento
-3. **[SETUP_AMBIENTE.md](docs/SETUP_AMBIENTE.md)** — Setup local e troubleshooting
-4. **[CONVENÇÕES_DESENVOLVIMENTO.md](docs/CONVENÇÕES_DESENVOLVIMENTO.md)** — Git workflow e padrões
+3. **[SETUP_AMBIENTE.md](SETUP_AMBIENTE.md)** — Setup local e troubleshooting
+4. **[CONVENÇÕES_DESENVOLVIMENTO.md](CONVENÇÕES_DESENVOLVIMENTO.md)** — Git workflow e padrões
 
 ### Existente
 5. **README.md** — Guia de uso e features
@@ -160,10 +160,10 @@ smartwriter-analyzer/
 ## Recursos Úteis
 
 ### Documentação Interna
-- [PROMPT_DESCRITIVO.md](docs/PROMPT_DESCRITIVO.md) — Entender o projeto
-- [PLANEJAMENTO_DESENVOLVIMENTO.md](docs/PLANEJAMENTO_DESENVOLVIMENTO.md) — Roadmap completo
-- [SETUP_AMBIENTE.md](docs/SETUP_AMBIENTE.md) — Setup local
-- [CONVENÇÕES_DESENVOLVIMENTO.md](docs/CONVENÇÕES_DESENVOLVIMENTO.md) — Padrões de código
+- [PROMPT_DESCRITIVO.md](legacy/PROMPT_DESCRITIVO.md) — Entender o projeto
+- [PLANEJAMENTO_DESENVOLVIMENTO.md](PLANEJAMENTO_DESENVOLVIMENTO.md) — Roadmap completo
+- [SETUP_AMBIENTE.md](SETUP_AMBIENTE.md) — Setup local
+- [CONVENÇÕES_DESENVOLVIMENTO.md](CONVENÇÕES_DESENVOLVIMENTO.md) — Padrões de código
 
 ### Documentação Externa
 - [Obsidian Plugin Docs](https://docs.obsidian.md/Plugins/Overview)
