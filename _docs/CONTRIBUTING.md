@@ -35,6 +35,7 @@ Há um workflow (`.github/workflows/branch-protection.yml`) que aplica proteçã
 ## CI
 
 - Workflow `CI` executa em push/PR contra `main` e roda `lint`, `build` e `test` com cobertura; o relatório de cobertura é enviado como artifact.
+- Cobertura é automaticamente enviada ao Codecov (se o secret `CODECOV_TOKEN` estiver configurado). Para repositórios públicos o upload pode ocorrer sem token; para repositórios privados, adicione `CODECOV_TOKEN` nas configurações de Secrets → Actions.
 
 ## Etiqueta de PR
 

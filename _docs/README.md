@@ -2,6 +2,8 @@
 # SmartWriter Analyzer
 
 [![CI](https://github.com/zandercpzed/smartwriter-analyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/zandercpzed/smartwriter-analyzer/actions/workflows/ci.yml)
+[![Release Drafter](https://github.com/zandercpzed/smartwriter-analyzer/actions/workflows/release-drafter.yml/badge.svg)](https://github.com/zandercpzed/smartwriter-analyzer/actions/workflows/release-drafter.yml)
+[![codecov](https://codecov.io/gh/zandercpzed/smartwriter-analyzer/branch/main/graph/badge.svg)](https://codecov.io/gh/zandercpzed/smartwriter-analyzer)
 
 AI-powered literary analysis co-pilot for Obsidian. Analyzes readability, cadence, coherence, and literary quality of large manuscripts (50,000-500,000 words).
 
