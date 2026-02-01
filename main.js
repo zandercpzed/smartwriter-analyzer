@@ -251,11 +251,12 @@ var LLMService = class {
           default:
             throw new Error(`Unknown LLM provider: ${this.settings.llmProvider}`);
         }
-      } catch (error) {
-        lastError = error;
-        console.warn(`LLM request attempt ${i + 1} failed:`, error);
-        if (this.isNonRetriableError(error)) {
-          throw error;
+      } catch (err) {
+        const errObj = err instanceof Error ? err : new Error(String(err));
+        lastError = errObj;
+        console.warn(`LLM request attempt ${i + 1} failed:`, errObj);
+        if (this.isNonRetriableError(err)) {
+          throw errObj;
         }
         if (i < maxRetries - 1) {
           const delay = Math.pow(2, i) * 1e3;
@@ -266,7 +267,13 @@ var LLMService = class {
     throw lastError || new Error("LLM request failed after retries");
   }
   isNonRetriableError(error) {
-    if (error.status) {
+    const hasNumericStatus = (obj) => {
+      if (typeof obj !== "object" || obj === null)
+        return false;
+      const status = obj["status"];
+      return typeof status === "number";
+    };
+    if (hasNumericStatus(error)) {
       const status = error.status;
       return status >= 400 && status < 500 && status !== 429;
     }
@@ -2330,9 +2337,10 @@ var AnalysisOrchestrator = class {
     if (!report.metadata.errors) {
       report.metadata.errors = [];
     }
+    const message = error instanceof Error ? error.message : String(error);
     report.metadata.errors.push({
       type,
-      message: error.message || String(error),
+      message,
       timestamp: (/* @__PURE__ */ new Date()).toISOString()
     });
   }

@@ -1,66 +1,66 @@
 // src/reports/report-generator.ts
 // Generates Markdown reports from analysis results
 
-import { 
-	SmartWriterSettings, 
-	FullReport, 
-	ReadabilityMetrics,
-	CadenceMetrics,
-	AIDetectionResult,
-	StructureAnalysis,
-	LiteraryQualityReport,
-	ExecutiveSummary,
+import {
+  SmartWriterSettings,
+  FullReport,
+  ReadabilityMetrics,
+  CadenceMetrics,
+  AIDetectionResult,
+  StructureAnalysis,
+  LiteraryQualityReport,
+  ExecutiveSummary,
 } from '../types';
 
 export class ReportGenerator {
-	private settings: SmartWriterSettings;
+  private settings: SmartWriterSettings;
 
-	constructor(settings: SmartWriterSettings) {
-		this.settings = settings;
-	}
+  constructor(settings: SmartWriterSettings) {
+    this.settings = settings;
+  }
 
-	generate(report: FullReport): string {
-		const sections: string[] = [];
+  generate(report: FullReport): string {
+    const sections: string[] = [];
 
-		// Header
-		sections.push(this.generateHeader(report));
+    // Header
+    sections.push(this.generateHeader(report));
 
-		// Executive Summary (always first)
-		sections.push(this.generateExecutiveSummary(report.executiveSummary));
+    // Executive Summary (always first)
+    sections.push(this.generateExecutiveSummary(report.executiveSummary));
 
-		// Readability
-		if (report.readability) {
-			sections.push(this.generateReadabilitySection(report.readability));
-		}
+    // Readability
+    if (report.readability) {
+      sections.push(this.generateReadabilitySection(report.readability));
+    }
 
-		// Cadence
-		if (report.cadence) {
-			sections.push(this.generateCadenceSection(report.cadence));
-		}
+    // Cadence
+    if (report.cadence) {
+      sections.push(this.generateCadenceSection(report.cadence));
+    }
 
-		// AI Detection
-		if (report.aiDetection) {
-			sections.push(this.generateAIDetectionSection(report.aiDetection));
-		}
+    // AI Detection
+    if (report.aiDetection) {
+      sections.push(this.generateAIDetectionSection(report.aiDetection));
+    }
 
-		// Structure
-		if (report.structure) {
-			sections.push(this.generateStructureSection(report.structure));
-		}
+    // Structure
+    if (report.structure) {
+      sections.push(this.generateStructureSection(report.structure));
+    }
 
-		// Literary Quality
-		if (report.literaryQuality) {
-			sections.push(this.generateLiteraryQualitySection(report.literaryQuality));
-		}
+    // Literary Quality
+    if (report.literaryQuality) {
+      sections.push(this.generateLiteraryQualitySection(report.literaryQuality));
+    }
 
-		// Footer
-		sections.push(this.generateFooter(report));
+    // Footer
+    sections.push(this.generateFooter(report));
 
-		return sections.join('\n\n---\n\n');
-	}
+    return sections.join('\n\n---\n\n');
+  }
 
-	private generateHeader(report: FullReport): string {
-		return `---
+  private generateHeader(report: FullReport): string {
+    return `---
 title: "Análise: ${report.metadata.manuscriptTitle}"
 date: ${report.metadata.analysisDate}
 plugin: SmartWriter Analyzer v${report.metadata.version}
@@ -73,18 +73,18 @@ persona: ${report.metadata.persona}
 **Palavras:** ${report.metadata.wordCount.toLocaleString()}
 **Capítulos:** ${report.metadata.chapterCount}
 **Data da Análise:** ${new Date(report.metadata.analysisDate).toLocaleDateString('pt-BR')}`;
-	}
+  }
 
-	private generateExecutiveSummary(summary: ExecutiveSummary): string {
-		const recommendationLabels: Record<ExecutiveSummary['recommendation'], string> = {
-			'structural-revision': '🔴 Revisão Estrutural',
-			'developmental-editing': '🟠 Edição de Desenvolvimento',
-			'line-editing': '🟡 Edição de Linha',
-			'copyediting': '🟢 Copyediting',
-			'ready-for-submission': '✅ Pronto para Submissão',
-		};
+  private generateExecutiveSummary(summary: ExecutiveSummary): string {
+    const recommendationLabels: Record<ExecutiveSummary['recommendation'], string> = {
+      'structural-revision': '🔴 Revisão Estrutural',
+      'developmental-editing': '🟠 Edição de Desenvolvimento',
+      'line-editing': '🟡 Edição de Linha',
+      copyediting: '🟢 Copyediting',
+      'ready-for-submission': '✅ Pronto para Submissão',
+    };
 
-		let content = `## 📋 Sumário Executivo
+    let content = `## 📋 Sumário Executivo
 
 ### Recomendação
 ${recommendationLabels[summary.recommendation]}
@@ -94,61 +94,61 @@ ${recommendationLabels[summary.recommendation]}
 |----------|-------|
 `;
 
-		for (const [key, value] of Object.entries(summary.scores)) {
-			const label = this.formatScoreLabel(key);
-			const stars = this.getStars(value);
-			content += `| ${label} | ${stars} (${value}/5) |\n`;
-		}
+    for (const [key, value] of Object.entries(summary.scores)) {
+      const label = this.formatScoreLabel(key);
+      const stars = this.getStars(value);
+      content += `| ${label} | ${stars} (${value}/5) |\n`;
+    }
 
-		if (summary.strengths.length > 0) {
-			content += `\n### ✅ Pontos Fortes\n`;
-			for (const strength of summary.strengths) {
-				content += `- ${strength}\n`;
-			}
-		}
+    if (summary.strengths.length > 0) {
+      content += `\n### ✅ Pontos Fortes\n`;
+      for (const strength of summary.strengths) {
+        content += `- ${strength}\n`;
+      }
+    }
 
-		if (summary.improvements.length > 0) {
-			content += `\n### 🔧 Áreas de Melhoria\n`;
+    if (summary.improvements.length > 0) {
+      content += `\n### 🔧 Áreas de Melhoria\n`;
 
-			const byPriority = {
-				high: summary.improvements.filter(i => i.priority === 'high'),
-				medium: summary.improvements.filter(i => i.priority === 'medium'),
-				low: summary.improvements.filter(i => i.priority === 'low'),
-			};
+      const byPriority = {
+        high: summary.improvements.filter((i) => i.priority === 'high'),
+        medium: summary.improvements.filter((i) => i.priority === 'medium'),
+        low: summary.improvements.filter((i) => i.priority === 'low'),
+      };
 
-			if (byPriority.high.length > 0) {
-				content += `\n#### 🔴 Alta Prioridade\n`;
-				for (const imp of byPriority.high) {
-					content += `- **${imp.area}**: ${imp.description}\n  - *Sugestão:* ${imp.suggestion}\n`;
-				}
-			}
+      if (byPriority.high.length > 0) {
+        content += `\n#### 🔴 Alta Prioridade\n`;
+        for (const imp of byPriority.high) {
+          content += `- **${imp.area}**: ${imp.description}\n  - *Sugestão:* ${imp.suggestion}\n`;
+        }
+      }
 
-			if (byPriority.medium.length > 0) {
-				content += `\n#### 🟡 Média Prioridade\n`;
-				for (const imp of byPriority.medium) {
-					content += `- **${imp.area}**: ${imp.description}\n  - *Sugestão:* ${imp.suggestion}\n`;
-				}
-			}
+      if (byPriority.medium.length > 0) {
+        content += `\n#### 🟡 Média Prioridade\n`;
+        for (const imp of byPriority.medium) {
+          content += `- **${imp.area}**: ${imp.description}\n  - *Sugestão:* ${imp.suggestion}\n`;
+        }
+      }
 
-			if (byPriority.low.length > 0) {
-				content += `\n#### 🟢 Baixa Prioridade\n`;
-				for (const imp of byPriority.low) {
-					content += `- **${imp.area}**: ${imp.description}\n  - *Sugestão:* ${imp.suggestion}\n`;
-				}
-			}
-		}
+      if (byPriority.low.length > 0) {
+        content += `\n#### 🟢 Baixa Prioridade\n`;
+        for (const imp of byPriority.low) {
+          content += `- **${imp.area}**: ${imp.description}\n  - *Sugestão:* ${imp.suggestion}\n`;
+        }
+      }
+    }
 
-		if (summary.notes) {
-			content += `\n> ${summary.notes}`;
-		}
+    if (summary.notes) {
+      content += `\n> ${summary.notes}`;
+    }
 
-		return content;
-	}
+    return content;
+  }
 
-	private generateReadabilitySection(metrics: ReadabilityMetrics): string {
-		const interpretation = this.interpretReadability(metrics.fleschKincaid);
+  private generateReadabilitySection(metrics: ReadabilityMetrics): string {
+    const interpretation = this.interpretReadability(metrics.fleschKincaid);
 
-		return `## 📖 Legibilidade
+    return `## 📖 Legibilidade
 
 ### Métricas
 
@@ -170,22 +170,24 @@ ${recommendationLabels[summary.recommendation]}
 
 ### Análise
 ${interpretation.audience}. ${interpretation.suggestion}`;
-	}
+  }
 
-	private generateCadenceSection(metrics: CadenceMetrics): string {
-		const rhythmLabels = {
-			uniform: '⚠️ Uniforme (monótono)',
-			varied: '✅ Variado (natural)',
-			chaotic: '⚠️ Caótico (irregular)',
-		};
+  private generateCadenceSection(metrics: CadenceMetrics): string {
+    const rhythmLabels = {
+      uniform: '⚠️ Uniforme (monótono)',
+      varied: '✅ Variado (natural)',
+      chaotic: '⚠️ Caótico (irregular)',
+    };
 
-		let content = `## 🎵 Cadência e Ritmo
+    let content = `## 🎵 Cadência e Ritmo
 
 ### Métricas Globais
 
 | Métrica | Valor | Avaliação |
 |---------|-------|-----------|
-| Burstiness | ${(metrics.burstiness * 100).toFixed(1)}% | ${metrics.burstiness > 0.2 ? '✅ Bom' : '⚠️ Baixo'} |
+| Burstiness | ${(metrics.burstiness * 100).toFixed(1)}% | ${
+      metrics.burstiness > 0.2 ? '✅ Bom' : '⚠️ Baixo'
+    } |
 | Variância de Frases | ${metrics.sentenceLengthVariance.toFixed(1)} | — |
 | Variância de Parágrafos | ${metrics.paragraphLengthVariance.toFixed(1)} | — |
 | Padrão Rítmico | — | ${rhythmLabels[metrics.rhythmPattern]} |
@@ -196,29 +198,31 @@ ${interpretation.audience}. ${interpretation.suggestion}`;
 |----------|---------------------|------------|-------|
 `;
 
-		for (const chapter of metrics.pacingByChapter.slice(0, 20)) {
-			const paceEmoji = chapter.paceCategory === 'fast' ? '🏃' : 
-				chapter.paceCategory === 'slow' ? '🐢' : '🚶';
-			content += `| Cap. ${chapter.chapter} | ${chapter.avgSentenceLength.toFixed(1)} | ${(chapter.burstiness * 100).toFixed(0)}% | ${paceEmoji} ${chapter.paceCategory} |\n`;
-		}
+    for (const chapter of metrics.pacingByChapter.slice(0, 20)) {
+      const paceEmoji =
+        chapter.paceCategory === 'fast' ? '🏃' : chapter.paceCategory === 'slow' ? '🐢' : '🚶';
+      content += `| Cap. ${chapter.chapter} | ${chapter.avgSentenceLength.toFixed(1)} | ${(
+        chapter.burstiness * 100
+      ).toFixed(0)}% | ${paceEmoji} ${chapter.paceCategory} |\n`;
+    }
 
-		if (metrics.pacingByChapter.length > 20) {
-			content += `\n*... e mais ${metrics.pacingByChapter.length - 20} capítulos*`;
-		}
+    if (metrics.pacingByChapter.length > 20) {
+      content += `\n*... e mais ${metrics.pacingByChapter.length - 20} capítulos*`;
+    }
 
-		return content;
-	}
+    return content;
+  }
 
-	private generateAIDetectionSection(result: AIDetectionResult): string {
-		const classificationLabels = {
-			'authentic': '✅ Autêntico',
-			'assisted': '🔵 Assistido por IA',
-			'hybrid': '🟡 Híbrido',
-			'predominantly-ai': '🟠 Predominantemente IA',
-			'ai-generated': '🔴 Gerado por IA',
-		};
+  private generateAIDetectionSection(result: AIDetectionResult): string {
+    const classificationLabels = {
+      authentic: '✅ Autêntico',
+      assisted: '🔵 Assistido por IA',
+      hybrid: '🟡 Híbrido',
+      'predominantly-ai': '🟠 Predominantemente IA',
+      'ai-generated': '🔴 Gerado por IA',
+    };
 
-		let content = `## 🤖 Análise de Autenticidade (DETECT-AI)
+    let content = `## 🤖 Análise de Autenticidade (DETECT-AI)
 
 ### Índice de Uso de LLM (IUL)
 
@@ -243,45 +247,58 @@ Classificação: ${classificationLabels[result.classification]}
 
 `;
 
-		if (result.artifacts.length > 0) {
-			content += `### Artefatos Detectados
+    if (result.artifacts.length > 0) {
+      content += `### Artefatos Detectados
 
 | Código | Categoria | Marcador | Peso | Instâncias |
 |--------|-----------|----------|------|------------|
 `;
-			for (const artifact of result.artifacts) {
-				const weightEmoji = artifact.weight === 'high' ? '🔴' : 
-					artifact.weight === 'medium' ? '🟡' : '🟢';
-				content += `| ${artifact.code} | ${artifact.category} | ${artifact.marker} | ${weightEmoji} | ${artifact.instances.length} |\n`;
-			}
-		}
+      for (const artifact of result.artifacts) {
+        const weightEmoji =
+          artifact.weight === 'high' ? '🔴' : artifact.weight === 'medium' ? '🟡' : '🟢';
+        content += `| ${artifact.code} | ${artifact.category} | ${artifact.marker} | ${weightEmoji} | ${artifact.instances.length} |\n`;
+      }
+    }
 
-		if (result.sampleAnalysis.length > 0) {
-			content += `\n### Análise por Amostra
+    if (result.sampleAnalysis.length > 0) {
+      content += `\n### Análise por Amostra
 
 | Amostra | Localização | Palavras | IUL Local | Artefatos |
 |---------|-------------|----------|-----------|-----------|
 `;
-			for (const sample of result.sampleAnalysis) {
-				content += `| ${sample.sampleIndex + 1} | ${sample.location} | ${sample.wordCount} | ${sample.localIul}% | ${sample.artifactsFound.join(', ') || '—'} |\n`;
-			}
-		}
+      for (const sample of result.sampleAnalysis) {
+        content += `| ${sample.sampleIndex + 1} | ${sample.location} | ${sample.wordCount} | ${
+          sample.localIul
+        }% | ${sample.artifactsFound.join(', ') || '—'} |\n`;
+      }
+    }
 
-		return content;
-	}
+    return content;
+  }
 
-	private generateStructureSection(structure: StructureAnalysis): string {
-		let content = `## 🏗️ Estrutura Narrativa
+  private generateStructureSection(structure: StructureAnalysis): string {
+    let content = `## 🏗️ Estrutura Narrativa
 
 ### Proporção dos Atos
 
 | Ato | Proporção | Ideal | Status |
 |-----|-----------|-------|--------|
-| Ato 1 (Setup) | ${structure.acts.act1Percentage}% | 25% | ${this.getProportionStatus(structure.acts.act1Percentage, 25)} |
-| Ato 2 (Confronto) | ${structure.acts.act2Percentage}% | 50% | ${this.getProportionStatus(structure.acts.act2Percentage, 50)} |
-| Ato 3 (Resolução) | ${structure.acts.act3Percentage}% | 25% | ${this.getProportionStatus(structure.acts.act3Percentage, 25)} |
+| Ato 1 (Setup) | ${structure.acts.act1Percentage}% | 25% | ${this.getProportionStatus(
+      structure.acts.act1Percentage,
+      25,
+    )} |
+| Ato 2 (Confronto) | ${structure.acts.act2Percentage}% | 50% | ${this.getProportionStatus(
+      structure.acts.act2Percentage,
+      50,
+    )} |
+| Ato 3 (Resolução) | ${structure.acts.act3Percentage}% | 25% | ${this.getProportionStatus(
+      structure.acts.act3Percentage,
+      25,
+    )} |
 
-**Score de Balanceamento:** ${this.getStars(structure.acts.balanceScore)} (${structure.acts.balanceScore}/5)
+**Score de Balanceamento:** ${this.getStars(structure.acts.balanceScore)} (${
+      structure.acts.balanceScore
+    }/5)
 
 ### Save the Cat Beats
 
@@ -289,31 +306,35 @@ Classificação: ${classificationLabels[result.classification]}
 |------|----------|---------|----------|----------|
 `;
 
-		for (const beat of structure.beats) {
-			const presentEmoji = beat.present ? '✅' : '❌';
-			content += `| ${beat.name} | ${presentEmoji} | ${beat.position}% | Cap. ${beat.chapter} | ${this.getStars(beat.efficacy)} |\n`;
-		}
+    for (const beat of structure.beats) {
+      const presentEmoji = beat.present ? '✅' : '❌';
+      content += `| ${beat.name} | ${presentEmoji} | ${beat.position}% | Cap. ${
+        beat.chapter
+      } | ${this.getStars(beat.efficacy)} |\n`;
+    }
 
-		content += `\n### Turning Points
+    content += `\n### Turning Points
 
 | Ponto | Capítulo | Posição | Força |
 |-------|----------|---------|-------|
 `;
 
-		for (const tp of structure.turningPoints) {
-			content += `| ${tp.name} | Cap. ${tp.chapter} | ${tp.position}% | ${this.getStars(tp.strength)} |\n`;
-		}
+    for (const tp of structure.turningPoints) {
+      content += `| ${tp.name} | Cap. ${tp.chapter} | ${tp.position}% | ${this.getStars(
+        tp.strength,
+      )} |\n`;
+    }
 
-		content += `\n### Causalidade
+    content += `\n### Causalidade
 **Score:** ${this.getStars(structure.causalityScore)} (${structure.causalityScore}/5)
 
 > A causalidade mede o quão bem os eventos da história seguem uma lógica de causa e efeito.`;
 
-		return content;
-	}
+    return content;
+  }
 
-	private generateLiteraryQualitySection(quality: LiteraryQualityReport): string {
-		let content = `## 📚 Qualidade Literária
+  private generateLiteraryQualitySection(quality: LiteraryQualityReport): string {
+    let content = `## 📚 Qualidade Literária
 
 > *Análise realizada pela persona Helena Vasconcelos*
 
@@ -332,130 +353,140 @@ ${quality.synopsis}
 | Pacing | ${this.getStars(quality.pacingScore)} | ${quality.pacingScore}/5 |
 | Worldbuilding | ${this.getStars(quality.worldbuildingScore)} | ${quality.worldbuildingScore}/5 |
 | Tema | ${this.getStars(quality.themeScore)} | ${quality.themeScore}/5 |
-| Conformidade de Gênero | ${this.getStars(quality.genreConformityScore)} | ${quality.genreConformityScore}/5 |
+| Conformidade de Gênero | ${this.getStars(quality.genreConformityScore)} | ${
+      quality.genreConformityScore
+    }/5 |
 | **OVERALL** | **${this.getStars(quality.overallScore)}** | **${quality.overallScore}/5** |
 
 `;
 
-		if (quality.strengths.length > 0) {
-			content += `### Pontos Fortes Identificados\n`;
-			for (const strength of quality.strengths) {
-				content += `- ${strength}\n`;
-			}
-		}
+    if (quality.strengths.length > 0) {
+      content += `### Pontos Fortes Identificados\n`;
+      for (const strength of quality.strengths) {
+        content += `- ${strength}\n`;
+      }
+    }
 
-		if (quality.improvements.length > 0) {
-			content += `\n### Recomendações de Melhoria\n`;
-			for (const imp of quality.improvements) {
-				const priorityEmoji = imp.priority === 'high' ? '🔴' : 
-					imp.priority === 'medium' ? '🟡' : '🟢';
-				content += `\n#### ${priorityEmoji} ${imp.area}\n`;
-				content += `${imp.description}\n\n`;
-				content += `> **Sugestão:** ${imp.suggestion}\n`;
-			}
-		}
+    if (quality.improvements.length > 0) {
+      content += `\n### Recomendações de Melhoria\n`;
+      for (const imp of quality.improvements) {
+        const priorityEmoji =
+          imp.priority === 'high' ? '🔴' : imp.priority === 'medium' ? '🟡' : '🟢';
+        content += `\n#### ${priorityEmoji} ${imp.area}\n`;
+        content += `${imp.description}\n\n`;
+        content += `> **Sugestão:** ${imp.suggestion}\n`;
+      }
+    }
 
-		return content;
-	}
+    return content;
+  }
 
-	private generateFooter(report: FullReport): string {
-		return `## 📝 Notas
+  private generateFooter(report: FullReport): string {
+    return `## 📝 Notas
 
 Este relatório foi gerado automaticamente pelo **SmartWriter Analyzer** v${report.metadata.version}.
 
-- **Persona:** ${report.metadata.persona === 'helena-vasconcelos' ? 'Helena Vasconcelos (Analista Literária Técnica)' : 'Análise Computacional'}
+- **Persona:** ${
+      report.metadata.persona === 'helena-vasconcelos'
+        ? 'Helena Vasconcelos (Analista Literária Técnica)'
+        : 'Análise Computacional'
+    }
 - **Metodologia:** Combinação de análise computacional e assistência de LLM
 - **Limitações:** Este relatório é uma ferramenta de apoio à edição e não substitui a avaliação humana qualificada.
 
 ---
 
 *Gerado em ${new Date(report.metadata.analysisDate).toLocaleString('pt-BR')}*`;
-	}
+  }
 
-	// Helper methods
+  // Helper methods
 
-	private getStars(score: number): string {
-		const fullStars = Math.floor(score);
-		const hasHalf = score - fullStars >= 0.5;
-		let stars = '★'.repeat(fullStars);
-		if (hasHalf) stars += '½';
-		stars += '☆'.repeat(5 - Math.ceil(score));
-		return stars;
-	}
+  private getStars(score: number): string {
+    const fullStars = Math.floor(score);
+    const hasHalf = score - fullStars >= 0.5;
+    let stars = '★'.repeat(fullStars);
+    if (hasHalf) stars += '½';
+    stars += '☆'.repeat(5 - Math.ceil(score));
+    return stars;
+  }
 
-	private formatScoreLabel(key: string): string {
-		const labels: Record<string, string> = {
-			readability: 'Legibilidade',
-			cadence: 'Cadência',
-			authenticity: 'Autenticidade',
-			structure: 'Estrutura',
-			coherence: 'Coerência',
-			characters: 'Personagens',
-			voice: 'Voz/Estilo',
-			pacing: 'Pacing',
-			worldbuilding: 'Worldbuilding',
-			theme: 'Tema',
-		};
-		return labels[key] || key;
-	}
+  private formatScoreLabel(key: string): string {
+    const labels: Record<string, string> = {
+      readability: 'Legibilidade',
+      cadence: 'Cadência',
+      authenticity: 'Autenticidade',
+      structure: 'Estrutura',
+      coherence: 'Coerência',
+      characters: 'Personagens',
+      voice: 'Voz/Estilo',
+      pacing: 'Pacing',
+      worldbuilding: 'Worldbuilding',
+      theme: 'Tema',
+    };
+    return labels[key] || key;
+  }
 
-	private interpretReadability(fk: number): { level: string; audience: string; suggestion: string } {
-		if (fk <= 6) {
-			return {
-				level: 'Muito Fácil',
-				audience: 'Apropriado para leitores jovens ou iniciantes',
-				suggestion: 'O texto é muito acessível.',
-			};
-		} else if (fk <= 8) {
-			return {
-				level: 'Fácil',
-				audience: 'Bom para público geral e ficção comercial',
-				suggestion: 'Nível ideal para ficção de massa.',
-			};
-		} else if (fk <= 10) {
-			return {
-				level: 'Moderado',
-				audience: 'Adequado para ficção adulta e não-ficção acessível',
-				suggestion: 'Equilíbrio entre acessibilidade e profundidade.',
-			};
-		} else if (fk <= 12) {
-			return {
-				level: 'Moderadamente Difícil',
-				audience: 'Apropriado para ficção literária',
-				suggestion: 'Considere se o público-alvo comporta esta complexidade.',
-			};
-		} else if (fk <= 14) {
-			return {
-				level: 'Difícil',
-				audience: 'Nível universitário',
-				suggestion: 'Pode ser complexo demais para públicos amplos.',
-			};
-		} else {
-			return {
-				level: 'Muito Difícil',
-				audience: 'Nível acadêmico/especializado',
-				suggestion: 'Simplificação recomendada para públicos gerais.',
-			};
-		}
-	}
+  private interpretReadability(fk: number): {
+    level: string;
+    audience: string;
+    suggestion: string;
+  } {
+    if (fk <= 6) {
+      return {
+        level: 'Muito Fácil',
+        audience: 'Apropriado para leitores jovens ou iniciantes',
+        suggestion: 'O texto é muito acessível.',
+      };
+    } else if (fk <= 8) {
+      return {
+        level: 'Fácil',
+        audience: 'Bom para público geral e ficção comercial',
+        suggestion: 'Nível ideal para ficção de massa.',
+      };
+    } else if (fk <= 10) {
+      return {
+        level: 'Moderado',
+        audience: 'Adequado para ficção adulta e não-ficção acessível',
+        suggestion: 'Equilíbrio entre acessibilidade e profundidade.',
+      };
+    } else if (fk <= 12) {
+      return {
+        level: 'Moderadamente Difícil',
+        audience: 'Apropriado para ficção literária',
+        suggestion: 'Considere se o público-alvo comporta esta complexidade.',
+      };
+    } else if (fk <= 14) {
+      return {
+        level: 'Difícil',
+        audience: 'Nível universitário',
+        suggestion: 'Pode ser complexo demais para públicos amplos.',
+      };
+    } else {
+      return {
+        level: 'Muito Difícil',
+        audience: 'Nível acadêmico/especializado',
+        suggestion: 'Simplificação recomendada para públicos gerais.',
+      };
+    }
+  }
 
-	private interpretFog(fog: number): string {
-		if (fog <= 8) return 'Fácil';
-		if (fog <= 10) return 'Médio';
-		if (fog <= 12) return 'Difícil';
-		return 'Muito Difícil';
-	}
+  private interpretFog(fog: number): string {
+    if (fog <= 8) return 'Fácil';
+    if (fog <= 10) return 'Médio';
+    if (fog <= 12) return 'Difícil';
+    return 'Muito Difícil';
+  }
 
-	private generateIULBar(iul: number): string {
-		const totalWidth = 40;
-		const filled = Math.round((iul / 100) * totalWidth);
-		return '█'.repeat(filled) + '░'.repeat(totalWidth - filled);
-	}
+  private generateIULBar(iul: number): string {
+    const totalWidth = 40;
+    const filled = Math.round((iul / 100) * totalWidth);
+    return '█'.repeat(filled) + '░'.repeat(totalWidth - filled);
+  }
 
-	private getProportionStatus(actual: number, ideal: number): string {
-		const diff = Math.abs(actual - ideal);
-		if (diff <= 5) return '✅';
-		if (diff <= 10) return '⚠️';
-		return '❌';
-	}
+  private getProportionStatus(actual: number, ideal: number): string {
+    const diff = Math.abs(actual - ideal);
+    if (diff <= 5) return '✅';
+    if (diff <= 10) return '⚠️';
+    return '❌';
+  }
 }

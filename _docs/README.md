@@ -1,7 +1,11 @@
 <<<<<<< HEAD
 # SmartWriter Analyzer
 
+[![CI](https://github.com/zandercpzed/smartwriter-analyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/zandercpzed/smartwriter-analyzer/actions/workflows/ci.yml)
+
 AI-powered literary analysis co-pilot for Obsidian. Analyzes readability, cadence, coherence, and literary quality of large manuscripts (50,000-500,000 words).
+
+> See `_docs/CONTRIBUTING.md` for repository guidelines, branch protection instructions, and release process.
 
 ## Features
 

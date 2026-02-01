@@ -5,277 +5,277 @@ import { SmartWriterSettings, LLMRequest, LLMResponse } from '../types';
 import { requestUrl } from 'obsidian';
 
 export class LLMService {
-	private settings: SmartWriterSettings;
+  private settings: SmartWriterSettings;
 
-	constructor(settings: SmartWriterSettings) {
-		this.settings = settings;
-	}
+  constructor(settings: SmartWriterSettings) {
+    this.settings = settings;
+  }
 
-	updateSettings(settings: SmartWriterSettings) {
-		this.settings = settings;
-	}
+  updateSettings(settings: SmartWriterSettings) {
+    this.settings = settings;
+  }
 
-	async complete(request: LLMRequest): Promise<LLMResponse> {
-		const maxRetries = 3;
-		let lastError: Error | null = null;
+  async complete(request: LLMRequest): Promise<LLMResponse> {
+    const maxRetries = 3;
+    let lastError: Error | null = null;
 
-		for (let i = 0; i < maxRetries; i++) {
-			try {
-				switch (this.settings.llmProvider) {
-					case 'ollama':
-						return await this.completeOllama(request);
-					case 'claude':
-						return await this.completeClaude(request);
-					case 'openai':
-						return await this.completeOpenAI(request);
-					case 'gemini':
-						return await this.completeGemini(request);
-					default:
-						throw new Error(`Unknown LLM provider: ${this.settings.llmProvider}`);
-				}
-			} catch (err: unknown) {
-				const errObj = err instanceof Error ? err : new Error(String(err));
-				lastError = errObj;
-				console.warn(`LLM request attempt ${i + 1} failed:`, errObj);
-				
-				// Don't retry on certain errors (e.g. 401 Unauthorized)
-				if (this.isNonRetriableError(err)) {
-					throw errObj;
-				}
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        switch (this.settings.llmProvider) {
+          case 'ollama':
+            return await this.completeOllama(request);
+          case 'claude':
+            return await this.completeClaude(request);
+          case 'openai':
+            return await this.completeOpenAI(request);
+          case 'gemini':
+            return await this.completeGemini(request);
+          default:
+            throw new Error(`Unknown LLM provider: ${this.settings.llmProvider}`);
+        }
+      } catch (err: unknown) {
+        const errObj = err instanceof Error ? err : new Error(String(err));
+        lastError = errObj;
+        console.warn(`LLM request attempt ${i + 1} failed:`, errObj);
 
-				if (i < maxRetries - 1) {
-					// Wait with exponential backoff
-					const delay = Math.pow(2, i) * 1000;
-					await new Promise(resolve => setTimeout(resolve, delay));
-				}
-			}
-		}
+        // Don't retry on certain errors (e.g. 401 Unauthorized)
+        if (this.isNonRetriableError(err)) {
+          throw errObj;
+        }
 
-		throw lastError || new Error('LLM request failed after retries');
-	}
+        if (i < maxRetries - 1) {
+          // Wait with exponential backoff
+          const delay = Math.pow(2, i) * 1000;
+          await new Promise((resolve) => setTimeout(resolve, delay));
+        }
+      }
+    }
 
-	private isNonRetriableError(error: unknown): boolean {
-		// If it's an obsidian requestUrl error, check status
-		const hasNumericStatus = (obj: unknown): obj is { status: number } => {
-			if (typeof obj !== 'object' || obj === null) return false;
-			const status = (obj as { [k: string]: unknown })['status'];
-			return typeof status === 'number';
-		};
+    throw lastError || new Error('LLM request failed after retries');
+  }
 
-		if (hasNumericStatus(error)) {
-			const status = error.status;
-			// 400 Bad Request, 401 Unauthorized, 403 Forbidden are typically not retriable
-			return status >= 400 && status < 500 && status !== 429;
-		}
-		return false;
-	} 
+  private isNonRetriableError(error: unknown): boolean {
+    // If it's an obsidian requestUrl error, check status
+    const hasNumericStatus = (obj: unknown): obj is { status: number } => {
+      if (typeof obj !== 'object' || obj === null) return false;
+      const status = (obj as { [k: string]: unknown })['status'];
+      return typeof status === 'number';
+    };
 
-	async testConnection(): Promise<boolean> {
-		try {
-			const response = await this.complete({
-				prompt: 'Say "OK" if you can read this.',
-				maxTokens: 10,
-			});
-			return response.content.toLowerCase().includes('ok');
-		} catch (error) {
-			console.error('LLM connection test failed:', error);
-			return false;
-		}
-	}
+    if (hasNumericStatus(error)) {
+      const status = error.status;
+      // 400 Bad Request, 401 Unauthorized, 403 Forbidden are typically not retriable
+      return status >= 400 && status < 500 && status !== 429;
+    }
+    return false;
+  }
 
-	private async completeOllama(request: LLMRequest): Promise<LLMResponse> {
-		const endpoint = `${this.settings.ollamaEndpoint}/api/generate`;
+  async testConnection(): Promise<boolean> {
+    try {
+      const response = await this.complete({
+        prompt: 'Say "OK" if you can read this.',
+        maxTokens: 10,
+      });
+      return response.content.toLowerCase().includes('ok');
+    } catch (error) {
+      console.error('LLM connection test failed:', error);
+      return false;
+    }
+  }
 
-		const body = {
-			model: this.settings.ollamaModel,
-			prompt: request.prompt,
-			system: request.systemPrompt || '',
-			stream: false,
-			options: {
-				num_predict: request.maxTokens || 4096,
-				temperature: request.temperature || 0.7,
-			},
-		};
+  private async completeOllama(request: LLMRequest): Promise<LLMResponse> {
+    const endpoint = `${this.settings.ollamaEndpoint}/api/generate`;
 
-		const response = await requestUrl({
-			url: endpoint,
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(body),
-		});
+    const body = {
+      model: this.settings.ollamaModel,
+      prompt: request.prompt,
+      system: request.systemPrompt || '',
+      stream: false,
+      options: {
+        num_predict: request.maxTokens || 4096,
+        temperature: request.temperature || 0.7,
+      },
+    };
 
-		const data = response.json;
+    const response = await requestUrl({
+      url: endpoint,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
 
-		return {
-			content: data.response,
-			tokensUsed: data.eval_count || 0,
-			model: this.settings.ollamaModel,
-			finishReason: data.done ? 'stop' : 'unknown',
-		};
-	}
+    const data = response.json;
 
-	private async completeClaude(request: LLMRequest): Promise<LLMResponse> {
-		const endpoint = 'https://api.anthropic.com/v1/messages';
+    return {
+      content: data.response,
+      tokensUsed: data.eval_count || 0,
+      model: this.settings.ollamaModel,
+      finishReason: data.done ? 'stop' : 'unknown',
+    };
+  }
 
-		const messages = [
-			{ role: 'user', content: request.prompt }
-		];
+  private async completeClaude(request: LLMRequest): Promise<LLMResponse> {
+    const endpoint = 'https://api.anthropic.com/v1/messages';
 
-		const body: Record<string, unknown> = {
-			model: this.settings.claudeModel,
-			max_tokens: request.maxTokens || 4096,
-			messages,
-		};
+    const messages = [{ role: 'user', content: request.prompt }];
 
-		if (request.systemPrompt) {
-			body.system = request.systemPrompt;
-		}
+    const body: Record<string, unknown> = {
+      model: this.settings.claudeModel,
+      max_tokens: request.maxTokens || 4096,
+      messages,
+    };
 
-		const response = await requestUrl({
-			url: endpoint,
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'x-api-key': this.settings.claudeApiKey,
-				'anthropic-version': '2023-06-01',
-			},
-			body: JSON.stringify(body),
-		});
+    if (request.systemPrompt) {
+      body.system = request.systemPrompt;
+    }
 
-		const data = response.json;
+    const response = await requestUrl({
+      url: endpoint,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': this.settings.claudeApiKey,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify(body),
+    });
 
-		return {
-			content: data.content[0].text,
-			tokensUsed: data.usage?.input_tokens + data.usage?.output_tokens || 0,
-			model: this.settings.claudeModel,
-			finishReason: data.stop_reason || 'unknown',
-		};
-	}
+    const data = response.json;
 
-	private async completeOpenAI(request: LLMRequest): Promise<LLMResponse> {
-		const endpoint = 'https://api.openai.com/v1/chat/completions';
+    return {
+      content: data.content[0].text,
+      tokensUsed: data.usage?.input_tokens + data.usage?.output_tokens || 0,
+      model: this.settings.claudeModel,
+      finishReason: data.stop_reason || 'unknown',
+    };
+  }
 
-		const messages: Array<{ role: string; content: string }> = [];
+  private async completeOpenAI(request: LLMRequest): Promise<LLMResponse> {
+    const endpoint = 'https://api.openai.com/v1/chat/completions';
 
-		if (request.systemPrompt) {
-			messages.push({ role: 'system', content: request.systemPrompt });
-		}
+    const messages: Array<{ role: string; content: string }> = [];
 
-		messages.push({ role: 'user', content: request.prompt });
+    if (request.systemPrompt) {
+      messages.push({ role: 'system', content: request.systemPrompt });
+    }
 
-		const body = {
-			model: this.settings.openaiModel,
-			messages,
-			max_tokens: request.maxTokens || 4096,
-			temperature: request.temperature || 0.7,
-		};
+    messages.push({ role: 'user', content: request.prompt });
 
-		const response = await requestUrl({
-			url: endpoint,
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${this.settings.openaiApiKey}`,
-			},
-			body: JSON.stringify(body),
-		});
+    const body = {
+      model: this.settings.openaiModel,
+      messages,
+      max_tokens: request.maxTokens || 4096,
+      temperature: request.temperature || 0.7,
+    };
 
-		const data = response.json;
+    const response = await requestUrl({
+      url: endpoint,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.settings.openaiApiKey}`,
+      },
+      body: JSON.stringify(body),
+    });
 
-		return {
-			content: data.choices[0].message.content,
-			tokensUsed: data.usage?.total_tokens || 0,
-			model: this.settings.openaiModel,
-			finishReason: data.choices[0].finish_reason || 'unknown',
-		};
-	}
+    const data = response.json;
 
-	private async completeGemini(request: LLMRequest): Promise<LLMResponse> {
-		const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${this.settings.geminiModel}:generateContent?key=${this.settings.geminiApiKey}`;
+    return {
+      content: data.choices[0].message.content,
+      tokensUsed: data.usage?.total_tokens || 0,
+      model: this.settings.openaiModel,
+      finishReason: data.choices[0].finish_reason || 'unknown',
+    };
+  }
 
-		const body = {
-			contents: [
-				{
-					role: 'user',
-					parts: [
-						{
-							text: request.systemPrompt ? `${request.systemPrompt}\n\n${request.prompt}` : request.prompt,
-						},
-					],
-				},
-			],
-			generationConfig: {
-				maxOutputTokens: request.maxTokens || 4096,
-				temperature: request.temperature || 0.7,
-			},
-		};
+  private async completeGemini(request: LLMRequest): Promise<LLMResponse> {
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${this.settings.geminiModel}:generateContent?key=${this.settings.geminiApiKey}`;
 
-		const response = await requestUrl({
-			url: endpoint,
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(body),
-		});
+    const body = {
+      contents: [
+        {
+          role: 'user',
+          parts: [
+            {
+              text: request.systemPrompt
+                ? `${request.systemPrompt}\n\n${request.prompt}`
+                : request.prompt,
+            },
+          ],
+        },
+      ],
+      generationConfig: {
+        maxOutputTokens: request.maxTokens || 4096,
+        temperature: request.temperature || 0.7,
+      },
+    };
 
-		const data = response.json;
+    const response = await requestUrl({
+      url: endpoint,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
 
-		if (data.error) {
-			throw new Error(`Gemini API error: ${data.error.message}`);
-		}
+    const data = response.json;
 
-		const content = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    if (data.error) {
+      throw new Error(`Gemini API error: ${data.error.message}`);
+    }
 
-		return {
-			content,
-			tokensUsed: data.usageMetadata?.totalTokenCount || 0,
-			model: this.settings.geminiModel,
-			finishReason: data.candidates?.[0]?.finishReason || 'unknown',
-		};
-	}
+    const content = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-	// Batch processing for large manuscripts
-	async completeBatch(
-		requests: LLMRequest[],
-		concurrency: number = 3,
-		onProgress?: (completed: number, total: number) => void
-	): Promise<LLMResponse[]> {
-		const results: LLMResponse[] = [];
-		const queue = [...requests];
-		let completed = 0;
+    return {
+      content,
+      tokensUsed: data.usageMetadata?.totalTokenCount || 0,
+      model: this.settings.geminiModel,
+      finishReason: data.candidates?.[0]?.finishReason || 'unknown',
+    };
+  }
 
-		const processNext = async (): Promise<void> => {
-			while (queue.length > 0) {
-				const request = queue.shift();
-				if (!request) break;
+  // Batch processing for large manuscripts
+  async completeBatch(
+    requests: LLMRequest[],
+    concurrency: number = 3,
+    onProgress?: (completed: number, total: number) => void,
+  ): Promise<LLMResponse[]> {
+    const results: LLMResponse[] = [];
+    const queue = [...requests];
+    let completed = 0;
 
-				try {
-					const result = await this.complete(request);
-					results.push(result);
-					completed++;
-					onProgress?.(completed, requests.length);
-				} catch (error) {
-					console.error('Batch request failed:', error);
-					results.push({
-						content: '',
-						tokensUsed: 0,
-						model: '',
-						finishReason: 'error',
-					});
-					completed++;
-					onProgress?.(completed, requests.length);
-				}
-			}
-		};
+    const processNext = async (): Promise<void> => {
+      while (queue.length > 0) {
+        const request = queue.shift();
+        if (!request) break;
 
-		// Run with concurrency limit
-		const workers = Array(Math.min(concurrency, requests.length))
-			.fill(null)
-			.map(() => processNext());
+        try {
+          const result = await this.complete(request);
+          results.push(result);
+          completed++;
+          onProgress?.(completed, requests.length);
+        } catch (error) {
+          console.error('Batch request failed:', error);
+          results.push({
+            content: '',
+            tokensUsed: 0,
+            model: '',
+            finishReason: 'error',
+          });
+          completed++;
+          onProgress?.(completed, requests.length);
+        }
+      }
+    };
 
-		await Promise.all(workers);
+    // Run with concurrency limit
+    const workers = Array(Math.min(concurrency, requests.length))
+      .fill(null)
+      .map(() => processNext());
 
-		return results;
-	}
+    await Promise.all(workers);
+
+    return results;
+  }
 }

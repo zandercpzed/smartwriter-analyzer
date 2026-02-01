@@ -1,0 +1,8 @@
+node_modules
+.husky
+.git
+dist
+build
+.backups
+coverage
+package-lock.json
