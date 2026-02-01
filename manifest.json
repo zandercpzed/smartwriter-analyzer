@@ -1,7 +1,7 @@
 {
 	"id": "smartwriter-analyzer",
 	"name": "SmartWriter Analyzer",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"minAppVersion": "1.4.0",
 	"description": "AI-powered literary analysis co-pilot. Analyzes readability, cadence, coherence, and literary quality of large manuscripts (50k-500k words).",
 	"author": "Z Edições",
