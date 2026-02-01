@@ -56,8 +56,14 @@ export class LLMService {
 
 	private isNonRetriableError(error: unknown): boolean {
 		// If it's an obsidian requestUrl error, check status
-		if (typeof error === 'object' && error !== null && 'status' in error) {
-			const status = (error as any).status as number;
+		const hasNumericStatus = (obj: unknown): obj is { status: number } => {
+			if (typeof obj !== 'object' || obj === null) return false;
+			const status = (obj as { [k: string]: unknown })['status'];
+			return typeof status === 'number';
+		};
+
+		if (hasNumericStatus(error)) {
+			const status = error.status;
 			// 400 Bad Request, 401 Unauthorized, 403 Forbidden are typically not retriable
 			return status >= 400 && status < 500 && status !== 429;
 		}
