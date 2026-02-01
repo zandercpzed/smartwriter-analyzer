@@ -219,7 +219,16 @@ Responda em JSON:
 				temperature: 0.3,
 			});
 
-			const result = this.parseJSON(response.content) as any;
+			type CoherenceResult = {
+				score?: number;
+				timelineIssues?: string[];
+				characterInconsistencies?: string[];
+				plotHoles?: string[];
+				unresolvedElements?: string[];
+				worldbuildingIssues?: string[];
+			};
+
+			const result = this.parseJSON(response.content) as CoherenceResult;
 			const issues: string[] = [
 				...(Array.isArray(result?.timelineIssues) ? result.timelineIssues : []),
 				...(Array.isArray(result?.characterInconsistencies) ? result.characterInconsistencies : []),
@@ -227,7 +236,6 @@ Responda em JSON:
 				...(Array.isArray(result?.unresolvedElements) ? result.unresolvedElements : []),
 				...(Array.isArray(result?.worldbuildingIssues) ? result.worldbuildingIssues : []),
 			];
-
 			return {
 				score: typeof result?.score === 'number' ? result.score : 3,
 				issues,
@@ -449,7 +457,17 @@ Responda em JSON:
 				temperature: 0.4,
 			});
 
-			const result = this.parseJSON(response.content) as any;
+			type StrengthsResult = {
+				strengths?: string[];
+				improvements?: Array<{
+					priority: 'high' | 'medium' | 'low';
+					area: string;
+					description: string;
+					suggestion: string;
+				}>;
+			};
+
+			const result = this.parseJSON(response.content) as StrengthsResult;
 			return {
 				strengths: Array.isArray(result?.strengths) ? result.strengths : [],
 				improvements: Array.isArray(result?.improvements) ? result.improvements : [],

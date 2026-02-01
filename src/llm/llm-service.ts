@@ -33,13 +33,14 @@ export class LLMService {
 					default:
 						throw new Error(`Unknown LLM provider: ${this.settings.llmProvider}`);
 				}
-			} catch (error) {
-				lastError = error;
-				console.warn(`LLM request attempt ${i + 1} failed:`, error);
+			} catch (err: unknown) {
+				const errObj = err instanceof Error ? err : new Error(String(err));
+				lastError = errObj;
+				console.warn(`LLM request attempt ${i + 1} failed:`, errObj);
 				
 				// Don't retry on certain errors (e.g. 401 Unauthorized)
-				if (this.isNonRetriableError(error)) {
-					throw error;
+				if (this.isNonRetriableError(err)) {
+					throw errObj;
 				}
 
 				if (i < maxRetries - 1) {
@@ -53,15 +54,15 @@ export class LLMService {
 		throw lastError || new Error('LLM request failed after retries');
 	}
 
-	private isNonRetriableError(error: any): boolean {
+	private isNonRetriableError(error: unknown): boolean {
 		// If it's an obsidian requestUrl error, check status
-		if (error.status) {
-			const status = error.status;
+		if (typeof error === 'object' && error !== null && 'status' in error) {
+			const status = (error as any).status as number;
 			// 400 Bad Request, 401 Unauthorized, 403 Forbidden are typically not retriable
 			return status >= 400 && status < 500 && status !== 429;
 		}
 		return false;
-	}
+	} 
 
 	async testConnection(): Promise<boolean> {
 		try {

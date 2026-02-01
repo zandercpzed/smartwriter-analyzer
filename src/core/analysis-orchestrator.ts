@@ -241,7 +241,7 @@ export class AnalysisOrchestrator {
 	private handleAnalysisFailure(
 		report: Partial<FullReport>,
 		type: ReportType,
-		error: any
+		error: unknown
 	): void {
 		// Initialize metadata errors if not present
 		if (!report.metadata) {
@@ -260,9 +260,11 @@ export class AnalysisOrchestrator {
 			report.metadata.errors = [];
 		}
 
+		const message = error instanceof Error ? error.message : String(error);
+
 		report.metadata.errors.push({
 			type,
-			message: error.message || String(error),
+			message,
 			timestamp: new Date().toISOString(),
 		});
 	}
