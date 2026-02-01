@@ -54,6 +54,7 @@
   - Exemplos concretos
   - Escala 1-5 com justificativas
   - Recomendações acionáveis
+- 🔧 **v0.2 finalization:** persona normalization started (2026-02-01)
 
 ### Interface Obsidian
 - ✅ Ribbon icon (ícone na barra lateral)
