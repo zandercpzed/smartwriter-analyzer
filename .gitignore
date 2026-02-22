@@ -37,3 +37,10 @@ main.js
 # Backups
 .backups/
 backups/
+
+# Z•Edições Backup Folders
+_bkp*
+_BKP*
+_ bkp*
+_ BKP*
+
