@@ -89,11 +89,11 @@ export default class SmartWriterPlugin extends Plugin {
     // Status bar
     this.addStatusBarItem().setText('SmartWriter Ready');
 
-    console.log('SmartWriter Analyzer loaded');
+    console.debug('SmartWriter Analyzer loaded');
   }
 
   onunload() {
-    console.log('SmartWriter Analyzer unloaded');
+    console.debug('SmartWriter Analyzer unloaded');
   }
 
   async loadSettings() {

@@ -91,20 +91,20 @@ export class AnalysisModal extends Modal {
 
     // Progress section (hidden initially)
     this.progressEl = contentEl.createDiv({ cls: 'swa-progress-container' });
-    this.progressEl.style.display = 'none';
+    this.progressEl.setCssStyles({ display: 'none' });
 
     const progressBar = this.progressEl.createDiv({ cls: 'swa-progress-bar' });
     this.progressBarEl = progressBar.createDiv({ cls: 'swa-progress-fill' });
-    this.progressBarEl.style.width = '0%';
+    this.progressBarEl.setCssStyles({ width: '0%' });
 
     this.progressTextEl = this.progressEl.createDiv({ cls: 'swa-progress-text' });
     this.progressTextEl.setText('Preparando análise...');
 
     // Buttons
     const buttonContainer = contentEl.createDiv({ cls: 'swa-button-container' });
-    buttonContainer.style.display = 'flex';
-    buttonContainer.style.gap = '10px';
-    buttonContainer.style.marginTop = '20px';
+    buttonContainer.setCssStyles({ display: 'flex' });
+    buttonContainer.setCssStyles({ gap: '10px' });
+    buttonContainer.setCssStyles({ marginTop: '20px' });
 
     new Setting(buttonContainer)
       .addButton((btn) => {
@@ -178,7 +178,7 @@ export class AnalysisModal extends Modal {
 
     // Show progress
     if (this.progressEl) {
-      this.progressEl.style.display = 'block';
+      this.progressEl.setCssStyles({ display: 'block' });
     }
 
     try {
@@ -207,14 +207,14 @@ export class AnalysisModal extends Modal {
 
       if (this.progressTextEl) {
         this.progressTextEl.setText(`Erro: ${error.message}`);
-        this.progressTextEl.style.color = 'var(--text-error)';
+        this.progressTextEl.setCssStyles({ color: 'var(--text-error)' });
       }
     }
   }
 
   private updateProgress(progress: AnalysisProgress) {
     if (this.progressBarEl) {
-      this.progressBarEl.style.width = `${progress.percentage}%`;
+      this.progressBarEl.setCssStyles({ width: `${progress.percentage}%` });
     }
 
     if (this.progressTextEl) {
@@ -265,7 +265,7 @@ export class QuickAnalysisModal extends Modal {
 
     this.plugin
       .runFullAnalysis(this.file, [this.reportType], (progress) => {
-        progressFill.style.width = `${progress.percentage}%`;
+        progressFill.setCssStyles({ width: `${progress.percentage}%` });
         progressText.setText(progress.message);
       })
       .then((reportPath) => {
@@ -278,7 +278,7 @@ export class QuickAnalysisModal extends Modal {
       })
       .catch((error) => {
         progressText.setText(`Erro: ${error.message}`);
-        progressText.style.color = 'var(--text-error)';
+        progressText.setCssStyles({ color: 'var(--text-error)' });
       });
   }
 
