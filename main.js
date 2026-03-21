@@ -178,10 +178,8 @@ var CacheManager = class {
     };
   }
   formatBytes(bytes) {
-    if (bytes < 1024)
-      return bytes + " B";
-    if (bytes < 1024 * 1024)
-      return (bytes / 1024).toFixed(1) + " KB";
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
     return (bytes / (1024 * 1024)).toFixed(1) + " MB";
   }
   /**
@@ -268,8 +266,7 @@ var LLMService = class {
   }
   isNonRetriableError(error) {
     const hasNumericStatus = (obj) => {
-      if (typeof obj !== "object" || obj === null)
-        return false;
+      if (typeof obj !== "object" || obj === null) return false;
       const status = obj["status"];
       return typeof status === "number";
     };
@@ -427,8 +424,7 @@ ${request.prompt}` : request.prompt
     const processNext = async () => {
       while (queue.length > 0) {
         const request = queue.shift();
-        if (!request)
-          break;
+        if (!request) break;
         try {
           const result = await this.complete(request);
           results.push(result);
@@ -602,20 +598,17 @@ var _ManuscriptParser = class _ManuscriptParser {
     return tocPatterns.some((pattern) => pattern.test(first2000Chars));
   }
   countWords(text) {
-    if (!text)
-      return 0;
+    if (!text) return 0;
     const matches = text.match(/\S+/g);
     return matches ? matches.length : 0;
   }
   countSentences(text) {
-    if (!text)
-      return 0;
+    if (!text) return 0;
     const matches = text.match(/[.!?…]+[\s\n]+/g);
     return (matches ? matches.length : 0) + 1;
   }
   countParagraphs(text) {
-    if (!text)
-      return 0;
+    if (!text) return 0;
     const matches = text.match(/\n\s*\n/g);
     return (matches ? matches.length : 0) + 1;
   }
@@ -943,8 +936,7 @@ var _ReadabilityAnalyzer = class _ReadabilityAnalyzer {
   }
   countSyllables(word) {
     word = word.toLowerCase();
-    if (word.length <= 2)
-      return 1;
+    if (word.length <= 2) return 1;
     if (this.language.startsWith("pt")) {
       return this.countSyllablesPortuguese(word);
     }
@@ -963,10 +955,8 @@ var _ReadabilityAnalyzer = class _ReadabilityAnalyzer {
     word = word.replace(/e$/, "");
     const matches = word.match(_ReadabilityAnalyzer.EN_VOWELS) || [];
     let count = matches.length;
-    if (word.endsWith("le") && word.length > 2)
-      count++;
-    if (word.endsWith("es") || word.endsWith("ed"))
-      count--;
+    if (word.endsWith("le") && word.length > 2) count++;
+    if (word.endsWith("es") || word.endsWith("ed")) count--;
     return Math.max(1, count);
   }
   /**
@@ -975,17 +965,14 @@ var _ReadabilityAnalyzer = class _ReadabilityAnalyzer {
    */
   countComplexWords(words) {
     return words.filter((word) => {
-      if (word.length < 6)
-        return false;
+      if (word.length < 6) return false;
       const syllables = this.countSyllables(word);
-      if (syllables < 3)
-        return false;
+      if (syllables < 3) return false;
       const commonSuffixes = this.language.startsWith("pt") ? ["mente", "\xE7\xE3o", "\xE7\xF5es", "dade", "mento", "ando", "endo", "indo"] : ["ing", "ed", "es", "ly", "tion", "ness"];
       for (const suffix of commonSuffixes) {
         if (word.endsWith(suffix)) {
           const base = word.slice(0, -suffix.length);
-          if (this.countSyllables(base) >= 2)
-            return false;
+          if (this.countSyllables(base) >= 2) return false;
         }
       }
       return true;
@@ -1074,21 +1061,18 @@ var CadenceAnalyzer = class {
    * Range: -1 to 1 (higher is more "bursty")
    */
   calculateBurstiness(lengths) {
-    if (lengths.length < 2)
-      return 0;
+    if (lengths.length < 2) return 0;
     const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
     const variance = lengths.reduce((sum, l) => sum + Math.pow(l - mean, 2), 0) / lengths.length;
     const stdDev = Math.sqrt(variance);
-    if (mean + stdDev === 0)
-      return 0;
+    if (mean + stdDev === 0) return 0;
     return (stdDev - mean) / (stdDev + mean);
   }
   /**
    * Calculates statistical variance.
    */
   calculateVariance(values) {
-    if (values.length === 0)
-      return 0;
+    if (values.length === 0) return 0;
     const mean = values.reduce((a, b) => a + b, 0) / values.length;
     return values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length;
   }
@@ -1136,10 +1120,8 @@ var CadenceAnalyzer = class {
     const sentences = this.extractSentences(text);
     const lengths = sentences.map((s) => this.countWords(s));
     return lengths.map((len) => {
-      if (len <= 8)
-        return "S";
-      if (len <= 20)
-        return "M";
+      if (len <= 8) return "S";
+      if (len <= 20) return "M";
       return "L";
     }).join("");
   }
@@ -1641,8 +1623,7 @@ Seja objetivo e espec\xEDfico. N\xE3o fa\xE7a julgamentos morais.`;
     return found;
   }
   estimateLocalIUL(artifactCodes) {
-    if (artifactCodes.length === 0)
-      return 0;
+    if (artifactCodes.length === 0) return 0;
     let totalWeight = 0;
     for (const code of artifactCodes) {
       const marker = ARTIFACT_MARKERS[code];
@@ -1663,14 +1644,10 @@ Seja objetivo e espec\xEDfico. N\xE3o fa\xE7a julgamentos morais.`;
     return Math.round(Math.min(100, combinedScore));
   }
   classifyIUL(iul) {
-    if (iul <= 15)
-      return "authentic";
-    if (iul <= 35)
-      return "assisted";
-    if (iul <= 60)
-      return "hybrid";
-    if (iul <= 85)
-      return "predominantly-ai";
+    if (iul <= 15) return "authentic";
+    if (iul <= 35) return "assisted";
+    if (iul <= 60) return "hybrid";
+    if (iul <= 85) return "predominantly-ai";
     return "ai-generated";
   }
   createArtifact(code, instances) {
@@ -1685,18 +1662,15 @@ Seja objetivo e espec\xEDfico. N\xE3o fa\xE7a julgamentos morais.`;
     };
   }
   calculateBurstiness(lengths) {
-    if (lengths.length < 2)
-      return 0;
+    if (lengths.length < 2) return 0;
     const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
     const variance = this.calculateVariance(lengths);
     const stdDev = Math.sqrt(variance);
-    if (mean + stdDev === 0)
-      return 0;
+    if (mean + stdDev === 0) return 0;
     return (stdDev - mean) / (stdDev + mean);
   }
   calculateVariance(values) {
-    if (values.length === 0)
-      return 0;
+    if (values.length === 0) return 0;
     const mean = values.reduce((a, b) => a + b, 0) / values.length;
     return values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length;
   }
@@ -2153,8 +2127,7 @@ Responda em JSON:
         temperature: 0.2
       });
       const score = parseInt(response.content.trim());
-      if (score >= 1 && score <= 5)
-        return score;
+      if (score >= 1 && score <= 5) return score;
       return 3;
     } catch (e) {
       return 3;
@@ -2168,14 +2141,10 @@ Responda em JSON:
     const ideal = { act1: 0.25, act2: 0.5, act3: 0.25 };
     const actual = { act1: act1 / total, act2: act2 / total, act3: act3 / total };
     const deviation = Math.abs(ideal.act1 - actual.act1) + Math.abs(ideal.act2 - actual.act2) + Math.abs(ideal.act3 - actual.act3);
-    if (deviation < 0.1)
-      return 5;
-    if (deviation < 0.2)
-      return 4;
-    if (deviation < 0.3)
-      return 3;
-    if (deviation < 0.4)
-      return 2;
+    if (deviation < 0.1) return 5;
+    if (deviation < 0.2) return 4;
+    if (deviation < 0.3) return 3;
+    if (deviation < 0.4) return 2;
     return 1;
   }
   getSampleContent(chapters, startIndex, count) {
@@ -2216,8 +2185,7 @@ ${words.slice(0, 300).join(" ")}...`;
         const avgLength = sentences.reduce((s, sent) => s + sent.split(/\s+/).length, 0) / sentences.length;
         return avgLength < 10 && sentences.length > 3;
       });
-      if (actionPara)
-        return actionPara;
+      if (actionPara) return actionPara;
     }
     return this.getSampleContent(chapters, Math.floor(chapters.length * 0.7), 1);
   }
@@ -2228,8 +2196,7 @@ ${words.slice(0, 300).join(" ")}...`;
       const descriptive = paragraphs.find(
         (p) => p.split(/\s+/).length > 50 && sensoryWords.some((w) => p.toLowerCase().includes(w))
       );
-      if (descriptive)
-        return descriptive;
+      if (descriptive) return descriptive;
     }
     return this.getSampleContent(chapters, 0, 1);
   }
@@ -2468,12 +2435,9 @@ var AnalysisOrchestrator = class {
     };
   }
   readabilityToScore(fleschKincaid) {
-    if (fleschKincaid >= 6 && fleschKincaid <= 10)
-      return 5;
-    if (fleschKincaid >= 4 && fleschKincaid <= 12)
-      return 4;
-    if (fleschKincaid >= 2 && fleschKincaid <= 14)
-      return 3;
+    if (fleschKincaid >= 6 && fleschKincaid <= 10) return 5;
+    if (fleschKincaid >= 4 && fleschKincaid <= 12) return 4;
+    if (fleschKincaid >= 2 && fleschKincaid <= 14) return 3;
     return 2;
   }
   createProgressTracker(onProgress) {
@@ -2848,8 +2812,7 @@ Este relat\xF3rio foi gerado automaticamente pelo **SmartWriter Analyzer** v${re
     const fullStars = Math.floor(score);
     const hasHalf = score - fullStars >= 0.5;
     let stars = "\u2605".repeat(fullStars);
-    if (hasHalf)
-      stars += "\xBD";
+    if (hasHalf) stars += "\xBD";
     stars += "\u2606".repeat(5 - Math.ceil(score));
     return stars;
   }
@@ -2908,12 +2871,9 @@ Este relat\xF3rio foi gerado automaticamente pelo **SmartWriter Analyzer** v${re
     }
   }
   interpretFog(fog) {
-    if (fog <= 8)
-      return "F\xE1cil";
-    if (fog <= 10)
-      return "M\xE9dio";
-    if (fog <= 12)
-      return "Dif\xEDcil";
+    if (fog <= 8) return "F\xE1cil";
+    if (fog <= 10) return "M\xE9dio";
+    if (fog <= 12) return "Dif\xEDcil";
     return "Muito Dif\xEDcil";
   }
   generateIULBar(iul) {
@@ -2923,10 +2883,8 @@ Este relat\xF3rio foi gerado automaticamente pelo **SmartWriter Analyzer** v${re
   }
   getProportionStatus(actual, ideal) {
     const diff = Math.abs(actual - ideal);
-    if (diff <= 5)
-      return "\u2705";
-    if (diff <= 10)
-      return "\u26A0\uFE0F";
+    if (diff <= 5) return "\u2705";
+    if (diff <= 10) return "\u26A0\uFE0F";
     return "\u274C";
   }
 };
@@ -3051,8 +3009,7 @@ var AnalysisModal = class extends import_obsidian2.Modal {
   }
   async runAnalysis() {
     var _a, _b, _c, _d;
-    if (this.isAnalyzing)
-      return;
+    if (this.isAnalyzing) return;
     if (this.selectedReports.size === 0) {
       new import_obsidian2.Notice("Selecione pelo menos uma an\xE1lise");
       return;

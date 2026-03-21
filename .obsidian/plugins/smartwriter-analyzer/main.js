@@ -178,10 +178,8 @@ var CacheManager = class {
     };
   }
   formatBytes(bytes) {
-    if (bytes < 1024)
-      return bytes + " B";
-    if (bytes < 1024 * 1024)
-      return (bytes / 1024).toFixed(1) + " KB";
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
     return (bytes / (1024 * 1024)).toFixed(1) + " MB";
   }
   /**
@@ -221,7 +219,7 @@ var CacheManager = class {
       return [];
     }
     const now = Date.now();
-    return Object.entries(cache.entries).filter(([_, entry]) => now <= entry.expiresAt && entry.manuscriptHash === contentHash).map(([type, _]) => type);
+    return Object.entries(cache.entries).filter(([, entry]) => now <= entry.expiresAt && entry.manuscriptHash === contentHash).map(([type]) => type);
   }
 };
 
@@ -251,11 +249,12 @@ var LLMService = class {
           default:
             throw new Error(`Unknown LLM provider: ${this.settings.llmProvider}`);
         }
-      } catch (error) {
-        lastError = error;
-        console.warn(`LLM request attempt ${i + 1} failed:`, error);
-        if (this.isNonRetriableError(error)) {
-          throw error;
+      } catch (err) {
+        const errObj = err instanceof Error ? err : new Error(String(err));
+        lastError = errObj;
+        console.warn(`LLM request attempt ${i + 1} failed:`, errObj);
+        if (this.isNonRetriableError(err)) {
+          throw errObj;
         }
         if (i < maxRetries - 1) {
           const delay = Math.pow(2, i) * 1e3;
@@ -266,7 +265,12 @@ var LLMService = class {
     throw lastError || new Error("LLM request failed after retries");
   }
   isNonRetriableError(error) {
-    if (error.status) {
+    const hasNumericStatus = (obj) => {
+      if (typeof obj !== "object" || obj === null) return false;
+      const status = obj["status"];
+      return typeof status === "number";
+    };
+    if (hasNumericStatus(error)) {
       const status = error.status;
       return status >= 400 && status < 500 && status !== 429;
     }
@@ -313,9 +317,7 @@ var LLMService = class {
   async completeClaude(request) {
     var _a, _b;
     const endpoint = "https://api.anthropic.com/v1/messages";
-    const messages = [
-      { role: "user", content: request.prompt }
-    ];
+    const messages = [{ role: "user", content: request.prompt }];
     const body = {
       model: this.settings.claudeModel,
       max_tokens: request.maxTokens || 4096,
@@ -361,7 +363,7 @@ var LLMService = class {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.settings.openaiApiKey}`
+        Authorization: `Bearer ${this.settings.openaiApiKey}`
       },
       body: JSON.stringify(body)
     });
@@ -422,8 +424,7 @@ ${request.prompt}` : request.prompt
     const processNext = async () => {
       while (queue.length > 0) {
         const request = queue.shift();
-        if (!request)
-          break;
+        if (!request) break;
         try {
           const result = await this.complete(request);
           results.push(result);
@@ -573,7 +574,9 @@ var _ManuscriptParser = class _ManuscriptParser {
   }
   extractChapterTitle(line) {
     const titleWithoutMarkers = line.replace(/^#+\s*/, "").trim();
-    const titleWithLabelMatch = titleWithoutMarkers.match(/^(?:Capítulo|Chapter|Cap\.?)\s*\d+\s*[-–—:.]?\s*(.+)$/i);
+    const titleWithLabelMatch = titleWithoutMarkers.match(
+      /^(?:Capítulo|Chapter|Cap\.?)\s*\d+\s*[-–—:.]?\s*(.+)$/i
+    );
     if (titleWithLabelMatch && titleWithLabelMatch[1]) {
       return titleWithLabelMatch[1].trim();
     }
@@ -590,30 +593,22 @@ var _ManuscriptParser = class _ManuscriptParser {
     return fileName.replace(/\.md$/i, "");
   }
   detectTableOfContents(content) {
-    const tocPatterns = [
-      /sumário/i,
-      /table of contents/i,
-      /índice/i,
-      /contents/i
-    ];
+    const tocPatterns = [/sumário/i, /table of contents/i, /índice/i, /contents/i];
     const first2000Chars = content.substring(0, 2e3);
     return tocPatterns.some((pattern) => pattern.test(first2000Chars));
   }
   countWords(text) {
-    if (!text)
-      return 0;
+    if (!text) return 0;
     const matches = text.match(/\S+/g);
     return matches ? matches.length : 0;
   }
   countSentences(text) {
-    if (!text)
-      return 0;
+    if (!text) return 0;
     const matches = text.match(/[.!?…]+[\s\n]+/g);
     return (matches ? matches.length : 0) + 1;
   }
   countParagraphs(text) {
-    if (!text)
-      return 0;
+    if (!text) return 0;
     const matches = text.match(/\n\s*\n/g);
     return (matches ? matches.length : 0) + 1;
   }
@@ -630,7 +625,9 @@ var _ManuscriptParser = class _ManuscriptParser {
     const words = content.split(/\s+/);
     const totalWords = words.length;
     if (totalWords <= sampleSize * sampleCount) {
-      return this.splitIntoChunks(content, Math.ceil(totalWords / sampleCount)).map((chunk) => chunk.slice(0, sampleSize));
+      return this.splitIntoChunks(content, Math.ceil(totalWords / sampleCount)).map(
+        (chunk) => chunk.slice(0, sampleSize)
+      );
     }
     const samples = [];
     const interval = Math.floor(totalWords / (sampleCount + 1));
@@ -675,8 +672,6 @@ var ChunkManager = class {
    */
   chunkManuscript(content, chapters) {
     const chunkSize = this.settings.chunkSize;
-    const chunks = [];
-    const chapterBoundaries = [];
     if (this.canUseChapterBoundaries(chapters, chunkSize)) {
       return this.chunkByChapters(chapters, chunkSize);
     }
@@ -941,8 +936,7 @@ var _ReadabilityAnalyzer = class _ReadabilityAnalyzer {
   }
   countSyllables(word) {
     word = word.toLowerCase();
-    if (word.length <= 2)
-      return 1;
+    if (word.length <= 2) return 1;
     if (this.language.startsWith("pt")) {
       return this.countSyllablesPortuguese(word);
     }
@@ -961,10 +955,8 @@ var _ReadabilityAnalyzer = class _ReadabilityAnalyzer {
     word = word.replace(/e$/, "");
     const matches = word.match(_ReadabilityAnalyzer.EN_VOWELS) || [];
     let count = matches.length;
-    if (word.endsWith("le") && word.length > 2)
-      count++;
-    if (word.endsWith("es") || word.endsWith("ed"))
-      count--;
+    if (word.endsWith("le") && word.length > 2) count++;
+    if (word.endsWith("es") || word.endsWith("ed")) count--;
     return Math.max(1, count);
   }
   /**
@@ -973,17 +965,14 @@ var _ReadabilityAnalyzer = class _ReadabilityAnalyzer {
    */
   countComplexWords(words) {
     return words.filter((word) => {
-      if (word.length < 6)
-        return false;
+      if (word.length < 6) return false;
       const syllables = this.countSyllables(word);
-      if (syllables < 3)
-        return false;
+      if (syllables < 3) return false;
       const commonSuffixes = this.language.startsWith("pt") ? ["mente", "\xE7\xE3o", "\xE7\xF5es", "dade", "mento", "ando", "endo", "indo"] : ["ing", "ed", "es", "ly", "tion", "ness"];
       for (const suffix of commonSuffixes) {
         if (word.endsWith(suffix)) {
           const base = word.slice(0, -suffix.length);
-          if (this.countSyllables(base) >= 2)
-            return false;
+          if (this.countSyllables(base) >= 2) return false;
         }
       }
       return true;
@@ -1067,26 +1056,23 @@ var CadenceAnalyzer = class {
    * Burstiness measures the variation in consecutive sentence lengths.
    * Higher burstiness = more natural, varied prose.
    * AI-generated text often has lower burstiness (more uniform).
-   * 
+   *
    * Formula: (σ - μ) / (σ + μ) where σ = std dev, μ = mean
    * Range: -1 to 1 (higher is more "bursty")
    */
   calculateBurstiness(lengths) {
-    if (lengths.length < 2)
-      return 0;
+    if (lengths.length < 2) return 0;
     const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
     const variance = lengths.reduce((sum, l) => sum + Math.pow(l - mean, 2), 0) / lengths.length;
     const stdDev = Math.sqrt(variance);
-    if (mean + stdDev === 0)
-      return 0;
+    if (mean + stdDev === 0) return 0;
     return (stdDev - mean) / (stdDev + mean);
   }
   /**
    * Calculates statistical variance.
    */
   calculateVariance(values) {
-    if (values.length === 0)
-      return 0;
+    if (values.length === 0) return 0;
     const mean = values.reduce((a, b) => a + b, 0) / values.length;
     return values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length;
   }
@@ -1134,10 +1120,8 @@ var CadenceAnalyzer = class {
     const sentences = this.extractSentences(text);
     const lengths = sentences.map((s) => this.countWords(s));
     return lengths.map((len) => {
-      if (len <= 8)
-        return "S";
-      if (len <= 20)
-        return "M";
+      if (len <= 8) return "S";
+      if (len <= 20) return "M";
       return "L";
     }).join("");
   }
@@ -1270,9 +1254,17 @@ var ARTIFACT_MARKERS = {
   D5: { name: "N-gramas repetitivos", weight: "high", category: "D" },
   D6: { name: "Entropia uniforme", weight: "medium", category: "D" },
   // Category E: Cultural/Temporal Patterns
-  E1: { name: "Americanismos em contexto n\xE3o-americano", weight: "medium", category: "E" },
+  E1: {
+    name: "Americanismos em contexto n\xE3o-americano",
+    weight: "medium",
+    category: "E"
+  },
   E2: { name: "Anacronismos lexicais", weight: "high", category: "E" },
-  E3: { name: "Neutralidade cultural excessiva", weight: "medium", category: "E" },
+  E3: {
+    name: "Neutralidade cultural excessiva",
+    weight: "medium",
+    category: "E"
+  },
   E4: { name: "Formalidade consistente", weight: "high", category: "E" },
   E5: { name: "Conhecimento enciclop\xE9dico", weight: "medium", category: "E" }
 };
@@ -1375,28 +1367,41 @@ var AIDetectionAnalyzer = class {
     const sentenceLengths = sentences.map((s) => s.split(/\s+/).length);
     const burstiness = this.calculateBurstiness(sentenceLengths);
     if (burstiness < 0.1) {
-      artifacts.push(this.createArtifact("D2", [{
-        location: "Global",
-        excerpt: `Burstiness: ${burstiness.toFixed(3)} (baixa varia\xE7\xE3o)`,
-        chapterIndex: 0
-      }]));
+      artifacts.push(
+        this.createArtifact("D2", [
+          {
+            location: "Global",
+            excerpt: `Burstiness: ${burstiness.toFixed(3)} (baixa varia\xE7\xE3o)`,
+            chapterIndex: 0
+          }
+        ])
+      );
     }
     const uniqueWords = new Set(words);
     const ttr = uniqueWords.size / words.length;
     if (ttr < 0.12 || ttr > 0.35) {
-      artifacts.push(this.createArtifact("D3", [{
-        location: "Global",
-        excerpt: `TTR: ${ttr.toFixed(3)} (${ttr < 0.12 ? "vocabul\xE1rio repetitivo" : "vocabul\xE1rio atipicamente diverso"})`,
-        chapterIndex: 0
-      }]));
+      artifacts.push(
+        this.createArtifact("D3", [
+          {
+            location: "Global",
+            excerpt: `TTR: ${ttr.toFixed(3)} (${ttr < 0.12 ? "vocabul\xE1rio repetitivo" : "vocabul\xE1rio atipicamente diverso"})`,
+            chapterIndex: 0
+          }
+        ])
+      );
     }
     const trigramRepetitions = this.findRepetitiveNgrams(words, 3);
     if (trigramRepetitions.length > 5) {
-      artifacts.push(this.createArtifact("D5", trigramRepetitions.slice(0, 5).map((r) => ({
-        location: "Multiple",
-        excerpt: `"${r.ngram}" (${r.count}x)`,
-        chapterIndex: 0
-      }))));
+      artifacts.push(
+        this.createArtifact(
+          "D5",
+          trigramRepetitions.slice(0, 5).map((r) => ({
+            location: "Multiple",
+            excerpt: `"${r.ngram}" (${r.count}x)`,
+            chapterIndex: 0
+          }))
+        )
+      );
     }
     return artifacts;
   }
@@ -1419,7 +1424,23 @@ var AIDetectionAnalyzer = class {
     if (foundPhrases.length >= 3) {
       artifacts.push(this.createArtifact("A3", foundPhrases));
     }
-    const intensifiers = this.settings.language.startsWith("pt") ? ["notavelmente", "significativamente", "profundamente", "inegavelmente", "incrivelmente", "realmente", "verdadeiramente"] : ["remarkably", "significantly", "profoundly", "undeniably", "incredibly", "truly", "really"];
+    const intensifiers = this.settings.language.startsWith("pt") ? [
+      "notavelmente",
+      "significativamente",
+      "profundamente",
+      "inegavelmente",
+      "incrivelmente",
+      "realmente",
+      "verdadeiramente"
+    ] : [
+      "remarkably",
+      "significantly",
+      "profoundly",
+      "undeniably",
+      "incredibly",
+      "truly",
+      "really"
+    ];
     const intensifierCount = intensifiers.reduce((count, adv) => {
       var _a;
       const regex = new RegExp(`\\b${adv}\\b`, "gi");
@@ -1427,11 +1448,15 @@ var AIDetectionAnalyzer = class {
     }, 0);
     const wordCount = content.split(/\s+/).length;
     if (intensifierCount / wordCount > 5e-3) {
-      artifacts.push(this.createArtifact("A4", [{
-        location: "Global",
-        excerpt: `${intensifierCount} intensificadores em ${wordCount} palavras (${(intensifierCount / wordCount * 100).toFixed(2)}%)`,
-        chapterIndex: 0
-      }]));
+      artifacts.push(
+        this.createArtifact("A4", [
+          {
+            location: "Global",
+            excerpt: `${intensifierCount} intensificadores em ${wordCount} palavras (${(intensifierCount / wordCount * 100).toFixed(2)}%)`,
+            chapterIndex: 0
+          }
+        ])
+      );
     }
     const connectives = this.settings.language.startsWith("pt") ? ["ademais", "outrossim", "destarte", "por conseguinte", "n\xE3o obstante", "porquanto"] : ["furthermore", "moreover", "additionally", "consequently", "henceforth", "whereby"];
     const connectiveInstances = [];
@@ -1460,31 +1485,48 @@ var AIDetectionAnalyzer = class {
     const mean = sentenceLengths.reduce((a, b) => a + b, 0) / sentenceLengths.length;
     const coefficientOfVariation = Math.sqrt(variance) / mean;
     if (coefficientOfVariation < 0.3) {
-      artifacts.push(this.createArtifact("B1", [{
-        location: "Global",
-        excerpt: `Coeficiente de varia\xE7\xE3o: ${coefficientOfVariation.toFixed(3)} (frases muito uniformes)`,
-        chapterIndex: 0
-      }]));
+      artifacts.push(
+        this.createArtifact("B1", [
+          {
+            location: "Global",
+            excerpt: `Coeficiente de varia\xE7\xE3o: ${coefficientOfVariation.toFixed(
+              3
+            )} (frases muito uniformes)`,
+            chapterIndex: 0
+          }
+        ])
+      );
     }
     const paragraphLengths = paragraphs.map((p) => p.split(/\s+/).length);
     const paragraphVariance = this.calculateVariance(paragraphLengths);
     const paragraphMean = paragraphLengths.reduce((a, b) => a + b, 0) / paragraphLengths.length;
     const paragraphCV = Math.sqrt(paragraphVariance) / paragraphMean;
     if (paragraphCV < 0.25 && paragraphs.length > 10) {
-      artifacts.push(this.createArtifact("B2", [{
-        location: "Global",
-        excerpt: `CV par\xE1grafos: ${paragraphCV.toFixed(3)} (par\xE1grafos muito sim\xE9tricos)`,
-        chapterIndex: 0
-      }]));
+      artifacts.push(
+        this.createArtifact("B2", [
+          {
+            location: "Global",
+            excerpt: `CV par\xE1grafos: ${paragraphCV.toFixed(3)} (par\xE1grafos muito sim\xE9tricos)`,
+            chapterIndex: 0
+          }
+        ])
+      );
     }
-    const listPatterns = this.settings.language.startsWith("pt") ? [/primeiro[,.]?\s+.*segundo[,.]?\s+.*terceiro/gi, /em primeiro lugar.*em segundo.*em terceiro/gi] : [/first[,.]?\s+.*second[,.]?\s+.*third/gi, /firstly.*secondly.*thirdly/gi];
+    const listPatterns = this.settings.language.startsWith("pt") ? [
+      /primeiro[,.]?\s+.*segundo[,.]?\s+.*terceiro/gi,
+      /em primeiro lugar.*em segundo.*em terceiro/gi
+    ] : [/first[,.]?\s+.*second[,.]?\s+.*third/gi, /firstly.*secondly.*thirdly/gi];
     for (const pattern of listPatterns) {
       if (pattern.test(content)) {
-        artifacts.push(this.createArtifact("B4", [{
-          location: "Multiple",
-          excerpt: "Estrutura de lista impl\xEDcita detectada",
-          chapterIndex: 0
-        }]));
+        artifacts.push(
+          this.createArtifact("B4", [
+            {
+              location: "Multiple",
+              excerpt: "Estrutura de lista impl\xEDcita detectada",
+              chapterIndex: 0
+            }
+          ])
+        );
         break;
       }
     }
@@ -1581,8 +1623,7 @@ Seja objetivo e espec\xEDfico. N\xE3o fa\xE7a julgamentos morais.`;
     return found;
   }
   estimateLocalIUL(artifactCodes) {
-    if (artifactCodes.length === 0)
-      return 0;
+    if (artifactCodes.length === 0) return 0;
     let totalWeight = 0;
     for (const code of artifactCodes) {
       const marker = ARTIFACT_MARKERS[code];
@@ -1603,14 +1644,10 @@ Seja objetivo e espec\xEDfico. N\xE3o fa\xE7a julgamentos morais.`;
     return Math.round(Math.min(100, combinedScore));
   }
   classifyIUL(iul) {
-    if (iul <= 15)
-      return "authentic";
-    if (iul <= 35)
-      return "assisted";
-    if (iul <= 60)
-      return "hybrid";
-    if (iul <= 85)
-      return "predominantly-ai";
+    if (iul <= 15) return "authentic";
+    if (iul <= 35) return "assisted";
+    if (iul <= 60) return "hybrid";
+    if (iul <= 85) return "predominantly-ai";
     return "ai-generated";
   }
   createArtifact(code, instances) {
@@ -1625,18 +1662,15 @@ Seja objetivo e espec\xEDfico. N\xE3o fa\xE7a julgamentos morais.`;
     };
   }
   calculateBurstiness(lengths) {
-    if (lengths.length < 2)
-      return 0;
+    if (lengths.length < 2) return 0;
     const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
     const variance = this.calculateVariance(lengths);
     const stdDev = Math.sqrt(variance);
-    if (mean + stdDev === 0)
-      return 0;
+    if (mean + stdDev === 0) return 0;
     return (stdDev - mean) / (stdDev + mean);
   }
   calculateVariance(values) {
-    if (values.length === 0)
-      return 0;
+    if (values.length === 0) return 0;
     const mean = values.reduce((a, b) => a + b, 0) / values.length;
     return values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length;
   }
@@ -1646,7 +1680,7 @@ Seja objetivo e espec\xEDfico. N\xE3o fa\xE7a julgamentos morais.`;
       const ngram = words.slice(i, i + n).join(" ");
       ngrams.set(ngram, (ngrams.get(ngram) || 0) + 1);
     }
-    return Array.from(ngrams.entries()).filter(([_, count]) => count > 3).map(([ngram, count]) => ({ ngram, count })).sort((a, b) => b.count - a.count);
+    return Array.from(ngrams.entries()).filter(([, count]) => count > 3).map(([ngram, count]) => ({ ngram, count })).sort((a, b) => b.count - a.count);
   }
 };
 
@@ -1753,9 +1787,6 @@ var HelenaVasconcelosPersona = class {
    */
   async analyzeStructure(content, structure, onProgress) {
     onProgress == null ? void 0 : onProgress("Identifying narrative beats...");
-    const act1Content = this.getContentPortion(structure.chapters, 0, 0.25);
-    const act2Content = this.getContentPortion(structure.chapters, 0.25, 0.75);
-    const act3Content = this.getContentPortion(structure.chapters, 0.75, 1);
     const beats = await this.identifyBeats(content, structure);
     const turningPoints = await this.identifyTurningPoints(content, structure);
     const totalWords = structure.totalWords;
@@ -2063,13 +2094,28 @@ Responda em JSON:
   async identifyTurningPoints(content, structure) {
     return [
       { name: "Inciting Incident", chapter: 1, position: 10, strength: 3 },
-      { name: "First Plot Point", chapter: Math.floor(structure.chapters.length * 0.25), position: 25, strength: 3 },
-      { name: "Midpoint", chapter: Math.floor(structure.chapters.length * 0.5), position: 50, strength: 3 },
-      { name: "Second Plot Point", chapter: Math.floor(structure.chapters.length * 0.75), position: 75, strength: 3 },
+      {
+        name: "First Plot Point",
+        chapter: Math.floor(structure.chapters.length * 0.25),
+        position: 25,
+        strength: 3
+      },
+      {
+        name: "Midpoint",
+        chapter: Math.floor(structure.chapters.length * 0.5),
+        position: 50,
+        strength: 3
+      },
+      {
+        name: "Second Plot Point",
+        chapter: Math.floor(structure.chapters.length * 0.75),
+        position: 75,
+        strength: 3
+      },
       { name: "Climax", chapter: structure.chapters.length - 1, position: 90, strength: 3 }
     ];
   }
-  async analyzeCausality(content, structure) {
+  async analyzeCausality(_content, _structure) {
     return 3;
   }
   async getScoreFromLLM(prompt) {
@@ -2081,8 +2127,7 @@ Responda em JSON:
         temperature: 0.2
       });
       const score = parseInt(response.content.trim());
-      if (score >= 1 && score <= 5)
-        return score;
+      if (score >= 1 && score <= 5) return score;
       return 3;
     } catch (e) {
       return 3;
@@ -2096,14 +2141,10 @@ Responda em JSON:
     const ideal = { act1: 0.25, act2: 0.5, act3: 0.25 };
     const actual = { act1: act1 / total, act2: act2 / total, act3: act3 / total };
     const deviation = Math.abs(ideal.act1 - actual.act1) + Math.abs(ideal.act2 - actual.act2) + Math.abs(ideal.act3 - actual.act3);
-    if (deviation < 0.1)
-      return 5;
-    if (deviation < 0.2)
-      return 4;
-    if (deviation < 0.3)
-      return 3;
-    if (deviation < 0.4)
-      return 2;
+    if (deviation < 0.1) return 5;
+    if (deviation < 0.2) return 4;
+    if (deviation < 0.3) return 3;
+    if (deviation < 0.4) return 2;
     return 1;
   }
   getSampleContent(chapters, startIndex, count) {
@@ -2144,8 +2185,7 @@ ${words.slice(0, 300).join(" ")}...`;
         const avgLength = sentences.reduce((s, sent) => s + sent.split(/\s+/).length, 0) / sentences.length;
         return avgLength < 10 && sentences.length > 3;
       });
-      if (actionPara)
-        return actionPara;
+      if (actionPara) return actionPara;
     }
     return this.getSampleContent(chapters, Math.floor(chapters.length * 0.7), 1);
   }
@@ -2156,8 +2196,7 @@ ${words.slice(0, 300).join(" ")}...`;
       const descriptive = paragraphs.find(
         (p) => p.split(/\s+/).length > 50 && sensoryWords.some((w) => p.toLowerCase().includes(w))
       );
-      if (descriptive)
-        return descriptive;
+      if (descriptive) return descriptive;
     }
     return this.getSampleContent(chapters, 0, 1);
   }
@@ -2193,10 +2232,7 @@ var AnalysisOrchestrator = class {
     const structure = this.parser.parse(request.manuscriptContent, request.manuscriptPath);
     progress.update("parsing", 1, 5, "Structure parsed");
     progress.update("chunking", 2, 5, "Preparing analysis chunks...");
-    const chunks = this.chunkManager.chunkManuscript(
-      request.manuscriptContent,
-      structure.chapters
-    );
+    const chunks = this.chunkManager.chunkManuscript(request.manuscriptContent, structure.chapters);
     progress.update("chunking", 2, 5, `Created ${chunks.totalChunks} analysis chunks`);
     const totalAnalyses = request.selectedReports.length;
     let completedAnalyses = 0;
@@ -2220,11 +2256,7 @@ var AnalysisOrchestrator = class {
           5,
           `Running ${reportType} analysis... (${completedAnalyses + 1}/${totalAnalyses})`
         );
-        const cached = this.cacheManager.get(
-          request.manuscriptPath,
-          reportType,
-          contentHash
-        );
+        const cached = this.cacheManager.get(request.manuscriptPath, reportType, contentHash);
         if (cached) {
           this.assignAnalysisResult(report, reportType, cached);
           completedAnalyses++;
@@ -2236,12 +2268,7 @@ var AnalysisOrchestrator = class {
           structure,
           chunks,
           (subProgress) => {
-            progress.update(
-              "analyzing",
-              3,
-              5,
-              `${reportType}: ${subProgress}`
-            );
+            progress.update("analyzing", 3, 5, `${reportType}: ${subProgress}`);
           }
         );
         await this.cacheManager.set(
@@ -2277,26 +2304,13 @@ var AnalysisOrchestrator = class {
         return this.aiDetectionAnalyzer.analyze(content, structure.chapters, onSubProgress);
       case "literary-quality":
         onSubProgress("Performing literary quality analysis...");
-        return this.helenaPersona.analyzeLiteraryQuality(
-          content,
-          structure,
-          chunks,
-          onSubProgress
-        );
+        return this.helenaPersona.analyzeLiteraryQuality(content, structure, chunks, onSubProgress);
       case "structure":
         onSubProgress("Analyzing narrative structure...");
-        return this.helenaPersona.analyzeStructure(
-          content,
-          structure,
-          onSubProgress
-        );
+        return this.helenaPersona.analyzeStructure(content, structure, onSubProgress);
       case "coherence":
         onSubProgress("Checking coherence and consistency...");
-        return this.helenaPersona.analyzeCoherence(
-          content,
-          structure,
-          onSubProgress
-        );
+        return this.helenaPersona.analyzeCoherence(content, structure, onSubProgress);
       default:
         throw new Error(`Unknown analysis type: ${type}`);
     }
@@ -2335,9 +2349,10 @@ var AnalysisOrchestrator = class {
     if (!report.metadata.errors) {
       report.metadata.errors = [];
     }
+    const message = error instanceof Error ? error.message : String(error);
     report.metadata.errors.push({
       type,
-      message: error.message || String(error),
+      message,
       timestamp: (/* @__PURE__ */ new Date()).toISOString()
     });
   }
@@ -2420,12 +2435,9 @@ var AnalysisOrchestrator = class {
     };
   }
   readabilityToScore(fleschKincaid) {
-    if (fleschKincaid >= 6 && fleschKincaid <= 10)
-      return 5;
-    if (fleschKincaid >= 4 && fleschKincaid <= 12)
-      return 4;
-    if (fleschKincaid >= 2 && fleschKincaid <= 14)
-      return 3;
+    if (fleschKincaid >= 6 && fleschKincaid <= 10) return 5;
+    if (fleschKincaid >= 4 && fleschKincaid <= 12) return 4;
+    if (fleschKincaid >= 2 && fleschKincaid <= 14) return 3;
     return 2;
   }
   createProgressTracker(onProgress) {
@@ -2453,7 +2465,7 @@ var ReportGenerator = class {
   generate(report) {
     const sections = [];
     sections.push(this.generateHeader(report));
-    sections.push(this.generateExecutiveSummary(report.executiveSummary, report.metadata));
+    sections.push(this.generateExecutiveSummary(report.executiveSummary));
     if (report.readability) {
       sections.push(this.generateReadabilitySection(report.readability));
     }
@@ -2487,12 +2499,12 @@ persona: ${report.metadata.persona}
 **Cap\xEDtulos:** ${report.metadata.chapterCount}
 **Data da An\xE1lise:** ${new Date(report.metadata.analysisDate).toLocaleDateString("pt-BR")}`;
   }
-  generateExecutiveSummary(summary, metadata) {
+  generateExecutiveSummary(summary) {
     const recommendationLabels = {
       "structural-revision": "\u{1F534} Revis\xE3o Estrutural",
       "developmental-editing": "\u{1F7E0} Edi\xE7\xE3o de Desenvolvimento",
       "line-editing": "\u{1F7E1} Edi\xE7\xE3o de Linha",
-      "copyediting": "\u{1F7E2} Copyediting",
+      copyediting: "\u{1F7E2} Copyediting",
       "ready-for-submission": "\u2705 Pronto para Submiss\xE3o"
     };
     let content = `## \u{1F4CB} Sum\xE1rio Executivo
@@ -2625,9 +2637,9 @@ ${interpretation.audience}. ${interpretation.suggestion}`;
   }
   generateAIDetectionSection(result) {
     const classificationLabels = {
-      "authentic": "\u2705 Aut\xEAntico",
-      "assisted": "\u{1F535} Assistido por IA",
-      "hybrid": "\u{1F7E1} H\xEDbrido",
+      authentic: "\u2705 Aut\xEAntico",
+      assisted: "\u{1F535} Assistido por IA",
+      hybrid: "\u{1F7E1} H\xEDbrido",
       "predominantly-ai": "\u{1F7E0} Predominantemente IA",
       "ai-generated": "\u{1F534} Gerado por IA"
     };
@@ -2688,9 +2700,18 @@ Classifica\xE7\xE3o: ${classificationLabels[result.classification]}
 
 | Ato | Propor\xE7\xE3o | Ideal | Status |
 |-----|-----------|-------|--------|
-| Ato 1 (Setup) | ${structure.acts.act1Percentage}% | 25% | ${this.getProportionStatus(structure.acts.act1Percentage, 25)} |
-| Ato 2 (Confronto) | ${structure.acts.act2Percentage}% | 50% | ${this.getProportionStatus(structure.acts.act2Percentage, 50)} |
-| Ato 3 (Resolu\xE7\xE3o) | ${structure.acts.act3Percentage}% | 25% | ${this.getProportionStatus(structure.acts.act3Percentage, 25)} |
+| Ato 1 (Setup) | ${structure.acts.act1Percentage}% | 25% | ${this.getProportionStatus(
+      structure.acts.act1Percentage,
+      25
+    )} |
+| Ato 2 (Confronto) | ${structure.acts.act2Percentage}% | 50% | ${this.getProportionStatus(
+      structure.acts.act2Percentage,
+      50
+    )} |
+| Ato 3 (Resolu\xE7\xE3o) | ${structure.acts.act3Percentage}% | 25% | ${this.getProportionStatus(
+      structure.acts.act3Percentage,
+      25
+    )} |
 
 **Score de Balanceamento:** ${this.getStars(structure.acts.balanceScore)} (${structure.acts.balanceScore}/5)
 
@@ -2711,7 +2732,9 @@ Classifica\xE7\xE3o: ${classificationLabels[result.classification]}
 |-------|----------|---------|-------|
 `;
     for (const tp of structure.turningPoints) {
-      content += `| ${tp.name} | Cap. ${tp.chapter} | ${tp.position}% | ${this.getStars(tp.strength)} |
+      content += `| ${tp.name} | Cap. ${tp.chapter} | ${tp.position}% | ${this.getStars(
+        tp.strength
+      )} |
 `;
     }
     content += `
@@ -2789,8 +2812,7 @@ Este relat\xF3rio foi gerado automaticamente pelo **SmartWriter Analyzer** v${re
     const fullStars = Math.floor(score);
     const hasHalf = score - fullStars >= 0.5;
     let stars = "\u2605".repeat(fullStars);
-    if (hasHalf)
-      stars += "\xBD";
+    if (hasHalf) stars += "\xBD";
     stars += "\u2606".repeat(5 - Math.ceil(score));
     return stars;
   }
@@ -2849,12 +2871,9 @@ Este relat\xF3rio foi gerado automaticamente pelo **SmartWriter Analyzer** v${re
     }
   }
   interpretFog(fog) {
-    if (fog <= 8)
-      return "F\xE1cil";
-    if (fog <= 10)
-      return "M\xE9dio";
-    if (fog <= 12)
-      return "Dif\xEDcil";
+    if (fog <= 8) return "F\xE1cil";
+    if (fog <= 10) return "M\xE9dio";
+    if (fog <= 12) return "Dif\xEDcil";
     return "Muito Dif\xEDcil";
   }
   generateIULBar(iul) {
@@ -2864,10 +2883,8 @@ Este relat\xF3rio foi gerado automaticamente pelo **SmartWriter Analyzer** v${re
   }
   getProportionStatus(actual, ideal) {
     const diff = Math.abs(actual - ideal);
-    if (diff <= 5)
-      return "\u2705";
-    if (diff <= 10)
-      return "\u26A0\uFE0F";
+    if (diff <= 5) return "\u2705";
+    if (diff <= 10) return "\u26A0\uFE0F";
     return "\u274C";
   }
 };
@@ -2939,22 +2956,20 @@ var AnalysisModal = class extends import_obsidian2.Modal {
       "An\xE1lise completa: personagens, voz, tema, worldbuilding"
     );
     this.progressEl = contentEl.createDiv({ cls: "swa-progress-container" });
-    this.progressEl.style.display = "none";
+    this.progressEl.setCssStyles({ display: "none" });
     const progressBar = this.progressEl.createDiv({ cls: "swa-progress-bar" });
     this.progressBarEl = progressBar.createDiv({ cls: "swa-progress-fill" });
-    this.progressBarEl.style.width = "0%";
+    this.progressBarEl.setCssStyles({ width: "0%" });
     this.progressTextEl = this.progressEl.createDiv({ cls: "swa-progress-text" });
     this.progressTextEl.setText("Preparando an\xE1lise...");
     const buttonContainer = contentEl.createDiv({ cls: "swa-button-container" });
-    buttonContainer.style.display = "flex";
-    buttonContainer.style.gap = "10px";
-    buttonContainer.style.marginTop = "20px";
+    buttonContainer.setCssStyles({ display: "flex" });
+    buttonContainer.setCssStyles({ gap: "10px" });
+    buttonContainer.setCssStyles({ marginTop: "20px" });
     new import_obsidian2.Setting(buttonContainer).addButton((btn) => {
       this.analyzeButton = btn;
       btn.setButtonText("Analisar").setCta().onClick(() => this.runAnalysis());
-    }).addButton(
-      (btn) => btn.setButtonText("Cancelar").onClick(() => this.close())
-    );
+    }).addButton((btn) => btn.setButtonText("Cancelar").onClick(() => this.close()));
   }
   createReportOption(container, type, label, description) {
     const option = container.createDiv({ cls: "swa-report-option" });
@@ -2994,8 +3009,7 @@ var AnalysisModal = class extends import_obsidian2.Modal {
   }
   async runAnalysis() {
     var _a, _b, _c, _d;
-    if (this.isAnalyzing)
-      return;
+    if (this.isAnalyzing) return;
     if (this.selectedReports.size === 0) {
       new import_obsidian2.Notice("Selecione pelo menos uma an\xE1lise");
       return;
@@ -3004,7 +3018,7 @@ var AnalysisModal = class extends import_obsidian2.Modal {
     (_a = this.analyzeButton) == null ? void 0 : _a.setDisabled(true);
     (_b = this.analyzeButton) == null ? void 0 : _b.setButtonText("Analisando...");
     if (this.progressEl) {
-      this.progressEl.style.display = "block";
+      this.progressEl.setCssStyles({ display: "block" });
     }
     try {
       const reportPath = await this.plugin.runFullAnalysis(
@@ -3026,13 +3040,13 @@ var AnalysisModal = class extends import_obsidian2.Modal {
       (_d = this.analyzeButton) == null ? void 0 : _d.setButtonText("Tentar Novamente");
       if (this.progressTextEl) {
         this.progressTextEl.setText(`Erro: ${error.message}`);
-        this.progressTextEl.style.color = "var(--text-error)";
+        this.progressTextEl.setCssStyles({ color: "var(--text-error)" });
       }
     }
   }
   updateProgress(progress) {
     if (this.progressBarEl) {
-      this.progressBarEl.style.width = `${progress.percentage}%`;
+      this.progressBarEl.setCssStyles({ width: `${progress.percentage}%` });
     }
     if (this.progressTextEl) {
       this.progressTextEl.setText(progress.message);
@@ -3050,11 +3064,7 @@ var SmartWriterPlugin = class extends import_obsidian3.Plugin {
     await this.loadSettings();
     this.cacheManager = new CacheManager(this);
     this.llmService = new LLMService(this.settings);
-    this.orchestrator = new AnalysisOrchestrator(
-      this.settings,
-      this.llmService,
-      this.cacheManager
-    );
+    this.orchestrator = new AnalysisOrchestrator(this.settings, this.llmService, this.cacheManager);
     this.addRibbonIcon("book-open", "SmartWriter Analyzer", () => {
       this.openAnalysisModal();
     });
@@ -3110,10 +3120,10 @@ var SmartWriterPlugin = class extends import_obsidian3.Plugin {
     });
     this.addSettingTab(new SmartWriterSettingTab(this.app, this));
     this.addStatusBarItem().setText("SmartWriter Ready");
-    console.log("SmartWriter Analyzer loaded");
+    console.debug("SmartWriter Analyzer loaded");
   }
   onunload() {
-    console.log("SmartWriter Analyzer unloaded");
+    console.debug("SmartWriter Analyzer unloaded");
   }
   async loadSettings() {
     this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
@@ -3209,80 +3219,112 @@ var SmartWriterSettingTab = class extends import_obsidian3.PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
     containerEl.createEl("h2", { text: "LLM configuration" });
-    new import_obsidian3.Setting(containerEl).setName("Provider").setDesc("Select the LLM provider for analysis").addDropdown((dropdown) => dropdown.addOption("ollama", "Ollama (Local)").addOption("claude", "Claude (Anthropic)").addOption("openai", "OpenAI").addOption("gemini", "Gemini (Google)").setValue(this.plugin.settings.llmProvider).onChange(async (value) => {
-      this.plugin.settings.llmProvider = value;
-      await this.plugin.saveSettings();
-      this.display();
-    }));
+    new import_obsidian3.Setting(containerEl).setName("Provider").setDesc("Select the LLM provider for analysis").addDropdown(
+      (dropdown) => dropdown.addOption("ollama", "Ollama (Local)").addOption("claude", "Claude (Anthropic)").addOption("openai", "OpenAI").addOption("gemini", "Gemini (Google)").setValue(this.plugin.settings.llmProvider).onChange(async (value) => {
+        this.plugin.settings.llmProvider = value;
+        await this.plugin.saveSettings();
+        this.display();
+      })
+    );
     if (this.plugin.settings.llmProvider === "ollama") {
-      new import_obsidian3.Setting(containerEl).setName("Ollama endpoint").setDesc("URL of your Ollama server").addText((text) => text.setPlaceholder("http://localhost:11434").setValue(this.plugin.settings.ollamaEndpoint).onChange(async (value) => {
-        this.plugin.settings.ollamaEndpoint = value;
-        await this.plugin.saveSettings();
-      }));
-      new import_obsidian3.Setting(containerEl).setName("Model").setDesc("Ollama model to use (e.g., llama3.1, mistral)").addText((text) => text.setPlaceholder("llama3.1").setValue(this.plugin.settings.ollamaModel).onChange(async (value) => {
-        this.plugin.settings.ollamaModel = value;
-        await this.plugin.saveSettings();
-      }));
+      new import_obsidian3.Setting(containerEl).setName("Ollama endpoint").setDesc("URL of your Ollama server").addText(
+        (text) => text.setPlaceholder("http://localhost:11434").setValue(this.plugin.settings.ollamaEndpoint).onChange(async (value) => {
+          this.plugin.settings.ollamaEndpoint = value;
+          await this.plugin.saveSettings();
+        })
+      );
+      new import_obsidian3.Setting(containerEl).setName("Model").setDesc("Ollama model to use (e.g., llama3.1, mistral)").addText(
+        (text) => text.setPlaceholder("llama3.1").setValue(this.plugin.settings.ollamaModel).onChange(async (value) => {
+          this.plugin.settings.ollamaModel = value;
+          await this.plugin.saveSettings();
+        })
+      );
     }
     if (this.plugin.settings.llmProvider === "claude") {
-      new import_obsidian3.Setting(containerEl).setName("API key").setDesc("Your Anthropic API key").addText((text) => text.setPlaceholder("sk-ant-...").setValue(this.plugin.settings.claudeApiKey).onChange(async (value) => {
-        this.plugin.settings.claudeApiKey = value;
-        await this.plugin.saveSettings();
-      }));
-      new import_obsidian3.Setting(containerEl).setName("Model").setDesc("Claude model to use").addDropdown((dropdown) => dropdown.addOption("claude-sonnet-4-20250514", "Claude Sonnet 4").addOption("claude-3-5-sonnet-20241022", "Claude 3.5 Sonnet").addOption("claude-3-opus-20240229", "Claude 3 Opus").setValue(this.plugin.settings.claudeModel).onChange(async (value) => {
-        this.plugin.settings.claudeModel = value;
-        await this.plugin.saveSettings();
-      }));
+      new import_obsidian3.Setting(containerEl).setName("API key").setDesc("Your Anthropic API key").addText(
+        (text) => text.setPlaceholder("sk-ant-...").setValue(this.plugin.settings.claudeApiKey).onChange(async (value) => {
+          this.plugin.settings.claudeApiKey = value;
+          await this.plugin.saveSettings();
+        })
+      );
+      new import_obsidian3.Setting(containerEl).setName("Model").setDesc("Claude model to use").addDropdown(
+        (dropdown) => dropdown.addOption("claude-sonnet-4-20250514", "Claude Sonnet 4").addOption("claude-3-5-sonnet-20241022", "Claude 3.5 Sonnet").addOption("claude-3-opus-20240229", "Claude 3 Opus").setValue(this.plugin.settings.claudeModel).onChange(async (value) => {
+          this.plugin.settings.claudeModel = value;
+          await this.plugin.saveSettings();
+        })
+      );
     }
     if (this.plugin.settings.llmProvider === "openai") {
-      new import_obsidian3.Setting(containerEl).setName("API key").setDesc("Your OpenAI API key").addText((text) => text.setPlaceholder("sk-...").setValue(this.plugin.settings.openaiApiKey).onChange(async (value) => {
-        this.plugin.settings.openaiApiKey = value;
-        await this.plugin.saveSettings();
-      }));
-      new import_obsidian3.Setting(containerEl).setName("Model").setDesc("OpenAI model to use").addDropdown((dropdown) => dropdown.addOption("gpt-4o", "GPT-4o").addOption("gpt-4-turbo", "GPT-4 Turbo").addOption("gpt-4", "GPT-4").setValue(this.plugin.settings.openaiModel).onChange(async (value) => {
-        this.plugin.settings.openaiModel = value;
-        await this.plugin.saveSettings();
-      }));
+      new import_obsidian3.Setting(containerEl).setName("API key").setDesc("Your OpenAI API key").addText(
+        (text) => text.setPlaceholder("sk-...").setValue(this.plugin.settings.openaiApiKey).onChange(async (value) => {
+          this.plugin.settings.openaiApiKey = value;
+          await this.plugin.saveSettings();
+        })
+      );
+      new import_obsidian3.Setting(containerEl).setName("Model").setDesc("OpenAI model to use").addDropdown(
+        (dropdown) => dropdown.addOption("gpt-4o", "GPT-4o").addOption("gpt-4-turbo", "GPT-4 Turbo").addOption("gpt-4", "GPT-4").setValue(this.plugin.settings.openaiModel).onChange(async (value) => {
+          this.plugin.settings.openaiModel = value;
+          await this.plugin.saveSettings();
+        })
+      );
     }
     if (this.plugin.settings.llmProvider === "gemini") {
-      new import_obsidian3.Setting(containerEl).setName("API key").setDesc("Your Google Gemini API key").addText((text) => text.setPlaceholder("AIz...").setValue(this.plugin.settings.geminiApiKey).onChange(async (value) => {
-        this.plugin.settings.geminiApiKey = value;
-        await this.plugin.saveSettings();
-      }));
-      new import_obsidian3.Setting(containerEl).setName("Model").setDesc("Gemini model to use").addDropdown((dropdown) => dropdown.addOption("gemini-2.0-flash", "Gemini 2.0 Flash").addOption("gemini-1.5-pro", "Gemini 1.5 Pro").addOption("gemini-1.5-flash", "Gemini 1.5 Flash").setValue(this.plugin.settings.geminiModel).onChange(async (value) => {
-        this.plugin.settings.geminiModel = value;
-        await this.plugin.saveSettings();
-      }));
+      new import_obsidian3.Setting(containerEl).setName("API key").setDesc("Your Google Gemini API key").addText(
+        (text) => text.setPlaceholder("AIz...").setValue(this.plugin.settings.geminiApiKey).onChange(async (value) => {
+          this.plugin.settings.geminiApiKey = value;
+          await this.plugin.saveSettings();
+        })
+      );
+      new import_obsidian3.Setting(containerEl).setName("Model").setDesc("Gemini model to use").addDropdown(
+        (dropdown) => dropdown.addOption("gemini-2.0-flash", "Gemini 2.0 Flash").addOption("gemini-1.5-pro", "Gemini 1.5 Pro").addOption("gemini-1.5-flash", "Gemini 1.5 Flash").setValue(this.plugin.settings.geminiModel).onChange(async (value) => {
+          this.plugin.settings.geminiModel = value;
+          await this.plugin.saveSettings();
+        })
+      );
     }
     containerEl.createEl("h2", { text: "Analysis configuration" });
-    new import_obsidian3.Setting(containerEl).setName("Chunk size").setDesc("Words per analysis chunk (larger = more context, slower)").addSlider((slider) => slider.setLimits(5e3, 5e4, 1e3).setValue(this.plugin.settings.chunkSize).setDynamicTooltip().onChange(async (value) => {
-      this.plugin.settings.chunkSize = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian3.Setting(containerEl).setName("Cache duration").setDesc("Days to keep cached analysis results").addSlider((slider) => slider.setLimits(1, 90, 1).setValue(this.plugin.settings.cacheDurationDays).setDynamicTooltip().onChange(async (value) => {
-      this.plugin.settings.cacheDurationDays = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian3.Setting(containerEl).setName("Language").setDesc("Primary language for analysis").addDropdown((dropdown) => dropdown.addOption("pt-BR", "Portugu\xEAs (Brasil)").addOption("en-US", "English (US)").addOption("es-ES", "Espa\xF1ol").setValue(this.plugin.settings.language).onChange(async (value) => {
-      this.plugin.settings.language = value;
-      await this.plugin.saveSettings();
-    }));
+    new import_obsidian3.Setting(containerEl).setName("Chunk size").setDesc("Words per analysis chunk (larger = more context, slower)").addSlider(
+      (slider) => slider.setLimits(5e3, 5e4, 1e3).setValue(this.plugin.settings.chunkSize).setDynamicTooltip().onChange(async (value) => {
+        this.plugin.settings.chunkSize = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian3.Setting(containerEl).setName("Cache duration").setDesc("Days to keep cached analysis results").addSlider(
+      (slider) => slider.setLimits(1, 90, 1).setValue(this.plugin.settings.cacheDurationDays).setDynamicTooltip().onChange(async (value) => {
+        this.plugin.settings.cacheDurationDays = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian3.Setting(containerEl).setName("Language").setDesc("Primary language for analysis").addDropdown(
+      (dropdown) => dropdown.addOption("pt-BR", "Portugu\xEAs (Brasil)").addOption("en-US", "English (US)").addOption("es-ES", "Espa\xF1ol").setValue(this.plugin.settings.language).onChange(async (value) => {
+        this.plugin.settings.language = value;
+        await this.plugin.saveSettings();
+      })
+    );
     containerEl.createEl("h2", { text: "Features" });
-    new import_obsidian3.Setting(containerEl).setName("AI detection").setDesc("Enable DETECT-AI protocol for artifact detection").addToggle((toggle) => toggle.setValue(this.plugin.settings.enableAIDetection).onChange(async (value) => {
-      this.plugin.settings.enableAIDetection = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian3.Setting(containerEl).setName("ABNT formatting").setDesc("Enable ABNT academic formatting option").addToggle((toggle) => toggle.setValue(this.plugin.settings.enableABNTFormatting).onChange(async (value) => {
-      this.plugin.settings.enableABNTFormatting = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian3.Setting(containerEl).setName("Auto-save reports").setDesc("Automatically save generated reports").addToggle((toggle) => toggle.setValue(this.plugin.settings.autoSaveReports).onChange(async (value) => {
-      this.plugin.settings.autoSaveReports = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian3.Setting(containerEl).setName("Report folder").setDesc("Folder for saved reports").addText((text) => text.setPlaceholder("SmartWriter Reports").setValue(this.plugin.settings.reportOutputFolder).onChange(async (value) => {
-      this.plugin.settings.reportOutputFolder = value;
-      await this.plugin.saveSettings();
-    }));
+    new import_obsidian3.Setting(containerEl).setName("AI detection").setDesc("Enable DETECT-AI protocol for artifact detection").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.enableAIDetection).onChange(async (value) => {
+        this.plugin.settings.enableAIDetection = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian3.Setting(containerEl).setName("ABNT formatting").setDesc("Enable ABNT academic formatting option").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.enableABNTFormatting).onChange(async (value) => {
+        this.plugin.settings.enableABNTFormatting = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian3.Setting(containerEl).setName("Auto-save reports").setDesc("Automatically save generated reports").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.autoSaveReports).onChange(async (value) => {
+        this.plugin.settings.autoSaveReports = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian3.Setting(containerEl).setName("Report folder").setDesc("Folder for saved reports").addText(
+      (text) => text.setPlaceholder("SmartWriter Reports").setValue(this.plugin.settings.reportOutputFolder).onChange(async (value) => {
+        this.plugin.settings.reportOutputFolder = value;
+        await this.plugin.saveSettings();
+      })
+    );
   }
 };
